@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@digdir/designsystemet-theme";
-import "@digdir/designsystemet-css";
+import Script from "next/script";
+import { defaultLocale, getT } from "@/lib/i18n";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,9 +14,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const t = getT();
+const themeInitScript = `(function(){try{var stored=window.localStorage.getItem("flowcase-theme");var isDark=stored==="dark";document.documentElement.classList.toggle("dark",isDark);}catch(e){}})();`;
+
 export const metadata: Metadata = {
-  title: "Flowcase Mock Dashboard",
-  description: "Preview and validate mock Flowcase consultant data for radar chart exploration.",
+  title: t("meta.title"),
+  description: t("meta.description"),
 };
 
 export default function RootLayout({
@@ -26,10 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang={defaultLocale}
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

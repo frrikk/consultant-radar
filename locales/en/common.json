@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "title": "Flowcase Radar Studio",
+    "description": "Explore and compare mock Flowcase consultant data in one radar-focused interface."
+  },
+  "titles": {
+    "consultant": "Consultant",
+    "seniorConsultant": "Senior Consultant"
+  },
+  "statistics": {
+    "category-score": {
+      "label": "Skill area score",
+      "description": "Shows the score per skill area directly from the CV."
+    }
+  },
+  "shared": {
+    "years": "{{count}} years",
+    "json": "JSON",
+    "score": "Score {{value}}/5"
+  },
+  "radar": {
+    "page": {
+      "emptyTitle": "No consultants found",
+      "emptyDescription": "Start the mock API and make sure the consultant search query matches the seeded Flowcase mock dataset.",
+      "badge": "Frontend radar",
+      "title": "Radar",
+      "openApi": "Open mock API",
+      "resetView": "Reset view",
+      "selectedLabel": "Selected"
+    },
+    "controls": {
+      "panelBadge": "Edit radar",
+      "title": "Controls",
+      "statSectionTitle": "Statistic",
+      "reset": "Reset"
+    },
+    "compare": {
+      "selectedCount_one": "{{count}} selected",
+      "selectedCount_other": "{{count}} selected",
+      "clearFilters": "Clear filters",
+      "departmentTitle": "Department",
+      "roleTitle": "Role",
+      "locationTitle": "Location",
+      "quickAddLabel": "Add consultant",
+      "quickAddPlaceholder": "For example Nora, Trondheim, or senior",
+      "addAction": "Add",
+      "emptyCandidates": "No consultants match the filters.",
+      "removeConsultant": "Remove {{name}} from comparison",
+      "consultantsTitle": "Consultants",
+      "roles": {
+        "developer": "Developer",
+        "designer": "Designer"
+      }
+    },
+    "config": {
+      "modeTitle": "Radar setup",
+      "standard": "Standard",
+      "custom": "Custom",
+      "standardTitle": "Template",
+      "customTitle": "Fields",
+      "customPlaceholder": "Search skill areas or skills",
+      "removeField": "Remove {{name}}",
+      "categoryTag": "Area",
+      "skillTag": "Skill",
+      "emptyFields": "No matching fields.",
+      "presets": {
+        "default": "All areas",
+        "frontend-core": "Frontend core",
+        "ux-accessibility": "UX + accessibility",
+        "platform": "Platform"
+      }
+    },
+    "chart": {
+      "primaryFallback": "Active radar",
+      "consultantTitle": "Consultants",
+      "officeTitle": "Offices",
+      "footerAxes_one": "{{count}} axis",
+      "footerAxes_other": "{{count}} axes",
+      "empty": "Select consultants to show the radar",
+      "emptyCustom": "Add fields in custom mode to show the radar",
+      "addFirst": "Add first consultant"
+    },
+    "summary": {
+      "selectedStatistic": "Selected statistic",
+      "strongestCategory": "Strongest category",
+      "cvUpdated": "CV updated",
+      "mockTimestamp": "Mock Flowcase update timestamp",
+      "keywords": "Keywords in the current mock profile",
+      "empty": "No consultant selected",
+      "lastUpdated": "Updated {{date}}",
+      "lastUpdatedLong": "Last updated"
+    }
+  }
+}

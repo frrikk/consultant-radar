@@ -1,73 +1,134 @@
-import Link from "next/link";
-import { Button, Card, CardBlock, Tag } from "@digdir/designsystemet-react";
+import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/app/_components/ThemeToggle";
+import { getButtonStyles } from "@/app/_lib/button-styles";
+import { getT } from "@/lib/i18n";
+import { getCv, getTechnologyCategories, searchUsers } from "@/lib/flowcase";
+import { RadarWorkspace } from "./radar/_components/RadarWorkspace";
+import {
+  RADAR_STATISTIC,
+  buildRadarFieldCatalog,
+  buildConsultantOption,
+  buildConsultantSearchIndex,
+  firstValue,
+  listValue,
+  type RadarStatistic,
+} from "./radar/_lib/radar";
 
-const highlights = [
-  "Typed Flowcase mock client",
-  "Oslo and Trondheim consultant data",
-  "Keyword search and comparison payloads",
-];
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export default function Home() {
+export default async function Home({ searchParams }: PageProps) {
+  const t = getT();
+  const resolvedSearchParams = await searchParams;
+  const statisticValue = firstValue(resolvedSearchParams.stat, RADAR_STATISTIC);
+  const statistic: RadarStatistic = statisticValue === RADAR_STATISTIC ? RADAR_STATISTIC : RADAR_STATISTIC;
+  const explicitSelectedIds = listValue(resolvedSearchParams.selected);
+
+  let usersResponse;
+  let categoriesResponse;
+
+  try {
+    [usersResponse, categoriesResponse] = await Promise.all([
+      searchUsers({ limit: 20 }),
+      getTechnologyCategories(),
+    ]);
+  } catch {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center gap-5 px-6 text-center">
+          <Badge className="border-border bg-muted text-foreground hover:bg-muted">{t("radar.page.badge")}</Badge>
+          <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.apiUnavailableTitle")}</h1>
+          <p className="max-w-xl text-muted-foreground">{t("radar.page.apiUnavailableDescription")}</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+              {t("radar.page.openApi")}
+            </a>
+            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">bun run mock:api</code>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  const consultants = usersResponse.users.filter((consultant) => buildConsultantSearchIndex(consultant).length > 0);
+
+  if (consultants.length === 0) {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center gap-6 px-6 text-center">
+          <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.emptyTitle")}</h1>
+          <p className="max-w-xl text-muted-foreground">{t("radar.page.emptyDescription")}</p>
+          <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+            {t("radar.page.openApi")}
+          </a>
+        </section>
+      </main>
+    );
+  }
+
+  const categories = categoriesResponse.data;
+
+  const consultantOptions = consultants.map(buildConsultantOption);
+  const effectiveSelectedIds = explicitSelectedIds.slice(0, 5);
+
+  let allConsultantCvs;
+
+  try {
+    allConsultantCvs = await Promise.all(
+      consultants.map((consultant) => getCv(consultant.user_id, consultant.default_cv_id)),
+    );
+  } catch {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center gap-5 px-6 text-center">
+          <Badge className="border-border bg-muted text-foreground hover:bg-muted">{t("radar.page.badge")}</Badge>
+          <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.apiUnavailableTitle")}</h1>
+          <p className="max-w-xl text-muted-foreground">{t("radar.page.apiUnavailableDescription")}</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+              {t("radar.page.openApi")}
+            </a>
+            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">bun run mock:api</code>
+          </div>
+        </section>
+      </main>
+    );
+  }
+  const cvsByUserId = Object.fromEntries(allConsultantCvs.map((entry) => [entry.user_id, entry]));
+  const fieldCatalog = buildRadarFieldCatalog(categories, allConsultantCvs);
+
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.92),_rgba(226,232,240,0.86)_30%,_rgba(186,230,253,0.5)_100%)] text-slate-950">
-      <section className="mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-12 lg:px-10">
-        <Card className="w-full rounded-[36px] border border-white/60 bg-white/82 shadow-[0_30px_80px_-36px_rgba(15,23,42,0.45)] backdrop-blur-sm">
-          <CardBlock className="grid gap-10 p-8 lg:grid-cols-[1.25fr_0.75fr] lg:p-12">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-cyan-700">Flowcase mock dashboard</p>
-              <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                Preview the mock consultant dataset before you wire in charts.
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-                The project now includes a Bun-powered Flowcase-like API, a typed client, and a dedicated preview route
-                where you can filter consultants by city, title, category, and keywords.
-              </p>
+    <main className="min-h-screen bg-background text-foreground">
+      <section className="mx-auto flex w-full max-w-[1520px] flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+        <header className="flex items-center justify-between gap-4 rounded-[20px] border border-border bg-card px-4 py-3">
+          <div className="flex items-center gap-2">
+            <Badge className="border-border bg-muted text-foreground hover:bg-muted">{t("radar.page.badge")}</Badge>
+            <h1 className="text-lg font-semibold tracking-tight">{t("radar.page.title")}</h1>
+          </div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {highlights.map((highlight) => (
-                  <Tag key={highlight} variant="outline">
-                    {highlight}
-                  </Tag>
-                ))}
-              </div>
+          <div className="flex items-center gap-2">
+            <a
+              href="http://localhost:3001/api/v2/users/search?keyword=react"
+              target="_blank"
+              rel="noreferrer"
+              className={getButtonStyles("secondary") + " no-underline"}
+            >
+              {t("radar.page.openApi")}
+            </a>
+            <ThemeToggle />
+          </div>
+        </header>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild>
-                  <Link href="/api-preview">Open preview</Link>
-                </Button>
-                <Button asChild variant="secondary">
-                  <a href="http://localhost:3001/api/v2/users/search?keyword=react" target="_blank" rel="noreferrer">
-                    Open mock API
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            <div className="rounded-[28px] border border-slate-200 bg-slate-950 p-6 text-slate-50">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">Run locally</p>
-              <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
-                <div>
-                  <p className="font-medium text-white">1. Start the mock API</p>
-                  <code className="mt-1 block rounded-2xl bg-white/8 px-4 py-3 text-sm text-cyan-100">
-                    bun run mock:api
-                  </code>
-                </div>
-                <div>
-                  <p className="font-medium text-white">2. Start the app</p>
-                  <code className="mt-1 block rounded-2xl bg-white/8 px-4 py-3 text-sm text-cyan-100">
-                    bun run dev
-                  </code>
-                </div>
-                <div>
-                  <p className="font-medium text-white">3. Explore filters</p>
-                  <code className="mt-1 block rounded-2xl bg-white/8 px-4 py-3 text-sm text-cyan-100">
-                    /api-preview?city=Oslo&amp;keyword=react,wcag
-                  </code>
-                </div>
-              </div>
-            </div>
-          </CardBlock>
-        </Card>
+        <RadarWorkspace
+          consultants={consultants}
+          consultantOptions={consultantOptions}
+          cvsByUserId={cvsByUserId}
+          categories={categories}
+          fieldCatalog={fieldCatalog}
+          initialStatistic={statistic}
+          initialSelectedIds={effectiveSelectedIds}
+        />
       </section>
     </main>
   );

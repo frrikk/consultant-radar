@@ -50,11 +50,14 @@ export type FlowcaseUserSummary = {
   office_id: string;
   office_name: string;
   city: string;
+  department?: string;
   country_id: string;
   country_code: string;
   language_code: string;
   title: string;
   professional_title: string;
+  professional_title_no?: string;
+  role_tags?: string[];
   seniority: string;
   experience_years: number;
   deactivated: boolean;
@@ -271,6 +274,10 @@ export async function searchUsers(filters: FlowcaseSearchFilters = {}) {
   return flowcaseFetch<FlowcaseUsersSearchResponse>(
     `/api/v2/users/search${query ? `?${query}` : ""}`,
   );
+}
+
+export async function getUser(userId: string) {
+  return flowcaseFetch<FlowcaseUserSummary>(`/api/v1/users/${userId}`);
 }
 
 export async function getCv(userId: string, cvId: string) {

@@ -48,16 +48,21 @@
       "office_id": "65f1b2c3d4e5f60718293b01",
       "office_name": "Oslo",
       "city": "Oslo",
+      "department": "Digital Experience",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "no",
       "title": "Senior Consultant",
       "professional_title": "Senior Frontend Consultant",
+      "professional_title_no": "Senior frontend-konsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "senior-consultant",
       "experience_years": 9,
       "deactivated": false,
       "created_at": "2022-02-14T08:00:00.000Z",
-      "updated_at": "2026-03-18T09:30:00.000Z",
+      "updated_at": "2026-03-16T09:30:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80"
       }
@@ -75,16 +80,21 @@
       "office_id": "65f1b2c3d4e5f60718293b01",
       "office_name": "Oslo",
       "city": "Oslo",
+      "department": "Software engineering",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "int",
       "title": "Consultant",
       "professional_title": "Frontend Consultant",
+      "professional_title_no": "Frontend-konsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "consultant",
       "experience_years": 4,
       "deactivated": false,
       "created_at": "2023-05-11T08:00:00.000Z",
-      "updated_at": "2026-03-18T10:10:00.000Z",
+      "updated_at": "2026-01-28T10:10:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80"
       }
@@ -104,16 +114,22 @@
       "office_id": "65f1b2c3d4e5f60718293b01",
       "office_name": "Oslo",
       "city": "Oslo",
+      "department": "Digital Experience",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "no",
       "title": "Senior Consultant",
       "professional_title": "Senior UX Engineer",
+      "professional_title_no": "Senior UX-utvikler",
+      "role_tags": [
+        "designer",
+        "developer"
+      ],
       "seniority": "senior-consultant",
       "experience_years": 8,
       "deactivated": false,
       "created_at": "2021-10-04T08:00:00.000Z",
-      "updated_at": "2026-03-17T16:20:00.000Z",
+      "updated_at": "2025-11-12T16:20:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=80"
       }
@@ -131,16 +147,21 @@
       "office_id": "65f1b2c3d4e5f60718293b01",
       "office_name": "Oslo",
       "city": "Oslo",
+      "department": "Software engineering",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "int",
       "title": "Consultant",
       "professional_title": "Frontend Delivery Consultant",
+      "professional_title_no": "Frontend leveransekonsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "consultant",
       "experience_years": 5,
       "deactivated": false,
       "created_at": "2023-02-06T08:00:00.000Z",
-      "updated_at": "2026-03-18T12:05:00.000Z",
+      "updated_at": "2026-02-21T12:05:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80"
       }
@@ -160,16 +181,21 @@
       "office_id": "65f1b2c3d4e5f60718293b02",
       "office_name": "Trondheim",
       "city": "Trondheim",
+      "department": "Digital Experience",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "no",
       "title": "Senior Consultant",
       "professional_title": "Senior Mobile Consultant",
+      "professional_title_no": "Senior mobilkonsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "senior-consultant",
       "experience_years": 9,
       "deactivated": false,
       "created_at": "2020-08-17T08:00:00.000Z",
-      "updated_at": "2026-03-18T13:15:00.000Z",
+      "updated_at": "2025-12-03T13:15:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
       }
@@ -187,16 +213,21 @@
       "office_id": "65f1b2c3d4e5f60718293b02",
       "office_name": "Trondheim",
       "city": "Trondheim",
+      "department": "Software engineering",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "int",
       "title": "Consultant",
       "professional_title": "Frontend Quality Consultant",
+      "professional_title_no": "Frontend kvalitetkonsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "consultant",
       "experience_years": 4,
       "deactivated": false,
       "created_at": "2023-07-03T08:00:00.000Z",
-      "updated_at": "2026-03-18T14:00:00.000Z",
+      "updated_at": "2026-03-08T14:00:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?auto=format&fit=crop&w=240&q=80"
       }
@@ -216,16 +247,22 @@
       "office_id": "65f1b2c3d4e5f60718293b02",
       "office_name": "Trondheim",
       "city": "Trondheim",
+      "department": "Digital Experience",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "no",
       "title": "Senior Consultant",
       "professional_title": "Senior CMS & UX Consultant",
+      "professional_title_no": "Senior CMS- og UX-konsulent",
+      "role_tags": [
+        "designer",
+        "developer"
+      ],
       "seniority": "senior-consultant",
       "experience_years": 10,
       "deactivated": false,
       "created_at": "2019-11-25T08:00:00.000Z",
-      "updated_at": "2026-03-18T15:10:00.000Z",
+      "updated_at": "2026-02-01T15:10:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=240&q=80"
       }
@@ -243,18 +280,155 @@
       "office_id": "65f1b2c3d4e5f60718293b02",
       "office_name": "Trondheim",
       "city": "Trondheim",
+      "department": "Software engineering",
       "country_id": "65f1b2c3d4e5f60718293a01",
       "country_code": "no",
       "language_code": "int",
       "title": "Consultant",
       "professional_title": "Frontend Platform Consultant",
+      "professional_title_no": "Frontend plattformkonsulent",
+      "role_tags": [
+        "developer"
+      ],
       "seniority": "consultant",
       "experience_years": 5,
       "deactivated": false,
       "created_at": "2022-09-19T08:00:00.000Z",
-      "updated_at": "2026-03-18T16:05:00.000Z",
+      "updated_at": "2025-10-19T16:05:00.000Z",
       "image": {
         "url": "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=240&q=80"
+      }
+    },
+    {
+      "id": "65f1b2c3d4e5f60718293c09",
+      "user_id": "65f1b2c3d4e5f60718293c09",
+      "external_unique_id": "EMP-2009",
+      "name": "Helene Fosse",
+      "email": "helene.fosse@example.com",
+      "telephone": "+47 900 10 009",
+      "role": "consultant",
+      "extra_roles": [
+        "proposal_contributor"
+      ],
+      "default_cv_id": "65f1b2c3d4e5f60718293d09",
+      "office_id": "65f1b2c3d4e5f60718293b01",
+      "office_name": "Oslo",
+      "city": "Oslo",
+      "department": "Digital Experience",
+      "country_id": "65f1b2c3d4e5f60718293a01",
+      "country_code": "no",
+      "language_code": "no",
+      "title": "Consultant",
+      "professional_title": "Product Designer",
+      "professional_title_no": "Produktdesigner",
+      "role_tags": [
+        "designer"
+      ],
+      "seniority": "consultant",
+      "experience_years": 6,
+      "deactivated": false,
+      "created_at": "2022-04-21T08:00:00.000Z",
+      "updated_at": "2026-03-02T11:25:00.000Z",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?auto=format&fit=crop&w=240&q=80"
+      }
+    },
+    {
+      "id": "65f1b2c3d4e5f60718293c10",
+      "user_id": "65f1b2c3d4e5f60718293c10",
+      "external_unique_id": "EMP-2010",
+      "name": "Martin Oie",
+      "email": "martin.oie@example.com",
+      "telephone": "+47 900 10 010",
+      "role": "consultant",
+      "extra_roles": [],
+      "default_cv_id": "65f1b2c3d4e5f60718293d10",
+      "office_id": "65f1b2c3d4e5f60718293b01",
+      "office_name": "Oslo",
+      "city": "Oslo",
+      "department": "Software engineering",
+      "country_id": "65f1b2c3d4e5f60718293a01",
+      "country_code": "no",
+      "language_code": "int",
+      "title": "Consultant",
+      "professional_title": "Frontend Developer",
+      "professional_title_no": "Frontend-utvikler",
+      "role_tags": [
+        "developer"
+      ],
+      "seniority": "consultant",
+      "experience_years": 3,
+      "deactivated": false,
+      "created_at": "2024-01-15T08:00:00.000Z",
+      "updated_at": "2025-12-28T10:40:00.000Z",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=240&q=80"
+      }
+    },
+    {
+      "id": "65f1b2c3d4e5f60718293c11",
+      "user_id": "65f1b2c3d4e5f60718293c11",
+      "external_unique_id": "EMP-2011",
+      "name": "Sara Tangen",
+      "email": "sara.tangen@example.com",
+      "telephone": "+47 900 10 011",
+      "role": "consultant",
+      "extra_roles": [
+        "cv_editor"
+      ],
+      "default_cv_id": "65f1b2c3d4e5f60718293d11",
+      "office_id": "65f1b2c3d4e5f60718293b02",
+      "office_name": "Trondheim",
+      "city": "Trondheim",
+      "department": "Digital Experience",
+      "country_id": "65f1b2c3d4e5f60718293a01",
+      "country_code": "no",
+      "language_code": "no",
+      "title": "Senior Consultant",
+      "professional_title": "Service Designer",
+      "professional_title_no": "Tjenestedesigner",
+      "role_tags": [
+        "designer"
+      ],
+      "seniority": "senior-consultant",
+      "experience_years": 11,
+      "deactivated": false,
+      "created_at": "2018-06-11T08:00:00.000Z",
+      "updated_at": "2025-11-05T09:20:00.000Z",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=240&q=80"
+      }
+    },
+    {
+      "id": "65f1b2c3d4e5f60718293c12",
+      "user_id": "65f1b2c3d4e5f60718293c12",
+      "external_unique_id": "EMP-2012",
+      "name": "Kristian Dale",
+      "email": "kristian.dale@example.com",
+      "telephone": "+47 900 10 012",
+      "role": "consultant",
+      "extra_roles": [],
+      "default_cv_id": "65f1b2c3d4e5f60718293d12",
+      "office_id": "65f1b2c3d4e5f60718293b02",
+      "office_name": "Trondheim",
+      "city": "Trondheim",
+      "department": "Software engineering",
+      "country_id": "65f1b2c3d4e5f60718293a01",
+      "country_code": "no",
+      "language_code": "int",
+      "title": "Consultant",
+      "professional_title": "Software Developer",
+      "professional_title_no": "Programvareutvikler",
+      "role_tags": [
+        "developer"
+      ],
+      "seniority": "consultant",
+      "experience_years": 6,
+      "deactivated": false,
+      "created_at": "2021-12-07T08:00:00.000Z",
+      "updated_at": "2026-01-10T14:45:00.000Z",
+      "image": {
+        "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80"
       }
     }
   ],
@@ -271,8 +445,8 @@
       },
       "email": "nora.haugland@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T09:30:00.000Z",
-      "owner_updated_at": "2026-03-18T09:30:00.000Z",
+      "updated_at": "2026-03-16T09:30:00.000Z",
+      "owner_updated_at": "2026-03-16T09:30:00.000Z",
       "country_code": "no",
       "language_code": "no",
       "language_codes": [
@@ -956,8 +1130,8 @@
       },
       "email": "emil.berg@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T10:10:00.000Z",
-      "owner_updated_at": "2026-03-18T10:10:00.000Z",
+      "updated_at": "2026-01-28T10:10:00.000Z",
+      "owner_updated_at": "2026-01-28T10:10:00.000Z",
       "country_code": "no",
       "language_code": "int",
       "language_codes": [
@@ -1546,8 +1720,8 @@
       },
       "email": "sigrid.lunde@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-17T16:20:00.000Z",
-      "owner_updated_at": "2026-03-17T16:20:00.000Z",
+      "updated_at": "2025-11-12T16:20:00.000Z",
+      "owner_updated_at": "2025-11-12T16:20:00.000Z",
       "country_code": "no",
       "language_code": "no",
       "language_codes": [
@@ -2212,8 +2386,8 @@
       },
       "email": "jonas.halvorsen@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T12:05:00.000Z",
-      "owner_updated_at": "2026-03-18T12:05:00.000Z",
+      "updated_at": "2026-02-21T12:05:00.000Z",
+      "owner_updated_at": "2026-02-21T12:05:00.000Z",
       "country_code": "no",
       "language_code": "int",
       "language_codes": [
@@ -2821,8 +2995,8 @@
       },
       "email": "maja.vik@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T13:15:00.000Z",
-      "owner_updated_at": "2026-03-18T13:15:00.000Z",
+      "updated_at": "2025-12-03T13:15:00.000Z",
+      "owner_updated_at": "2025-12-03T13:15:00.000Z",
       "country_code": "no",
       "language_code": "no",
       "language_codes": [
@@ -3411,8 +3585,8 @@
       },
       "email": "tobias.nergard@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T14:00:00.000Z",
-      "owner_updated_at": "2026-03-18T14:00:00.000Z",
+      "updated_at": "2026-03-08T14:00:00.000Z",
+      "owner_updated_at": "2026-03-08T14:00:00.000Z",
       "country_code": "no",
       "language_code": "int",
       "language_codes": [
@@ -4020,8 +4194,8 @@
       },
       "email": "ingrid.solbakken@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T15:10:00.000Z",
-      "owner_updated_at": "2026-03-18T15:10:00.000Z",
+      "updated_at": "2026-02-01T15:10:00.000Z",
+      "owner_updated_at": "2026-02-01T15:10:00.000Z",
       "country_code": "no",
       "language_code": "no",
       "language_codes": [
@@ -4686,8 +4860,8 @@
       },
       "email": "lars.aas@example.com",
       "company_id": "flowcase-demo-company",
-      "updated_at": "2026-03-18T16:05:00.000Z",
-      "owner_updated_at": "2026-03-18T16:05:00.000Z",
+      "updated_at": "2025-10-19T16:05:00.000Z",
+      "owner_updated_at": "2025-10-19T16:05:00.000Z",
       "country_code": "no",
       "language_code": "int",
       "language_codes": [
@@ -5315,6 +5489,2290 @@
                 "integrations-security-privacy"
               ],
               "order": 4,
+              "version": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "65f1b2c3d4e5f60718293d09",
+      "id": "65f1b2c3d4e5f60718293d09",
+      "user_id": "65f1b2c3d4e5f60718293c09",
+      "name": "Helene Fosse",
+      "title": "Product Designer",
+      "titles": {
+        "int": "Product Designer",
+        "no": "Produktdesigner"
+      },
+      "email": "helene.fosse@example.com",
+      "company_id": "flowcase-demo-company",
+      "updated_at": "2026-03-02T11:25:00.000Z",
+      "owner_updated_at": "2026-03-02T11:25:00.000Z",
+      "country_code": "no",
+      "language_code": "no",
+      "language_codes": [
+        "no",
+        "int"
+      ],
+      "custom_tag_ids": [],
+      "radar_profile": {
+        "web-development": 3,
+        "mobile-development": 1,
+        "cms-content-platforms": 3,
+        "ux-interaction-frontend": 5,
+        "accessibility-wcag": 4,
+        "design-systems-components": 5,
+        "frontend-cloud-devops": 1,
+        "quality-performance-maintenance": 3,
+        "integrations-security-privacy": 2
+      },
+      "category_scores": [
+        {
+          "category_id": "65f1b2c3d4e5f60718293e01",
+          "category_slug": "web-development",
+          "label": "Webutvikling",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e02",
+          "category_slug": "mobile-development",
+          "label": "Mobilutvikling",
+          "score": 1
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e03",
+          "category_slug": "cms-content-platforms",
+          "label": "CMS og innholdsplattformer",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e04",
+          "category_slug": "ux-interaction-frontend",
+          "label": "Brukeropplevelse og interaksjon (UX i Frontend)",
+          "score": 5
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e05",
+          "category_slug": "accessibility-wcag",
+          "label": "Universell utforming og tilgjengelighet (WCAG)",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e06",
+          "category_slug": "design-systems-components",
+          "label": "Designsystemer og komponentbibliotek",
+          "score": 5
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e07",
+          "category_slug": "frontend-cloud-devops",
+          "label": "Leveranse og drift av frontend (Cloud/DevOps)",
+          "score": 1
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e08",
+          "category_slug": "quality-performance-maintenance",
+          "label": "Kvalitet, ytelse og vedlikehold",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e09",
+          "category_slug": "integrations-security-privacy",
+          "label": "Integrasjoner, sikkerhet og personvern",
+          "score": 2
+        }
+      ],
+      "keyword_slugs": [
+        "html-css",
+        "react",
+        "expo",
+        "sanity",
+        "contentful",
+        "figma",
+        "user-research",
+        "interaction-design",
+        "wcag-2-2",
+        "aria",
+        "design-tokens",
+        "storybook",
+        "component-library",
+        "vercel",
+        "frontend-architecture",
+        "playwright",
+        "gdpr",
+        "rest-api"
+      ],
+      "technologies": [
+        {
+          "_id": "tech-9-1",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e01",
+            "slug": "web-development",
+            "values": {
+              "int": "Web Development",
+              "no": "Webutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-1-1",
+              "technology_id": "65f1b2c3d4e5f60718293f01",
+              "slug": "html-css",
+              "name": {
+                "int": "HTML & CSS",
+                "no": "HTML og CSS"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-1-2",
+              "technology_id": "65f1b2c3d4e5f60718293f04",
+              "slug": "react",
+              "name": {
+                "int": "React",
+                "no": "React"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-2",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e02",
+            "slug": "mobile-development",
+            "values": {
+              "int": "Mobile Development",
+              "no": "Mobilutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-2-1",
+              "technology_id": "65f1b2c3d4e5f60718293f07",
+              "slug": "expo",
+              "name": {
+                "int": "Expo",
+                "no": "Expo"
+              },
+              "proficiency": 1,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "mobile-development"
+              ],
+              "order": 1,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-3",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e03",
+            "slug": "cms-content-platforms",
+            "values": {
+              "int": "CMS & Content Platforms",
+              "no": "CMS og innholdsplattformer"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-3-1",
+              "technology_id": "65f1b2c3d4e5f60718293f11",
+              "slug": "sanity",
+              "name": {
+                "int": "Sanity",
+                "no": "Sanity"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-3-2",
+              "technology_id": "65f1b2c3d4e5f60718293f12",
+              "slug": "contentful",
+              "name": {
+                "int": "Contentful",
+                "no": "Contentful"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-4",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e04",
+            "slug": "ux-interaction-frontend",
+            "values": {
+              "int": "UX & Interaction (Frontend)",
+              "no": "Brukeropplevelse og interaksjon (UX i Frontend)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-4-1",
+              "technology_id": "65f1b2c3d4e5f60718293f16",
+              "slug": "figma",
+              "name": {
+                "int": "Figma",
+                "no": "Figma"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-4-2",
+              "technology_id": "65f1b2c3d4e5f60718293f20",
+              "slug": "user-research",
+              "name": {
+                "int": "User Research",
+                "no": "Brukerinnsikt"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-4-3",
+              "technology_id": "65f1b2c3d4e5f60718293f18",
+              "slug": "interaction-design",
+              "name": {
+                "int": "Interaction Design",
+                "no": "Interaksjonsdesign"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-5",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e05",
+            "slug": "accessibility-wcag",
+            "values": {
+              "int": "Accessibility & WCAG",
+              "no": "Universell utforming og tilgjengelighet (WCAG)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-5-1",
+              "technology_id": "65f1b2c3d4e5f60718293f21",
+              "slug": "wcag-2-2",
+              "name": {
+                "int": "WCAG 2.2",
+                "no": "WCAG 2.2"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-5-2",
+              "technology_id": "65f1b2c3d4e5f60718293f22",
+              "slug": "aria",
+              "name": {
+                "int": "ARIA",
+                "no": "ARIA"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-6",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e06",
+            "slug": "design-systems-components",
+            "values": {
+              "int": "Design Systems & Component Libraries",
+              "no": "Designsystemer og komponentbibliotek"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-6-1",
+              "technology_id": "65f1b2c3d4e5f60718293f27",
+              "slug": "design-tokens",
+              "name": {
+                "int": "Design Tokens",
+                "no": "Design tokens"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-6-2",
+              "technology_id": "65f1b2c3d4e5f60718293f26",
+              "slug": "storybook",
+              "name": {
+                "int": "Storybook",
+                "no": "Storybook"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-6-3",
+              "technology_id": "65f1b2c3d4e5f60718293f28",
+              "slug": "component-library",
+              "name": {
+                "int": "Component Library",
+                "no": "Komponentbibliotek"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-7",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e07",
+            "slug": "frontend-cloud-devops",
+            "values": {
+              "int": "Frontend Cloud & DevOps",
+              "no": "Leveranse og drift av frontend (Cloud/DevOps)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-7-1",
+              "technology_id": "65f1b2c3d4e5f60718293f32",
+              "slug": "vercel",
+              "name": {
+                "int": "Vercel",
+                "no": "Vercel"
+              },
+              "proficiency": 1,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 1,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-8",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e08",
+            "slug": "quality-performance-maintenance",
+            "values": {
+              "int": "Quality, Performance & Maintenance",
+              "no": "Kvalitet, ytelse og vedlikehold"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-8-1",
+              "technology_id": "65f1b2c3d4e5f60718293f40",
+              "slug": "frontend-architecture",
+              "name": {
+                "int": "Frontend Architecture",
+                "no": "Frontend-arkitektur"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-8-2",
+              "technology_id": "65f1b2c3d4e5f60718293f36",
+              "slug": "playwright",
+              "name": {
+                "int": "Playwright",
+                "no": "Playwright"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-9-9",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e09",
+            "slug": "integrations-security-privacy",
+            "values": {
+              "int": "Integrations, Security & Privacy",
+              "no": "Integrasjoner, sikkerhet og personvern"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-9-9-1",
+              "technology_id": "65f1b2c3d4e5f60718293f44",
+              "slug": "gdpr",
+              "name": {
+                "int": "GDPR",
+                "no": "GDPR"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-9-9-2",
+              "technology_id": "65f1b2c3d4e5f60718293f41",
+              "slug": "rest-api",
+              "name": {
+                "int": "REST API",
+                "no": "REST API"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "65f1b2c3d4e5f60718293d10",
+      "id": "65f1b2c3d4e5f60718293d10",
+      "user_id": "65f1b2c3d4e5f60718293c10",
+      "name": "Martin Oie",
+      "title": "Frontend Developer",
+      "titles": {
+        "int": "Frontend Developer",
+        "no": "Frontend-utvikler"
+      },
+      "email": "martin.oie@example.com",
+      "company_id": "flowcase-demo-company",
+      "updated_at": "2025-12-28T10:40:00.000Z",
+      "owner_updated_at": "2025-12-28T10:40:00.000Z",
+      "country_code": "no",
+      "language_code": "int",
+      "language_codes": [
+        "int",
+        "no"
+      ],
+      "custom_tag_ids": [],
+      "radar_profile": {
+        "web-development": 4,
+        "mobile-development": 1,
+        "cms-content-platforms": 2,
+        "ux-interaction-frontend": 2,
+        "accessibility-wcag": 3,
+        "design-systems-components": 3,
+        "frontend-cloud-devops": 3,
+        "quality-performance-maintenance": 3,
+        "integrations-security-privacy": 2
+      },
+      "category_scores": [
+        {
+          "category_id": "65f1b2c3d4e5f60718293e01",
+          "category_slug": "web-development",
+          "label": "Webutvikling",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e02",
+          "category_slug": "mobile-development",
+          "label": "Mobilutvikling",
+          "score": 1
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e03",
+          "category_slug": "cms-content-platforms",
+          "label": "CMS og innholdsplattformer",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e04",
+          "category_slug": "ux-interaction-frontend",
+          "label": "Brukeropplevelse og interaksjon (UX i Frontend)",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e05",
+          "category_slug": "accessibility-wcag",
+          "label": "Universell utforming og tilgjengelighet (WCAG)",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e06",
+          "category_slug": "design-systems-components",
+          "label": "Designsystemer og komponentbibliotek",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e07",
+          "category_slug": "frontend-cloud-devops",
+          "label": "Leveranse og drift av frontend (Cloud/DevOps)",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e08",
+          "category_slug": "quality-performance-maintenance",
+          "label": "Kvalitet, ytelse og vedlikehold",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e09",
+          "category_slug": "integrations-security-privacy",
+          "label": "Integrasjoner, sikkerhet og personvern",
+          "score": 2
+        }
+      ],
+      "keyword_slugs": [
+        "typescript",
+        "react",
+        "nextjs",
+        "react-native",
+        "strapi",
+        "wordpress",
+        "framer-motion",
+        "interaction-design",
+        "semantic-html",
+        "axe",
+        "storybook",
+        "shadcn-ui",
+        "github-actions",
+        "vercel",
+        "vitest",
+        "cypress",
+        "rest-api",
+        "graphql"
+      ],
+      "technologies": [
+        {
+          "_id": "tech-10-1",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e01",
+            "slug": "web-development",
+            "values": {
+              "int": "Web Development",
+              "no": "Webutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-1-1",
+              "technology_id": "65f1b2c3d4e5f60718293f03",
+              "slug": "typescript",
+              "name": {
+                "int": "TypeScript",
+                "no": "TypeScript"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-1-2",
+              "technology_id": "65f1b2c3d4e5f60718293f04",
+              "slug": "react",
+              "name": {
+                "int": "React",
+                "no": "React"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-1-3",
+              "technology_id": "65f1b2c3d4e5f60718293f05",
+              "slug": "nextjs",
+              "name": {
+                "int": "Next.js",
+                "no": "Next.js"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 1,
+              "base_duration_in_years": 1,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-2",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e02",
+            "slug": "mobile-development",
+            "values": {
+              "int": "Mobile Development",
+              "no": "Mobilutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-2-1",
+              "technology_id": "65f1b2c3d4e5f60718293f06",
+              "slug": "react-native",
+              "name": {
+                "int": "React Native",
+                "no": "React Native"
+              },
+              "proficiency": 1,
+              "total_duration_in_years": 1,
+              "base_duration_in_years": 1,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "mobile-development"
+              ],
+              "order": 1,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-3",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e03",
+            "slug": "cms-content-platforms",
+            "values": {
+              "int": "CMS & Content Platforms",
+              "no": "CMS og innholdsplattformer"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-3-1",
+              "technology_id": "65f1b2c3d4e5f60718293f15",
+              "slug": "strapi",
+              "name": {
+                "int": "Strapi",
+                "no": "Strapi"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-3-2",
+              "technology_id": "65f1b2c3d4e5f60718293f14",
+              "slug": "wordpress",
+              "name": {
+                "int": "WordPress",
+                "no": "WordPress"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 1,
+              "base_duration_in_years": 1,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-4",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e04",
+            "slug": "ux-interaction-frontend",
+            "values": {
+              "int": "UX & Interaction (Frontend)",
+              "no": "Brukeropplevelse og interaksjon (UX i Frontend)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-4-1",
+              "technology_id": "65f1b2c3d4e5f60718293f19",
+              "slug": "framer-motion",
+              "name": {
+                "int": "Framer Motion",
+                "no": "Framer Motion"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-4-2",
+              "technology_id": "65f1b2c3d4e5f60718293f18",
+              "slug": "interaction-design",
+              "name": {
+                "int": "Interaction Design",
+                "no": "Interaksjonsdesign"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 1,
+              "base_duration_in_years": 1,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-5",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e05",
+            "slug": "accessibility-wcag",
+            "values": {
+              "int": "Accessibility & WCAG",
+              "no": "Universell utforming og tilgjengelighet (WCAG)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-5-1",
+              "technology_id": "65f1b2c3d4e5f60718293f23",
+              "slug": "semantic-html",
+              "name": {
+                "int": "Semantic HTML",
+                "no": "Semantisk HTML"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-5-2",
+              "technology_id": "65f1b2c3d4e5f60718293f24",
+              "slug": "axe",
+              "name": {
+                "int": "axe",
+                "no": "axe"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-6",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e06",
+            "slug": "design-systems-components",
+            "values": {
+              "int": "Design Systems & Component Libraries",
+              "no": "Designsystemer og komponentbibliotek"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-6-1",
+              "technology_id": "65f1b2c3d4e5f60718293f26",
+              "slug": "storybook",
+              "name": {
+                "int": "Storybook",
+                "no": "Storybook"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-6-2",
+              "technology_id": "65f1b2c3d4e5f60718293f30",
+              "slug": "shadcn-ui",
+              "name": {
+                "int": "shadcn/ui",
+                "no": "shadcn/ui"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-7",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e07",
+            "slug": "frontend-cloud-devops",
+            "values": {
+              "int": "Frontend Cloud & DevOps",
+              "no": "Leveranse og drift av frontend (Cloud/DevOps)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-7-1",
+              "technology_id": "65f1b2c3d4e5f60718293f31",
+              "slug": "github-actions",
+              "name": {
+                "int": "GitHub Actions",
+                "no": "GitHub Actions"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-7-2",
+              "technology_id": "65f1b2c3d4e5f60718293f32",
+              "slug": "vercel",
+              "name": {
+                "int": "Vercel",
+                "no": "Vercel"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-8",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e08",
+            "slug": "quality-performance-maintenance",
+            "values": {
+              "int": "Quality, Performance & Maintenance",
+              "no": "Kvalitet, ytelse og vedlikehold"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-8-1",
+              "technology_id": "65f1b2c3d4e5f60718293f38",
+              "slug": "vitest",
+              "name": {
+                "int": "Vitest",
+                "no": "Vitest"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-8-2",
+              "technology_id": "65f1b2c3d4e5f60718293f37",
+              "slug": "cypress",
+              "name": {
+                "int": "Cypress",
+                "no": "Cypress"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-10-9",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e09",
+            "slug": "integrations-security-privacy",
+            "values": {
+              "int": "Integrations, Security & Privacy",
+              "no": "Integrasjoner, sikkerhet og personvern"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-10-9-1",
+              "technology_id": "65f1b2c3d4e5f60718293f41",
+              "slug": "rest-api",
+              "name": {
+                "int": "REST API",
+                "no": "REST API"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 2,
+              "base_duration_in_years": 2,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-10-9-2",
+              "technology_id": "65f1b2c3d4e5f60718293f42",
+              "slug": "graphql",
+              "name": {
+                "int": "GraphQL",
+                "no": "GraphQL"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 1,
+              "base_duration_in_years": 1,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "65f1b2c3d4e5f60718293d11",
+      "id": "65f1b2c3d4e5f60718293d11",
+      "user_id": "65f1b2c3d4e5f60718293c11",
+      "name": "Sara Tangen",
+      "title": "Service Designer",
+      "titles": {
+        "int": "Service Designer",
+        "no": "Tjenestedesigner"
+      },
+      "email": "sara.tangen@example.com",
+      "company_id": "flowcase-demo-company",
+      "updated_at": "2025-11-05T09:20:00.000Z",
+      "owner_updated_at": "2025-11-05T09:20:00.000Z",
+      "country_code": "no",
+      "language_code": "no",
+      "language_codes": [
+        "no",
+        "int"
+      ],
+      "custom_tag_ids": [],
+      "radar_profile": {
+        "web-development": 2,
+        "mobile-development": 1,
+        "cms-content-platforms": 3,
+        "ux-interaction-frontend": 5,
+        "accessibility-wcag": 4,
+        "design-systems-components": 4,
+        "frontend-cloud-devops": 1,
+        "quality-performance-maintenance": 3,
+        "integrations-security-privacy": 2
+      },
+      "category_scores": [
+        {
+          "category_id": "65f1b2c3d4e5f60718293e01",
+          "category_slug": "web-development",
+          "label": "Webutvikling",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e02",
+          "category_slug": "mobile-development",
+          "label": "Mobilutvikling",
+          "score": 1
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e03",
+          "category_slug": "cms-content-platforms",
+          "label": "CMS og innholdsplattformer",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e04",
+          "category_slug": "ux-interaction-frontend",
+          "label": "Brukeropplevelse og interaksjon (UX i Frontend)",
+          "score": 5
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e05",
+          "category_slug": "accessibility-wcag",
+          "label": "Universell utforming og tilgjengelighet (WCAG)",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e06",
+          "category_slug": "design-systems-components",
+          "label": "Designsystemer og komponentbibliotek",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e07",
+          "category_slug": "frontend-cloud-devops",
+          "label": "Leveranse og drift av frontend (Cloud/DevOps)",
+          "score": 1
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e08",
+          "category_slug": "quality-performance-maintenance",
+          "label": "Kvalitet, ytelse og vedlikehold",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e09",
+          "category_slug": "integrations-security-privacy",
+          "label": "Integrasjoner, sikkerhet og personvern",
+          "score": 2
+        }
+      ],
+      "keyword_slugs": [
+        "html-css",
+        "javascript",
+        "expo",
+        "sanity",
+        "storyblok",
+        "figma",
+        "user-research",
+        "prototyping",
+        "wcag-2-2",
+        "screen-reader-testing",
+        "design-tokens",
+        "component-library",
+        "storybook",
+        "vercel",
+        "frontend-architecture",
+        "playwright",
+        "gdpr",
+        "oauth-oidc"
+      ],
+      "technologies": [
+        {
+          "_id": "tech-11-1",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e01",
+            "slug": "web-development",
+            "values": {
+              "int": "Web Development",
+              "no": "Webutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-1-1",
+              "technology_id": "65f1b2c3d4e5f60718293f01",
+              "slug": "html-css",
+              "name": {
+                "int": "HTML & CSS",
+                "no": "HTML og CSS"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-1-2",
+              "technology_id": "65f1b2c3d4e5f60718293f02",
+              "slug": "javascript",
+              "name": {
+                "int": "JavaScript",
+                "no": "JavaScript"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-2",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e02",
+            "slug": "mobile-development",
+            "values": {
+              "int": "Mobile Development",
+              "no": "Mobilutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-2-1",
+              "technology_id": "65f1b2c3d4e5f60718293f07",
+              "slug": "expo",
+              "name": {
+                "int": "Expo",
+                "no": "Expo"
+              },
+              "proficiency": 1,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "mobile-development"
+              ],
+              "order": 1,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-3",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e03",
+            "slug": "cms-content-platforms",
+            "values": {
+              "int": "CMS & Content Platforms",
+              "no": "CMS og innholdsplattformer"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-3-1",
+              "technology_id": "65f1b2c3d4e5f60718293f11",
+              "slug": "sanity",
+              "name": {
+                "int": "Sanity",
+                "no": "Sanity"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 7,
+              "base_duration_in_years": 7,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-3-2",
+              "technology_id": "65f1b2c3d4e5f60718293f13",
+              "slug": "storyblok",
+              "name": {
+                "int": "Storyblok",
+                "no": "Storyblok"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 7,
+              "base_duration_in_years": 7,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-4",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e04",
+            "slug": "ux-interaction-frontend",
+            "values": {
+              "int": "UX & Interaction (Frontend)",
+              "no": "Brukeropplevelse og interaksjon (UX i Frontend)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-4-1",
+              "technology_id": "65f1b2c3d4e5f60718293f16",
+              "slug": "figma",
+              "name": {
+                "int": "Figma",
+                "no": "Figma"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 11,
+              "base_duration_in_years": 11,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-4-2",
+              "technology_id": "65f1b2c3d4e5f60718293f20",
+              "slug": "user-research",
+              "name": {
+                "int": "User Research",
+                "no": "Brukerinnsikt"
+              },
+              "proficiency": 5,
+              "total_duration_in_years": 11,
+              "base_duration_in_years": 11,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-4-3",
+              "technology_id": "65f1b2c3d4e5f60718293f17",
+              "slug": "prototyping",
+              "name": {
+                "int": "Prototyping",
+                "no": "Prototyping"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 8,
+              "base_duration_in_years": 8,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-5",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e05",
+            "slug": "accessibility-wcag",
+            "values": {
+              "int": "Accessibility & WCAG",
+              "no": "Universell utforming og tilgjengelighet (WCAG)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-5-1",
+              "technology_id": "65f1b2c3d4e5f60718293f21",
+              "slug": "wcag-2-2",
+              "name": {
+                "int": "WCAG 2.2",
+                "no": "WCAG 2.2"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 9,
+              "base_duration_in_years": 9,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-5-2",
+              "technology_id": "65f1b2c3d4e5f60718293f25",
+              "slug": "screen-reader-testing",
+              "name": {
+                "int": "Screen Reader Testing",
+                "no": "Testing med skjermleser"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 9,
+              "base_duration_in_years": 9,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-6",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e06",
+            "slug": "design-systems-components",
+            "values": {
+              "int": "Design Systems & Component Libraries",
+              "no": "Designsystemer og komponentbibliotek"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-6-1",
+              "technology_id": "65f1b2c3d4e5f60718293f27",
+              "slug": "design-tokens",
+              "name": {
+                "int": "Design Tokens",
+                "no": "Design tokens"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 9,
+              "base_duration_in_years": 9,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-6-2",
+              "technology_id": "65f1b2c3d4e5f60718293f28",
+              "slug": "component-library",
+              "name": {
+                "int": "Component Library",
+                "no": "Komponentbibliotek"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 9,
+              "base_duration_in_years": 9,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-6-3",
+              "technology_id": "65f1b2c3d4e5f60718293f26",
+              "slug": "storybook",
+              "name": {
+                "int": "Storybook",
+                "no": "Storybook"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 7,
+              "base_duration_in_years": 7,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-7",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e07",
+            "slug": "frontend-cloud-devops",
+            "values": {
+              "int": "Frontend Cloud & DevOps",
+              "no": "Leveranse og drift av frontend (Cloud/DevOps)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-7-1",
+              "technology_id": "65f1b2c3d4e5f60718293f32",
+              "slug": "vercel",
+              "name": {
+                "int": "Vercel",
+                "no": "Vercel"
+              },
+              "proficiency": 1,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 1,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-8",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e08",
+            "slug": "quality-performance-maintenance",
+            "values": {
+              "int": "Quality, Performance & Maintenance",
+              "no": "Kvalitet, ytelse og vedlikehold"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-8-1",
+              "technology_id": "65f1b2c3d4e5f60718293f40",
+              "slug": "frontend-architecture",
+              "name": {
+                "int": "Frontend Architecture",
+                "no": "Frontend-arkitektur"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 7,
+              "base_duration_in_years": 7,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-8-2",
+              "technology_id": "65f1b2c3d4e5f60718293f36",
+              "slug": "playwright",
+              "name": {
+                "int": "Playwright",
+                "no": "Playwright"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 7,
+              "base_duration_in_years": 7,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-11-9",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e09",
+            "slug": "integrations-security-privacy",
+            "values": {
+              "int": "Integrations, Security & Privacy",
+              "no": "Integrasjoner, sikkerhet og personvern"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-11-9-1",
+              "technology_id": "65f1b2c3d4e5f60718293f44",
+              "slug": "gdpr",
+              "name": {
+                "int": "GDPR",
+                "no": "GDPR"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 6,
+              "base_duration_in_years": 6,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-11-9-2",
+              "technology_id": "65f1b2c3d4e5f60718293f43",
+              "slug": "oauth-oidc",
+              "name": {
+                "int": "OAuth / OIDC",
+                "no": "OAuth / OIDC"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "65f1b2c3d4e5f60718293d12",
+      "id": "65f1b2c3d4e5f60718293d12",
+      "user_id": "65f1b2c3d4e5f60718293c12",
+      "name": "Kristian Dale",
+      "title": "Software Developer",
+      "titles": {
+        "int": "Software Developer",
+        "no": "Programvareutvikler"
+      },
+      "email": "kristian.dale@example.com",
+      "company_id": "flowcase-demo-company",
+      "updated_at": "2026-01-10T14:45:00.000Z",
+      "owner_updated_at": "2026-01-10T14:45:00.000Z",
+      "country_code": "no",
+      "language_code": "int",
+      "language_codes": [
+        "int",
+        "no"
+      ],
+      "custom_tag_ids": [],
+      "radar_profile": {
+        "web-development": 4,
+        "mobile-development": 2,
+        "cms-content-platforms": 2,
+        "ux-interaction-frontend": 2,
+        "accessibility-wcag": 2,
+        "design-systems-components": 3,
+        "frontend-cloud-devops": 4,
+        "quality-performance-maintenance": 4,
+        "integrations-security-privacy": 4
+      },
+      "category_scores": [
+        {
+          "category_id": "65f1b2c3d4e5f60718293e01",
+          "category_slug": "web-development",
+          "label": "Webutvikling",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e02",
+          "category_slug": "mobile-development",
+          "label": "Mobilutvikling",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e03",
+          "category_slug": "cms-content-platforms",
+          "label": "CMS og innholdsplattformer",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e04",
+          "category_slug": "ux-interaction-frontend",
+          "label": "Brukeropplevelse og interaksjon (UX i Frontend)",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e05",
+          "category_slug": "accessibility-wcag",
+          "label": "Universell utforming og tilgjengelighet (WCAG)",
+          "score": 2
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e06",
+          "category_slug": "design-systems-components",
+          "label": "Designsystemer og komponentbibliotek",
+          "score": 3
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e07",
+          "category_slug": "frontend-cloud-devops",
+          "label": "Leveranse og drift av frontend (Cloud/DevOps)",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e08",
+          "category_slug": "quality-performance-maintenance",
+          "label": "Kvalitet, ytelse og vedlikehold",
+          "score": 4
+        },
+        {
+          "category_id": "65f1b2c3d4e5f60718293e09",
+          "category_slug": "integrations-security-privacy",
+          "label": "Integrasjoner, sikkerhet og personvern",
+          "score": 4
+        }
+      ],
+      "keyword_slugs": [
+        "typescript",
+        "react",
+        "javascript",
+        "flutter",
+        "react-native",
+        "wordpress",
+        "strapi",
+        "interaction-design",
+        "figma",
+        "semantic-html",
+        "aria",
+        "storybook",
+        "component-library",
+        "docker",
+        "azure-devops",
+        "github-actions",
+        "vitest",
+        "playwright",
+        "performance-optimization",
+        "oauth-oidc",
+        "rest-api",
+        "graphql"
+      ],
+      "technologies": [
+        {
+          "_id": "tech-12-1",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e01",
+            "slug": "web-development",
+            "values": {
+              "int": "Web Development",
+              "no": "Webutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-1-1",
+              "technology_id": "65f1b2c3d4e5f60718293f03",
+              "slug": "typescript",
+              "name": {
+                "int": "TypeScript",
+                "no": "TypeScript"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-1-2",
+              "technology_id": "65f1b2c3d4e5f60718293f04",
+              "slug": "react",
+              "name": {
+                "int": "React",
+                "no": "React"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-1-3",
+              "technology_id": "65f1b2c3d4e5f60718293f02",
+              "slug": "javascript",
+              "name": {
+                "int": "JavaScript",
+                "no": "JavaScript"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "web-development"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-2",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e02",
+            "slug": "mobile-development",
+            "values": {
+              "int": "Mobile Development",
+              "no": "Mobilutvikling"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-2-1",
+              "technology_id": "65f1b2c3d4e5f60718293f08",
+              "slug": "flutter",
+              "name": {
+                "int": "Flutter",
+                "no": "Flutter"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "mobile-development"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-2-2",
+              "technology_id": "65f1b2c3d4e5f60718293f06",
+              "slug": "react-native",
+              "name": {
+                "int": "React Native",
+                "no": "React Native"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "mobile-development"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-3",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e03",
+            "slug": "cms-content-platforms",
+            "values": {
+              "int": "CMS & Content Platforms",
+              "no": "CMS og innholdsplattformer"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-3-1",
+              "technology_id": "65f1b2c3d4e5f60718293f14",
+              "slug": "wordpress",
+              "name": {
+                "int": "WordPress",
+                "no": "WordPress"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-3-2",
+              "technology_id": "65f1b2c3d4e5f60718293f15",
+              "slug": "strapi",
+              "name": {
+                "int": "Strapi",
+                "no": "Strapi"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "cms-content-platforms"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-4",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e04",
+            "slug": "ux-interaction-frontend",
+            "values": {
+              "int": "UX & Interaction (Frontend)",
+              "no": "Brukeropplevelse og interaksjon (UX i Frontend)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-4-1",
+              "technology_id": "65f1b2c3d4e5f60718293f18",
+              "slug": "interaction-design",
+              "name": {
+                "int": "Interaction Design",
+                "no": "Interaksjonsdesign"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-4-2",
+              "technology_id": "65f1b2c3d4e5f60718293f16",
+              "slug": "figma",
+              "name": {
+                "int": "Figma",
+                "no": "Figma"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "ux-interaction-frontend"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-5",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e05",
+            "slug": "accessibility-wcag",
+            "values": {
+              "int": "Accessibility & WCAG",
+              "no": "Universell utforming og tilgjengelighet (WCAG)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-5-1",
+              "technology_id": "65f1b2c3d4e5f60718293f23",
+              "slug": "semantic-html",
+              "name": {
+                "int": "Semantic HTML",
+                "no": "Semantisk HTML"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-5-2",
+              "technology_id": "65f1b2c3d4e5f60718293f22",
+              "slug": "aria",
+              "name": {
+                "int": "ARIA",
+                "no": "ARIA"
+              },
+              "proficiency": 2,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "accessibility-wcag"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-6",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e06",
+            "slug": "design-systems-components",
+            "values": {
+              "int": "Design Systems & Component Libraries",
+              "no": "Designsystemer og komponentbibliotek"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-6-1",
+              "technology_id": "65f1b2c3d4e5f60718293f26",
+              "slug": "storybook",
+              "name": {
+                "int": "Storybook",
+                "no": "Storybook"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-6-2",
+              "technology_id": "65f1b2c3d4e5f60718293f28",
+              "slug": "component-library",
+              "name": {
+                "int": "Component Library",
+                "no": "Komponentbibliotek"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 4,
+              "base_duration_in_years": 4,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "design-systems-components"
+              ],
+              "order": 2,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-7",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e07",
+            "slug": "frontend-cloud-devops",
+            "values": {
+              "int": "Frontend Cloud & DevOps",
+              "no": "Leveranse og drift av frontend (Cloud/DevOps)"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-7-1",
+              "technology_id": "65f1b2c3d4e5f60718293f34",
+              "slug": "docker",
+              "name": {
+                "int": "Docker",
+                "no": "Docker"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-7-2",
+              "technology_id": "65f1b2c3d4e5f60718293f33",
+              "slug": "azure-devops",
+              "name": {
+                "int": "Azure DevOps",
+                "no": "Azure DevOps"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-7-3",
+              "technology_id": "65f1b2c3d4e5f60718293f31",
+              "slug": "github-actions",
+              "name": {
+                "int": "GitHub Actions",
+                "no": "GitHub Actions"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "frontend-cloud-devops"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-8",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e08",
+            "slug": "quality-performance-maintenance",
+            "values": {
+              "int": "Quality, Performance & Maintenance",
+              "no": "Kvalitet, ytelse og vedlikehold"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-8-1",
+              "technology_id": "65f1b2c3d4e5f60718293f38",
+              "slug": "vitest",
+              "name": {
+                "int": "Vitest",
+                "no": "Vitest"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-8-2",
+              "technology_id": "65f1b2c3d4e5f60718293f36",
+              "slug": "playwright",
+              "name": {
+                "int": "Playwright",
+                "no": "Playwright"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-8-3",
+              "technology_id": "65f1b2c3d4e5f60718293f39",
+              "slug": "performance-optimization",
+              "name": {
+                "int": "Performance Optimization",
+                "no": "Ytelsesoptimalisering"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "quality-performance-maintenance"
+              ],
+              "order": 3,
+              "version": 1
+            }
+          ]
+        },
+        {
+          "_id": "tech-12-9",
+          "category": {
+            "id": "65f1b2c3d4e5f60718293e09",
+            "slug": "integrations-security-privacy",
+            "values": {
+              "int": "Integrations, Security & Privacy",
+              "no": "Integrasjoner, sikkerhet og personvern"
+            }
+          },
+          "technology_skills": [
+            {
+              "_id": "skill-12-9-1",
+              "technology_id": "65f1b2c3d4e5f60718293f43",
+              "slug": "oauth-oidc",
+              "name": {
+                "int": "OAuth / OIDC",
+                "no": "OAuth / OIDC"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 1,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-9-2",
+              "technology_id": "65f1b2c3d4e5f60718293f41",
+              "slug": "rest-api",
+              "name": {
+                "int": "REST API",
+                "no": "REST API"
+              },
+              "proficiency": 4,
+              "total_duration_in_years": 5,
+              "base_duration_in_years": 5,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 2,
+              "version": 1
+            },
+            {
+              "_id": "skill-12-9-3",
+              "technology_id": "65f1b2c3d4e5f60718293f42",
+              "slug": "graphql",
+              "name": {
+                "int": "GraphQL",
+                "no": "GraphQL"
+              },
+              "proficiency": 3,
+              "total_duration_in_years": 3,
+              "base_duration_in_years": 3,
+              "offset_duration_in_years": 0,
+              "tags": [
+                "integrations-security-privacy"
+              ],
+              "order": 3,
               "version": 1
             }
           ]
