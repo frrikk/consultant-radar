@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "65f1b2c3d4e5f60718293b01",
+    "id": "65f1b2c3d4e5f60718293b01",
+    "name": "Oslo",
+    "city": "Oslo",
+    "country_id": "65f1b2c3d4e5f60718293a01",
+    "country_code": "no",
+    "override_language_code": "no"
+  },
+  {
+    "_id": "65f1b2c3d4e5f60718293b02",
+    "id": "65f1b2c3d4e5f60718293b02",
+    "name": "Trondheim",
+    "city": "Trondheim",
+    "country_id": "65f1b2c3d4e5f60718293a01",
+    "country_code": "no",
+    "override_language_code": "no"
+  }
+]

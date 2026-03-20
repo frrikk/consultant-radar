@@ -1,0 +1,452 @@
+[
+  {
+    "id": "65f1b2c3d4e5f60718293f01",
+    "_id": "65f1b2c3d4e5f60718293f01",
+    "slug": "html-css",
+    "category_id": "65f1b2c3d4e5f60718293e01",
+    "category_slug": "web-development",
+    "external_unique_id": "skill-html-css",
+    "aliases": ["html", "css"],
+    "values": { "int": "HTML & CSS", "no": "HTML og CSS" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f02",
+    "_id": "65f1b2c3d4e5f60718293f02",
+    "slug": "javascript",
+    "category_id": "65f1b2c3d4e5f60718293e01",
+    "category_slug": "web-development",
+    "external_unique_id": "skill-javascript",
+    "aliases": ["js"],
+    "values": { "int": "JavaScript", "no": "JavaScript" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f03",
+    "_id": "65f1b2c3d4e5f60718293f03",
+    "slug": "typescript",
+    "category_id": "65f1b2c3d4e5f60718293e01",
+    "category_slug": "web-development",
+    "external_unique_id": "skill-typescript",
+    "aliases": ["ts"],
+    "values": { "int": "TypeScript", "no": "TypeScript" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f04",
+    "_id": "65f1b2c3d4e5f60718293f04",
+    "slug": "react",
+    "category_id": "65f1b2c3d4e5f60718293e01",
+    "category_slug": "web-development",
+    "external_unique_id": "skill-react",
+    "aliases": ["reactjs"],
+    "values": { "int": "React", "no": "React" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f05",
+    "_id": "65f1b2c3d4e5f60718293f05",
+    "slug": "nextjs",
+    "category_id": "65f1b2c3d4e5f60718293e01",
+    "category_slug": "web-development",
+    "external_unique_id": "skill-nextjs",
+    "aliases": ["next.js"],
+    "values": { "int": "Next.js", "no": "Next.js" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f06",
+    "_id": "65f1b2c3d4e5f60718293f06",
+    "slug": "react-native",
+    "category_id": "65f1b2c3d4e5f60718293e02",
+    "category_slug": "mobile-development",
+    "external_unique_id": "skill-react-native",
+    "aliases": ["rn"],
+    "values": { "int": "React Native", "no": "React Native" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f07",
+    "_id": "65f1b2c3d4e5f60718293f07",
+    "slug": "expo",
+    "category_id": "65f1b2c3d4e5f60718293e02",
+    "category_slug": "mobile-development",
+    "external_unique_id": "skill-expo",
+    "aliases": [],
+    "values": { "int": "Expo", "no": "Expo" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f08",
+    "_id": "65f1b2c3d4e5f60718293f08",
+    "slug": "flutter",
+    "category_id": "65f1b2c3d4e5f60718293e02",
+    "category_slug": "mobile-development",
+    "external_unique_id": "skill-flutter",
+    "aliases": [],
+    "values": { "int": "Flutter", "no": "Flutter" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f09",
+    "_id": "65f1b2c3d4e5f60718293f09",
+    "slug": "swiftui",
+    "category_id": "65f1b2c3d4e5f60718293e02",
+    "category_slug": "mobile-development",
+    "external_unique_id": "skill-swiftui",
+    "aliases": ["swift"],
+    "values": { "int": "SwiftUI", "no": "SwiftUI" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f10",
+    "_id": "65f1b2c3d4e5f60718293f10",
+    "slug": "kotlin-android",
+    "category_id": "65f1b2c3d4e5f60718293e02",
+    "category_slug": "mobile-development",
+    "external_unique_id": "skill-kotlin-android",
+    "aliases": ["kotlin", "android"],
+    "values": { "int": "Kotlin Android", "no": "Kotlin Android" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f11",
+    "_id": "65f1b2c3d4e5f60718293f11",
+    "slug": "sanity",
+    "category_id": "65f1b2c3d4e5f60718293e03",
+    "category_slug": "cms-content-platforms",
+    "external_unique_id": "skill-sanity",
+    "aliases": [],
+    "values": { "int": "Sanity", "no": "Sanity" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f12",
+    "_id": "65f1b2c3d4e5f60718293f12",
+    "slug": "contentful",
+    "category_id": "65f1b2c3d4e5f60718293e03",
+    "category_slug": "cms-content-platforms",
+    "external_unique_id": "skill-contentful",
+    "aliases": [],
+    "values": { "int": "Contentful", "no": "Contentful" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f13",
+    "_id": "65f1b2c3d4e5f60718293f13",
+    "slug": "storyblok",
+    "category_id": "65f1b2c3d4e5f60718293e03",
+    "category_slug": "cms-content-platforms",
+    "external_unique_id": "skill-storyblok",
+    "aliases": [],
+    "values": { "int": "Storyblok", "no": "Storyblok" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f14",
+    "_id": "65f1b2c3d4e5f60718293f14",
+    "slug": "wordpress",
+    "category_id": "65f1b2c3d4e5f60718293e03",
+    "category_slug": "cms-content-platforms",
+    "external_unique_id": "skill-wordpress",
+    "aliases": ["wp"],
+    "values": { "int": "WordPress", "no": "WordPress" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f15",
+    "_id": "65f1b2c3d4e5f60718293f15",
+    "slug": "strapi",
+    "category_id": "65f1b2c3d4e5f60718293e03",
+    "category_slug": "cms-content-platforms",
+    "external_unique_id": "skill-strapi",
+    "aliases": [],
+    "values": { "int": "Strapi", "no": "Strapi" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f16",
+    "_id": "65f1b2c3d4e5f60718293f16",
+    "slug": "figma",
+    "category_id": "65f1b2c3d4e5f60718293e04",
+    "category_slug": "ux-interaction-frontend",
+    "external_unique_id": "skill-figma",
+    "aliases": [],
+    "values": { "int": "Figma", "no": "Figma" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f17",
+    "_id": "65f1b2c3d4e5f60718293f17",
+    "slug": "prototyping",
+    "category_id": "65f1b2c3d4e5f60718293e04",
+    "category_slug": "ux-interaction-frontend",
+    "external_unique_id": "skill-prototyping",
+    "aliases": ["prototype"],
+    "values": { "int": "Prototyping", "no": "Prototyping" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f18",
+    "_id": "65f1b2c3d4e5f60718293f18",
+    "slug": "interaction-design",
+    "category_id": "65f1b2c3d4e5f60718293e04",
+    "category_slug": "ux-interaction-frontend",
+    "external_unique_id": "skill-interaction-design",
+    "aliases": ["ixd"],
+    "values": { "int": "Interaction Design", "no": "Interaksjonsdesign" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f19",
+    "_id": "65f1b2c3d4e5f60718293f19",
+    "slug": "framer-motion",
+    "category_id": "65f1b2c3d4e5f60718293e04",
+    "category_slug": "ux-interaction-frontend",
+    "external_unique_id": "skill-framer-motion",
+    "aliases": ["motion"],
+    "values": { "int": "Framer Motion", "no": "Framer Motion" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f20",
+    "_id": "65f1b2c3d4e5f60718293f20",
+    "slug": "user-research",
+    "category_id": "65f1b2c3d4e5f60718293e04",
+    "category_slug": "ux-interaction-frontend",
+    "external_unique_id": "skill-user-research",
+    "aliases": [],
+    "values": { "int": "User Research", "no": "Brukerinnsikt" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f21",
+    "_id": "65f1b2c3d4e5f60718293f21",
+    "slug": "wcag-2-2",
+    "category_id": "65f1b2c3d4e5f60718293e05",
+    "category_slug": "accessibility-wcag",
+    "external_unique_id": "skill-wcag-2-2",
+    "aliases": ["wcag"],
+    "values": { "int": "WCAG 2.2", "no": "WCAG 2.2" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f22",
+    "_id": "65f1b2c3d4e5f60718293f22",
+    "slug": "aria",
+    "category_id": "65f1b2c3d4e5f60718293e05",
+    "category_slug": "accessibility-wcag",
+    "external_unique_id": "skill-aria",
+    "aliases": [],
+    "values": { "int": "ARIA", "no": "ARIA" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f23",
+    "_id": "65f1b2c3d4e5f60718293f23",
+    "slug": "semantic-html",
+    "category_id": "65f1b2c3d4e5f60718293e05",
+    "category_slug": "accessibility-wcag",
+    "external_unique_id": "skill-semantic-html",
+    "aliases": [],
+    "values": { "int": "Semantic HTML", "no": "Semantisk HTML" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f24",
+    "_id": "65f1b2c3d4e5f60718293f24",
+    "slug": "axe",
+    "category_id": "65f1b2c3d4e5f60718293e05",
+    "category_slug": "accessibility-wcag",
+    "external_unique_id": "skill-axe",
+    "aliases": ["axe-core"],
+    "values": { "int": "axe", "no": "axe" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f25",
+    "_id": "65f1b2c3d4e5f60718293f25",
+    "slug": "screen-reader-testing",
+    "category_id": "65f1b2c3d4e5f60718293e05",
+    "category_slug": "accessibility-wcag",
+    "external_unique_id": "skill-screen-reader-testing",
+    "aliases": ["screen-reader"],
+    "values": { "int": "Screen Reader Testing", "no": "Testing med skjermleser" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f26",
+    "_id": "65f1b2c3d4e5f60718293f26",
+    "slug": "storybook",
+    "category_id": "65f1b2c3d4e5f60718293e06",
+    "category_slug": "design-systems-components",
+    "external_unique_id": "skill-storybook",
+    "aliases": [],
+    "values": { "int": "Storybook", "no": "Storybook" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f27",
+    "_id": "65f1b2c3d4e5f60718293f27",
+    "slug": "design-tokens",
+    "category_id": "65f1b2c3d4e5f60718293e06",
+    "category_slug": "design-systems-components",
+    "external_unique_id": "skill-design-tokens",
+    "aliases": [],
+    "values": { "int": "Design Tokens", "no": "Design tokens" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f28",
+    "_id": "65f1b2c3d4e5f60718293f28",
+    "slug": "component-library",
+    "category_id": "65f1b2c3d4e5f60718293e06",
+    "category_slug": "design-systems-components",
+    "external_unique_id": "skill-component-library",
+    "aliases": ["components"],
+    "values": { "int": "Component Library", "no": "Komponentbibliotek" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f29",
+    "_id": "65f1b2c3d4e5f60718293f29",
+    "slug": "radix-ui",
+    "category_id": "65f1b2c3d4e5f60718293e06",
+    "category_slug": "design-systems-components",
+    "external_unique_id": "skill-radix-ui",
+    "aliases": ["radix"],
+    "values": { "int": "Radix UI", "no": "Radix UI" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f30",
+    "_id": "65f1b2c3d4e5f60718293f30",
+    "slug": "shadcn-ui",
+    "category_id": "65f1b2c3d4e5f60718293e06",
+    "category_slug": "design-systems-components",
+    "external_unique_id": "skill-shadcn-ui",
+    "aliases": ["shadcn"],
+    "values": { "int": "shadcn/ui", "no": "shadcn/ui" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f31",
+    "_id": "65f1b2c3d4e5f60718293f31",
+    "slug": "github-actions",
+    "category_id": "65f1b2c3d4e5f60718293e07",
+    "category_slug": "frontend-cloud-devops",
+    "external_unique_id": "skill-github-actions",
+    "aliases": ["gha"],
+    "values": { "int": "GitHub Actions", "no": "GitHub Actions" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f32",
+    "_id": "65f1b2c3d4e5f60718293f32",
+    "slug": "vercel",
+    "category_id": "65f1b2c3d4e5f60718293e07",
+    "category_slug": "frontend-cloud-devops",
+    "external_unique_id": "skill-vercel",
+    "aliases": [],
+    "values": { "int": "Vercel", "no": "Vercel" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f33",
+    "_id": "65f1b2c3d4e5f60718293f33",
+    "slug": "azure-devops",
+    "category_id": "65f1b2c3d4e5f60718293e07",
+    "category_slug": "frontend-cloud-devops",
+    "external_unique_id": "skill-azure-devops",
+    "aliases": ["ado"],
+    "values": { "int": "Azure DevOps", "no": "Azure DevOps" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f34",
+    "_id": "65f1b2c3d4e5f60718293f34",
+    "slug": "docker",
+    "category_id": "65f1b2c3d4e5f60718293e07",
+    "category_slug": "frontend-cloud-devops",
+    "external_unique_id": "skill-docker",
+    "aliases": [],
+    "values": { "int": "Docker", "no": "Docker" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f35",
+    "_id": "65f1b2c3d4e5f60718293f35",
+    "slug": "observability",
+    "category_id": "65f1b2c3d4e5f60718293e07",
+    "category_slug": "frontend-cloud-devops",
+    "external_unique_id": "skill-observability",
+    "aliases": ["monitoring"],
+    "values": { "int": "Observability", "no": "Observability" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f36",
+    "_id": "65f1b2c3d4e5f60718293f36",
+    "slug": "playwright",
+    "category_id": "65f1b2c3d4e5f60718293e08",
+    "category_slug": "quality-performance-maintenance",
+    "external_unique_id": "skill-playwright",
+    "aliases": [],
+    "values": { "int": "Playwright", "no": "Playwright" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f37",
+    "_id": "65f1b2c3d4e5f60718293f37",
+    "slug": "cypress",
+    "category_id": "65f1b2c3d4e5f60718293e08",
+    "category_slug": "quality-performance-maintenance",
+    "external_unique_id": "skill-cypress",
+    "aliases": [],
+    "values": { "int": "Cypress", "no": "Cypress" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f38",
+    "_id": "65f1b2c3d4e5f60718293f38",
+    "slug": "vitest",
+    "category_id": "65f1b2c3d4e5f60718293e08",
+    "category_slug": "quality-performance-maintenance",
+    "external_unique_id": "skill-vitest",
+    "aliases": [],
+    "values": { "int": "Vitest", "no": "Vitest" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f39",
+    "_id": "65f1b2c3d4e5f60718293f39",
+    "slug": "performance-optimization",
+    "category_id": "65f1b2c3d4e5f60718293e08",
+    "category_slug": "quality-performance-maintenance",
+    "external_unique_id": "skill-performance-optimization",
+    "aliases": ["performance"],
+    "values": { "int": "Performance Optimization", "no": "Ytelsesoptimalisering" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f40",
+    "_id": "65f1b2c3d4e5f60718293f40",
+    "slug": "frontend-architecture",
+    "category_id": "65f1b2c3d4e5f60718293e08",
+    "category_slug": "quality-performance-maintenance",
+    "external_unique_id": "skill-frontend-architecture",
+    "aliases": ["architecture"],
+    "values": { "int": "Frontend Architecture", "no": "Frontend-arkitektur" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f41",
+    "_id": "65f1b2c3d4e5f60718293f41",
+    "slug": "rest-api",
+    "category_id": "65f1b2c3d4e5f60718293e09",
+    "category_slug": "integrations-security-privacy",
+    "external_unique_id": "skill-rest-api",
+    "aliases": ["api"],
+    "values": { "int": "REST API", "no": "REST API" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f42",
+    "_id": "65f1b2c3d4e5f60718293f42",
+    "slug": "graphql",
+    "category_id": "65f1b2c3d4e5f60718293e09",
+    "category_slug": "integrations-security-privacy",
+    "external_unique_id": "skill-graphql",
+    "aliases": [],
+    "values": { "int": "GraphQL", "no": "GraphQL" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f43",
+    "_id": "65f1b2c3d4e5f60718293f43",
+    "slug": "oauth-oidc",
+    "category_id": "65f1b2c3d4e5f60718293e09",
+    "category_slug": "integrations-security-privacy",
+    "external_unique_id": "skill-oauth-oidc",
+    "aliases": ["oauth", "oidc"],
+    "values": { "int": "OAuth / OIDC", "no": "OAuth / OIDC" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f44",
+    "_id": "65f1b2c3d4e5f60718293f44",
+    "slug": "gdpr",
+    "category_id": "65f1b2c3d4e5f60718293e09",
+    "category_slug": "integrations-security-privacy",
+    "external_unique_id": "skill-gdpr",
+    "aliases": ["privacy"],
+    "values": { "int": "GDPR", "no": "GDPR" }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293f45",
+    "_id": "65f1b2c3d4e5f60718293f45",
+    "slug": "frontend-security",
+    "category_id": "65f1b2c3d4e5f60718293e09",
+    "category_slug": "integrations-security-privacy",
+    "external_unique_id": "skill-frontend-security",
+    "aliases": ["security", "csp"],
+    "values": { "int": "Frontend Security", "no": "Frontend-sikkerhet" }
+  }
+]

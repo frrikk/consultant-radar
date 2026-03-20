@@ -1,0 +1,101 @@
+[
+  {
+    "id": "65f1b2c3d4e5f60718293e01",
+    "_id": "65f1b2c3d4e5f60718293e01",
+    "slug": "web-development",
+    "order": 1,
+    "aliases": ["frontend", "webutvikling"],
+    "values": {
+      "int": "Web Development",
+      "no": "Webutvikling"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e02",
+    "_id": "65f1b2c3d4e5f60718293e02",
+    "slug": "mobile-development",
+    "order": 2,
+    "aliases": ["mobile", "mobilutvikling"],
+    "values": {
+      "int": "Mobile Development",
+      "no": "Mobilutvikling"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e03",
+    "_id": "65f1b2c3d4e5f60718293e03",
+    "slug": "cms-content-platforms",
+    "order": 3,
+    "aliases": ["cms", "content-platforms"],
+    "values": {
+      "int": "CMS & Content Platforms",
+      "no": "CMS og innholdsplattformer"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e04",
+    "_id": "65f1b2c3d4e5f60718293e04",
+    "slug": "ux-interaction-frontend",
+    "order": 4,
+    "aliases": ["ux", "interaction", "frontend-ux"],
+    "values": {
+      "int": "UX & Interaction (Frontend)",
+      "no": "Brukeropplevelse og interaksjon (UX i Frontend)"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e05",
+    "_id": "65f1b2c3d4e5f60718293e05",
+    "slug": "accessibility-wcag",
+    "order": 5,
+    "aliases": ["accessibility", "wcag", "universell-utforming"],
+    "values": {
+      "int": "Accessibility & WCAG",
+      "no": "Universell utforming og tilgjengelighet (WCAG)"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e06",
+    "_id": "65f1b2c3d4e5f60718293e06",
+    "slug": "design-systems-components",
+    "order": 6,
+    "aliases": ["design-systems", "components"],
+    "values": {
+      "int": "Design Systems & Component Libraries",
+      "no": "Designsystemer og komponentbibliotek"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e07",
+    "_id": "65f1b2c3d4e5f60718293e07",
+    "slug": "frontend-cloud-devops",
+    "order": 7,
+    "aliases": ["cloud", "devops", "frontend-operations"],
+    "values": {
+      "int": "Frontend Cloud & DevOps",
+      "no": "Leveranse og drift av frontend (Cloud/DevOps)"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e08",
+    "_id": "65f1b2c3d4e5f60718293e08",
+    "slug": "quality-performance-maintenance",
+    "order": 8,
+    "aliases": ["quality", "performance", "maintenance"],
+    "values": {
+      "int": "Quality, Performance & Maintenance",
+      "no": "Kvalitet, ytelse og vedlikehold"
+    }
+  },
+  {
+    "id": "65f1b2c3d4e5f60718293e09",
+    "_id": "65f1b2c3d4e5f60718293e09",
+    "slug": "integrations-security-privacy",
+    "order": 9,
+    "aliases": ["integrations", "security", "privacy"],
+    "values": {
+      "int": "Integrations, Security & Privacy",
+      "no": "Integrasjoner, sikkerhet og personvern"
+    }
+  }
+]
