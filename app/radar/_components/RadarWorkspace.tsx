@@ -5,13 +5,16 @@ import { RangeCoverageCard } from "./RangeCoverageCard";
 import { RadarChartCard } from "./RadarChartCard";
 import { RadarEditorPanel } from "./RadarEditorPanel";
 import {
+  EMPTY_RADAR_CONSULTANT_FILTERS,
   buildBestRangeRecommendation,
   buildConsultantRangeSeries,
   buildRangeCoverageSummary,
   buildRadarSeries,
   buildStandardRadarPresets,
+  matchesConsultantFilters,
   type RangeRecommendation,
   type RangeTeamSize,
+  type RadarConsultantFilters,
   type RadarPresetId,
   type RadarStatistic,
   type RadarVisualizationMode,
@@ -59,6 +62,7 @@ export function RadarWorkspace({
   const [visualizationMode, setVisualizationMode] = useState<RadarVisualizationMode>("radar");
   const [recommendedTeamSize, setRecommendedTeamSize] = useState<RangeTeamSize>(3);
   const [selectedIds, setSelectedIds] = useState<string[]>(uniqueIds([...initialSelectedIds], RADAR_MAX_SELECTED));
+  const [activeFilters, setActiveFilters] = useState<RadarConsultantFilters>(EMPTY_RADAR_CONSULTANT_FILTERS);
   const maxSelected = visualizationMode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED;
 
   const selectedConsultants = consultants.filter((consultant) => selectedIds.includes(consultant.user_id));
@@ -79,9 +83,22 @@ export function RadarWorkspace({
     [cvsByUserId, selectedConsultants],
   );
   const coverageSummary = useMemo(() => buildRangeCoverageSummary(rangeSeries, recommendedTeamSize), [rangeSeries, recommendedTeamSize]);
+  const filteredConsultantIds = useMemo(
+    () =>
+      new Set(
+        consultantOptions
+          .filter((consultant) => matchesConsultantFilters(consultant, activeFilters))
+          .map((consultant) => consultant.value),
+      ),
+    [activeFilters, consultantOptions],
+  );
+  const recommendedConsultants = useMemo(
+    () => consultants.filter((consultant) => filteredConsultantIds.has(consultant.user_id)),
+    [consultants, filteredConsultantIds],
+  );
   const allRangeSeries = useMemo(
-    () => consultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
-    [consultants, cvsByUserId],
+    () => recommendedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
+    [recommendedConsultants, cvsByUserId],
   );
   const bestRecommendation = useMemo<RangeRecommendation | null>(
     () => buildBestRangeRecommendation(allRangeSeries, recommendedTeamSize),
@@ -122,6 +139,7 @@ export function RadarWorkspace({
           visualizationMode={visualizationMode}
           onVisualizationModeChange={handleVisualizationModeChange}
           maxSelected={maxSelected}
+          onFiltersChange={setActiveFilters}
         />
       </aside>
 
