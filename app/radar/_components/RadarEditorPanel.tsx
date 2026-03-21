@@ -353,7 +353,7 @@ export function RadarEditorPanel({
 
   return (
     <Card className="flex h-full min-h-0 max-h-full rounded-xl border border-border bg-card py-0 shadow-none ring-0 overflow-hidden">
-      <CardContent className="flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden px-0 pt-0">
+      <CardContent className="flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden px-0 pt-0 lg:overflow-y-auto">
         <div className="sticky top-0 z-10 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/85 lg:static lg:bg-transparent lg:backdrop-blur-0">
           <section className="space-y-2.5 border-b border-border/70 px-3 pt-3 pb-3">
             <p className="text-sm font-semibold text-foreground">{t("radar.config.modeTitle")}</p>
@@ -589,7 +589,7 @@ export function RadarEditorPanel({
             </div>
           </div>
 
-          <div className="max-h-[52vh] overflow-y-auto pr-1 [scrollbar-gutter:stable] lg:min-h-0 lg:max-h-none lg:flex-1">
+          <div className="max-h-[52vh] overflow-y-auto pr-1 [scrollbar-gutter:stable] lg:min-h-0 lg:max-h-none lg:flex-1 lg:overflow-visible">
             <div className="space-y-1.5">
               {visibleCandidates.length > 0 ? (
                 <>
