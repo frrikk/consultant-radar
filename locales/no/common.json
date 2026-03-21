@@ -97,7 +97,7 @@
     "range": {
       "title": "Dekningsområde",
       "description": "Sammenlign konsulenter etter hvor langt de strekker seg fra design til cloud.",
-      "selectionHint": "Områdevisningen er optimalisert for team på tre konsulenter eller færre.",
+      "selectionHint": "Sammensetningsvisningen fungerer best for små team på opptil fire konsulenter.",
       "empty": "Velg konsulenter for å fylle området",
       "strongestStage": "Sterkest i {{stage}}",
       "skillsPopover": {

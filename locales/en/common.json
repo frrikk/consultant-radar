@@ -97,7 +97,7 @@
     "range": {
       "title": "Coverage range",
       "description": "Compare consultants by how far they stretch from design to cloud.",
-      "selectionHint": "Range mode is optimized for teams of three or fewer consultants.",
+      "selectionHint": "Composition mode works best for small teams of up to four consultants.",
       "empty": "Select consultants to fill the range",
       "strongestStage": "Strongest in {{stage}}",
       "skillsPopover": {
