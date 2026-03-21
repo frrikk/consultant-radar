@@ -51,7 +51,7 @@
       "quickAddPlaceholder": "F.eks. Nora, Trondheim eller senior",
       "listCount_one": "{{count}} treff",
       "listCount_other": "{{count}} treff",
-      "addAction": "Legg til",
+      "addConsultant": "Legg til {{name}} i sammenligningen",
       "emptyList": "Tøm",
       "emptyCandidates": "Ingen konsulenter matcher filtrene.",
       "removeConsultant": "Fjern {{name}} fra sammenligningen",

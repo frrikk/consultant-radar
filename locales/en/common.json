@@ -51,7 +51,7 @@
       "quickAddPlaceholder": "For example Nora, Trondheim, or senior",
       "listCount_one": "{{count}} match",
       "listCount_other": "{{count}} matches",
-      "addAction": "Add",
+      "addConsultant": "Add {{name}} to comparison",
       "emptyList": "Empty",
       "emptyCandidates": "No consultants match the filters.",
       "removeConsultant": "Remove {{name}} from comparison",

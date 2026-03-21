@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   BriefcaseBusinessIcon,
+  CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   FunnelIcon,
@@ -144,10 +145,6 @@ function FilterPill({
   );
 }
 
-function isAddDisabled(selectedIds: string[], consultantId: string, maxSelected: number) {
-  return selectedIds.includes(consultantId) || selectedIds.length >= maxSelected;
-}
-
 function SearchInput({
   id,
   value,
@@ -244,7 +241,7 @@ export function RadarEditorPanel({
 
     return pool.filter((consultant) => consultant.searchValue.toLowerCase().includes(query));
   }, [consultants, addQuery, selectedCities, selectedDepartments, selectedRoles]);
-  const addMatches = filteredCandidates.filter((consultant) => !selectedSet.has(consultant.value));
+  const visibleCandidates = filteredCandidates;
   const totalActiveFilters = activeFilterCount(selectedCities, selectedDepartments, selectedRoles);
   const presetLabel = t(`radar.config.presets.${presetId}`);
 
@@ -295,6 +292,15 @@ export function RadarEditorPanel({
   function handleRemoveSelected(id: string) {
     const next = selectedIds.filter((value) => value !== id);
     onSelectedIdsChange(next);
+  }
+
+  function handleToggleSelected(id: string) {
+    if (selectedSet.has(id)) {
+      handleRemoveSelected(id);
+      return;
+    }
+
+    handleAddSelected(id);
   }
 
   return (
@@ -483,7 +489,8 @@ export function RadarEditorPanel({
             </div>
           </div>
 
-          <div className="min-h-7 flex flex-wrap content-start gap-1.5">
+          <div className="min-h-7 overflow-x-auto [scrollbar-gutter:stable]">
+            <div className="flex h-7 w-max min-w-full items-center gap-1.5">
             {selectedIds.map((selectedId) => {
               const consultant = consultants.find((item) => item.value === selectedId);
               if (!consultant) {
@@ -507,67 +514,85 @@ export function RadarEditorPanel({
                 </span>
               );
             })}
+            </div>
           </div>
 
           <div className="min-h-0 flex-1 overflow-y-auto pr-1 [scrollbar-gutter:stable]">
             <div className="space-y-1.5">
-              {addMatches.length > 0 ? (
+              {visibleCandidates.length > 0 ? (
                 <>
-                  {addMatches.map((consultant) => (
+                  {visibleCandidates.map((consultant) => {
+                    const selected = selectedSet.has(consultant.value);
+                    const disabled = !selected && selectedIds.length >= maxSelected;
+
+                    return (
                     <div
                       key={consultant.value}
                       role="button"
-                      tabIndex={isAddDisabled(selectedIds, consultant.value, maxSelected) ? -1 : 0}
-                      aria-disabled={isAddDisabled(selectedIds, consultant.value, maxSelected)}
+                      tabIndex={disabled ? -1 : 0}
+                      aria-disabled={disabled}
+                      aria-label={
+                        selected
+                          ? t("radar.compare.removeConsultant", { name: consultant.label })
+                          : t("radar.compare.addConsultant", { name: consultant.label })
+                      }
                       onClick={() => {
-                        if (!isAddDisabled(selectedIds, consultant.value, maxSelected)) {
-                          handleAddSelected(consultant.value);
+                        if (!disabled) {
+                          handleToggleSelected(consultant.value);
                         }
                       }}
                       onKeyDown={(event) => {
-                        if (isAddDisabled(selectedIds, consultant.value, maxSelected)) {
+                        if (disabled) {
                           return;
                         }
 
                         if (event.key === "Enter" || event.key === " ") {
                           event.preventDefault();
-                          handleAddSelected(consultant.value);
+                          handleToggleSelected(consultant.value);
                         }
                       }}
-                      className={`animate-selection-card-in flex w-full items-start justify-between gap-2 rounded-[12px] border border-border bg-muted/35 px-2.5 py-2 text-left transition-colors hover:border-accent hover:bg-muted/55 ${
-                        isAddDisabled(selectedIds, consultant.value, maxSelected)
+                      className={`animate-selection-card-in flex min-h-[5.75rem] w-full items-stretch justify-between gap-2 rounded-[12px] border px-2.5 py-2 text-left transition-colors ${
+                        selected
+                          ? "border-[#021e57]/35 bg-[#021e57]/8 dark:border-[#839df9]/35 dark:bg-[#12306f]/35"
+                          : "border-border bg-muted/35 hover:border-accent hover:bg-muted/55"
+                      } ${
+                        disabled
                           ? "cursor-not-allowed opacity-40"
                           : "cursor-pointer"
                       }`}
                     >
-                      <span className="min-w-0 flex-1 space-y-2">
+                      <span className="flex min-h-full min-w-0 flex-1 flex-col justify-between gap-2">
                         <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
-                        <span className="flex flex-wrap gap-1">
-                          <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                          <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
-                          {consultant.roleTags.map((role) => (
-                            <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
-                          ))}
+                        <span className="space-y-1">
+                          <span className="flex flex-wrap gap-1">
+                            <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
+                            <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
+                          </span>
+                          <span className="flex flex-wrap gap-1">
+                            {consultant.roleTags.map((role) => (
+                              <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
+                            ))}
+                          </span>
                         </span>
                       </span>
-                      <span className="flex shrink-0 flex-col items-end gap-2">
-                        <span className="flex items-center gap-1.5">
-                          {cvsByUserId[consultant.value] ? <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} /> : null}
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              handleAddSelected(consultant.value);
-                            }}
-                            disabled={isAddDisabled(selectedIds, consultant.value, maxSelected)}
-                            className="whitespace-nowrap rounded-full bg-background px-2 py-1 text-[11px] font-medium text-foreground transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                      <div className="flex min-h-full w-[5.25rem] shrink-0 self-stretch flex-col items-end justify-between">
+                        {cvsByUserId[consultant.value] ? <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} /> : null}
+                        <span className="flex items-end justify-end">
+                          <span
+                            aria-hidden="true"
+                            className={`flex size-6 items-center justify-center rounded-full border transition-colors ${
+                              selected
+                                ? "border-[#021e57] bg-[#021e57] text-white hover:bg-[#021b42] dark:border-[#839df9] dark:bg-[#839df9] dark:text-[#021e57] dark:hover:bg-[#9bb0ff]"
+                                : "border-dashed border-[#021e57]/45 bg-[#021e57]/[0.04] text-[#021e57]/70 hover:border-[#021e57]/70 hover:bg-[#021e57]/[0.08] hover:text-[#021e57] dark:border-[#839df9]/50 dark:bg-[#839df9]/10 dark:text-[#c7d4ff] dark:hover:border-[#9bb0ff] dark:hover:bg-[#839df9]/16 dark:hover:text-[#e4ebff]"
+                            }`}
                           >
-                            {t("radar.compare.addAction")}
-                          </button>
+                            {selected ? <CheckIcon className="size-3" /> : null}
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </>
               ) : (
                 <div className="flex h-full min-h-48 items-center justify-center rounded-[12px] border border-dashed border-border/80 bg-muted/10 px-4 text-center text-sm text-muted-foreground">
