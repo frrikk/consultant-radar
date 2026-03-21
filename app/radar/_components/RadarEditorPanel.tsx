@@ -306,57 +306,58 @@ export function RadarEditorPanel({
   return (
     <Card className="flex h-full min-h-0 max-h-full rounded-xl border border-border bg-card py-0 shadow-none ring-0 overflow-hidden">
       <CardContent className="flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden px-0 pt-0">
-        <section className="space-y-2.5 border-b border-border/70 px-3 pt-3 pb-3">
-          <p className="text-sm font-semibold text-foreground">{t("radar.config.modeTitle")}</p>
+        <div className="sticky top-0 z-10 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/85 lg:static lg:bg-transparent lg:backdrop-blur-0">
+          <section className="space-y-2.5 border-b border-border/70 px-3 pt-3 pb-3">
+            <p className="text-sm font-semibold text-foreground">{t("radar.config.modeTitle")}</p>
 
-          <div className="flex items-center gap-2">
-            <div className="inline-flex h-8 items-center rounded-[12px] border border-border bg-muted/30 p-0.5">
-              {([
-                { id: "radar", icon: OrbitIcon },
-                { id: "range", icon: StretchHorizontalIcon },
-              ] as const).map(({ id, icon: Icon }) => (
-                <Tooltip key={id}>
-                  <TooltipTrigger
-                    type="button"
-                    aria-label={t(`radar.config.visualizations.${id}`)}
-                    onClick={() => onVisualizationModeChange(id)}
-                    className={`flex h-7 w-7 items-center justify-center rounded-[12px] transition-colors ${
-                      visualizationMode === id
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-background hover:text-foreground"
-                    }`}
-                  >
-                    <Icon className="size-3.5" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <TooltipTitle>{t(`radar.config.visualizations.${id}`)}:</TooltipTitle>{" "}
-                    {t(`radar.config.visualizationHelp.${id}`)}
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+            <div className="flex items-center gap-2">
+              <div className="inline-flex h-8 items-center rounded-[12px] border border-border bg-muted/30 p-0.5">
+                {([
+                  { id: "radar", icon: OrbitIcon },
+                  { id: "range", icon: StretchHorizontalIcon },
+                ] as const).map(({ id, icon: Icon }) => (
+                  <Tooltip key={id}>
+                    <TooltipTrigger
+                      type="button"
+                      aria-label={t(`radar.config.visualizations.${id}`)}
+                      onClick={() => onVisualizationModeChange(id)}
+                      className={`flex h-7 w-7 items-center justify-center rounded-[12px] transition-colors ${
+                        visualizationMode === id
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:bg-background hover:text-foreground"
+                      }`}
+                    >
+                      <Icon className="size-3.5" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <TooltipTitle>{t(`radar.config.visualizations.${id}`)}:</TooltipTitle>{" "}
+                      {t(`radar.config.visualizationHelp.${id}`)}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+
+              {visualizationMode === "radar" ? (
+                <Select value={presetId} onValueChange={(value) => onPresetChange(value as RadarPresetId)}>
+                  <SelectTrigger size="sm" className="min-w-0 flex-1 rounded-[12px] bg-background">
+                    <PanelTopIcon className="size-3.5 text-muted-foreground" />
+                    <SelectValue>{presetLabel}</SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {presetOptions.map((preset) => (
+                      <SelectItem key={preset.id} value={preset.id}>
+                        {t(`radar.config.presets.${preset.id}`)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <p className="line-clamp-2 text-xs text-muted-foreground">{t("radar.range.selectionHint")}</p>
+              )}
             </div>
+          </section>
 
-            {visualizationMode === "radar" ? (
-              <Select value={presetId} onValueChange={(value) => onPresetChange(value as RadarPresetId)}>
-                <SelectTrigger size="sm" className="min-w-0 flex-1 rounded-[12px] bg-background">
-                  <PanelTopIcon className="size-3.5 text-muted-foreground" />
-                  <SelectValue>{presetLabel}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {presetOptions.map((preset) => (
-                    <SelectItem key={preset.id} value={preset.id}>
-                      {t(`radar.config.presets.${preset.id}`)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : (
-              <p className="line-clamp-2 text-xs text-muted-foreground">{t("radar.range.selectionHint")}</p>
-            )}
-          </div>
-        </section>
-
-        <section className="flex min-h-0 flex-1 flex-col space-y-3 px-3 pb-4">
+          <section className="space-y-3 px-3 pb-3 pt-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-foreground">{t("radar.compare.consultantsTitle")}</p>
             <div className="flex flex-1 items-center justify-end gap-2">
@@ -466,6 +467,11 @@ export function RadarEditorPanel({
             </div>
           </details>
 
+          </section>
+        </div>
+
+        <section className="flex min-h-0 flex-1 flex-col space-y-3 px-3 pb-4">
+
           <SearchInput
             id="add-consultant"
             value={addQuery}
@@ -489,8 +495,8 @@ export function RadarEditorPanel({
             </div>
           </div>
 
-          <div className="min-h-7 overflow-x-auto [scrollbar-gutter:stable]">
-            <div className="flex h-7 w-max min-w-full items-center gap-1.5">
+          <div className="min-h-7">
+            <div className="flex min-h-7 flex-wrap items-center gap-1.5">
             {selectedIds.map((selectedId) => {
               const consultant = consultants.find((item) => item.value === selectedId);
               if (!consultant) {
@@ -517,7 +523,7 @@ export function RadarEditorPanel({
             </div>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto pr-1 [scrollbar-gutter:stable]">
+          <div className="max-h-[52vh] overflow-y-auto pr-1 [scrollbar-gutter:stable] lg:min-h-0 lg:max-h-none lg:flex-1">
             <div className="space-y-1.5">
               {visibleCandidates.length > 0 ? (
                 <>
