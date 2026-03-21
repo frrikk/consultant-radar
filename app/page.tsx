@@ -41,10 +41,10 @@ export default async function Home({ searchParams }: PageProps) {
           <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.apiUnavailableTitle")}</h1>
           <p className="max-w-xl text-muted-foreground">{t("radar.page.apiUnavailableDescription")}</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+            <a href="/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
               {t("radar.page.openApi")}
             </a>
-            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">bun run mock:api</code>
+            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">/api/health</code>
           </div>
         </section>
       </main>
@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: PageProps) {
         <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center gap-6 px-6 text-center">
           <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.emptyTitle")}</h1>
           <p className="max-w-xl text-muted-foreground">{t("radar.page.emptyDescription")}</p>
-          <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+          <a href="/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
             {t("radar.page.openApi")}
           </a>
         </section>
@@ -86,10 +86,10 @@ export default async function Home({ searchParams }: PageProps) {
           <h1 className="text-3xl font-semibold tracking-tight">{t("radar.page.apiUnavailableTitle")}</h1>
           <p className="max-w-xl text-muted-foreground">{t("radar.page.apiUnavailableDescription")}</p>
           <div className="flex flex-wrap justify-center gap-3">
-            <a href="http://localhost:3001/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
+            <a href="/api/health" target="_blank" rel="noreferrer" className={getButtonStyles("default") + " no-underline"}>
               {t("radar.page.openApi")}
             </a>
-            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">bun run mock:api</code>
+            <code className="rounded-full border border-border bg-card px-4 py-2 text-sm">/api/health</code>
           </div>
         </section>
       </main>
@@ -109,7 +109,7 @@ export default async function Home({ searchParams }: PageProps) {
 
           <div className="flex items-center gap-2">
             <a
-              href="http://localhost:3001/api/v2/users/search?keyword=react"
+              href="/api/v2/users/search?keyword=react"
               target="_blank"
               rel="noreferrer"
               className={getButtonStyles("secondary") + " no-underline"}

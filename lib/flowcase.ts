@@ -194,10 +194,27 @@ export type FlowcaseSearchFilters = {
   offset?: number;
 };
 
-const DEFAULT_BASE_URL = "http://localhost:3001";
+async function getBaseUrl() {
+  if (process.env.FLOWCASE_API_BASE_URL) {
+    return process.env.FLOWCASE_API_BASE_URL;
+  }
 
-function getBaseUrl() {
-  return process.env.FLOWCASE_API_BASE_URL ?? DEFAULT_BASE_URL;
+  if (typeof window !== "undefined") {
+    return "";
+  }
+
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+
+  if (!host) {
+    return "http://127.0.0.1:3000";
+  }
+
+  const protocol =
+    requestHeaders.get("x-forwarded-proto") ??
+    (host.includes("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
+
+  return `${protocol}://${host}`;
 }
 
 function appendList(searchParams: URLSearchParams, key: string, values?: string[]) {
@@ -229,7 +246,8 @@ function buildSearchParams(filters: FlowcaseSearchFilters = {}) {
 }
 
 async function flowcaseFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${getBaseUrl()}${path}`, {
+  const baseUrl = await getBaseUrl();
+  const response = await fetch(`${baseUrl}${path}`, {
     ...init,
     headers: {
       Accept: "application/json",
@@ -303,3 +321,4 @@ export function getTopKeywords(cv: FlowcaseCv, limit = 8) {
 export function getStrongestCategory(cv: FlowcaseCv) {
   return [...cv.category_scores].sort((left, right) => right.score - left.score)[0] ?? null;
 }
+import { headers } from "next/headers";
