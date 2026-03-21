@@ -78,6 +78,7 @@ export type RadarConsultantOption = {
   city: string;
   department: string;
   roleTags: string[];
+  inProject: boolean;
   searchValue: string;
 };
 
@@ -176,6 +177,7 @@ export function buildConsultantOption(consultant: FlowcaseUserSummary): RadarCon
     city: consultant.city,
     department: consultant.department ?? "",
     roleTags: consultant.role_tags ?? [],
+    inProject: consultant.in_project,
     searchValue: `${consultant.name} (${hint})`,
   };
 }

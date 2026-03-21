@@ -61,6 +61,13 @@
       "seniority": "senior-consultant",
       "experience_years": 9,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "Storebrand",
+        "project_name": "Design system refresh",
+        "start_date": "2026-01-06T00:00:00.000Z",
+        "end_date": null
+      },
       "created_at": "2022-02-14T08:00:00.000Z",
       "updated_at": "2026-03-16T09:30:00.000Z",
       "image": {
@@ -93,6 +100,8 @@
       "seniority": "consultant",
       "experience_years": 4,
       "deactivated": false,
+      "in_project": false,
+      "current_project": null,
       "created_at": "2023-05-11T08:00:00.000Z",
       "updated_at": "2026-01-28T10:10:00.000Z",
       "image": {
@@ -128,6 +137,13 @@
       "seniority": "senior-consultant",
       "experience_years": 8,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "Entur",
+        "project_name": "Accessible booking flow",
+        "start_date": "2025-11-03T00:00:00.000Z",
+        "end_date": "2026-06-30T00:00:00.000Z"
+      },
       "created_at": "2021-10-04T08:00:00.000Z",
       "updated_at": "2025-11-12T16:20:00.000Z",
       "image": {
@@ -160,6 +176,13 @@
       "seniority": "consultant",
       "experience_years": 5,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "NAV",
+        "project_name": "Frontend platform uplift",
+        "start_date": "2025-12-01T00:00:00.000Z",
+        "end_date": null
+      },
       "created_at": "2023-02-06T08:00:00.000Z",
       "updated_at": "2026-02-21T12:05:00.000Z",
       "image": {
@@ -194,6 +217,8 @@
       "seniority": "senior-consultant",
       "experience_years": 9,
       "deactivated": false,
+      "in_project": false,
+      "current_project": null,
       "created_at": "2020-08-17T08:00:00.000Z",
       "updated_at": "2025-12-03T13:15:00.000Z",
       "image": {
@@ -226,6 +251,13 @@
       "seniority": "consultant",
       "experience_years": 4,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "SpareBank 1",
+        "project_name": "Quality and regression suite",
+        "start_date": "2026-02-10T00:00:00.000Z",
+        "end_date": "2026-10-31T00:00:00.000Z"
+      },
       "created_at": "2023-07-03T08:00:00.000Z",
       "updated_at": "2026-03-08T14:00:00.000Z",
       "image": {
@@ -261,6 +293,8 @@
       "seniority": "senior-consultant",
       "experience_years": 10,
       "deactivated": false,
+      "in_project": false,
+      "current_project": null,
       "created_at": "2019-11-25T08:00:00.000Z",
       "updated_at": "2026-02-01T15:10:00.000Z",
       "image": {
@@ -293,6 +327,13 @@
       "seniority": "consultant",
       "experience_years": 5,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "Statnett",
+        "project_name": "Cloud observability dashboard",
+        "start_date": "2026-01-20T00:00:00.000Z",
+        "end_date": null
+      },
       "created_at": "2022-09-19T08:00:00.000Z",
       "updated_at": "2025-10-19T16:05:00.000Z",
       "image": {
@@ -327,6 +368,8 @@
       "seniority": "consultant",
       "experience_years": 6,
       "deactivated": false,
+      "in_project": false,
+      "current_project": null,
       "created_at": "2022-04-21T08:00:00.000Z",
       "updated_at": "2026-03-02T11:25:00.000Z",
       "image": {
@@ -359,6 +402,13 @@
       "seniority": "consultant",
       "experience_years": 3,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "Vy",
+        "project_name": "Self-service portal",
+        "start_date": "2026-02-02T00:00:00.000Z",
+        "end_date": "2026-08-15T00:00:00.000Z"
+      },
       "created_at": "2024-01-15T08:00:00.000Z",
       "updated_at": "2025-12-28T10:40:00.000Z",
       "image": {
@@ -393,6 +443,8 @@
       "seniority": "senior-consultant",
       "experience_years": 11,
       "deactivated": false,
+      "in_project": false,
+      "current_project": null,
       "created_at": "2018-06-11T08:00:00.000Z",
       "updated_at": "2025-11-05T09:20:00.000Z",
       "image": {
@@ -425,6 +477,13 @@
       "seniority": "consultant",
       "experience_years": 6,
       "deactivated": false,
+      "in_project": true,
+      "current_project": {
+        "customer_name": "Telenor",
+        "project_name": "Developer portal modernization",
+        "start_date": "2026-01-13T00:00:00.000Z",
+        "end_date": "2026-12-19T00:00:00.000Z"
+      },
       "created_at": "2021-12-07T08:00:00.000Z",
       "updated_at": "2026-01-10T14:45:00.000Z",
       "image": {

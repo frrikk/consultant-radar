@@ -20,6 +20,13 @@
     "language_code": "no",
     "created_at": "2022-02-14T08:00:00.000Z",
     "updated_at": "2026-03-16T09:30:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "Storebrand",
+      "project_name": "Design system refresh",
+      "start_date": "2026-01-06T00:00:00.000Z",
+      "end_date": null
+    },
     "extra_roles": ["cv_editor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80"
@@ -68,6 +75,8 @@
     "language_code": "int",
     "created_at": "2023-05-11T08:00:00.000Z",
     "updated_at": "2026-01-28T10:10:00.000Z",
+    "in_project": false,
+    "current_project": null,
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80"
@@ -116,6 +125,13 @@
     "language_code": "no",
     "created_at": "2021-10-04T08:00:00.000Z",
     "updated_at": "2025-11-12T16:20:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "Entur",
+      "project_name": "Accessible booking flow",
+      "start_date": "2025-11-03T00:00:00.000Z",
+      "end_date": "2026-06-30T00:00:00.000Z"
+    },
     "extra_roles": ["proposal_contributor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=80"
@@ -164,6 +180,13 @@
     "language_code": "int",
     "created_at": "2023-02-06T08:00:00.000Z",
     "updated_at": "2026-02-21T12:05:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "NAV",
+      "project_name": "Frontend platform uplift",
+      "start_date": "2025-12-01T00:00:00.000Z",
+      "end_date": null
+    },
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80"
@@ -212,6 +235,8 @@
     "language_code": "no",
     "created_at": "2020-08-17T08:00:00.000Z",
     "updated_at": "2025-12-03T13:15:00.000Z",
+    "in_project": false,
+    "current_project": null,
     "extra_roles": ["cv_editor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=240&q=80"
@@ -260,6 +285,13 @@
     "language_code": "int",
     "created_at": "2023-07-03T08:00:00.000Z",
     "updated_at": "2026-03-08T14:00:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "SpareBank 1",
+      "project_name": "Quality and regression suite",
+      "start_date": "2026-02-10T00:00:00.000Z",
+      "end_date": "2026-10-31T00:00:00.000Z"
+    },
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?auto=format&fit=crop&w=240&q=80"
@@ -308,6 +340,8 @@
     "language_code": "no",
     "created_at": "2019-11-25T08:00:00.000Z",
     "updated_at": "2026-02-01T15:10:00.000Z",
+    "in_project": false,
+    "current_project": null,
     "extra_roles": ["proposal_contributor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=240&q=80"
@@ -356,6 +390,13 @@
     "language_code": "int",
     "created_at": "2022-09-19T08:00:00.000Z",
     "updated_at": "2025-10-19T16:05:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "Statnett",
+      "project_name": "Cloud observability dashboard",
+      "start_date": "2026-01-20T00:00:00.000Z",
+      "end_date": null
+    },
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=240&q=80"
@@ -404,6 +445,8 @@
     "language_code": "no",
     "created_at": "2022-04-21T08:00:00.000Z",
     "updated_at": "2026-03-02T11:25:00.000Z",
+    "in_project": false,
+    "current_project": null,
     "extra_roles": ["proposal_contributor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?auto=format&fit=crop&w=240&q=80"
@@ -452,6 +495,13 @@
     "language_code": "int",
     "created_at": "2024-01-15T08:00:00.000Z",
     "updated_at": "2025-12-28T10:40:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "Vy",
+      "project_name": "Self-service portal",
+      "start_date": "2026-02-02T00:00:00.000Z",
+      "end_date": "2026-08-15T00:00:00.000Z"
+    },
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=240&q=80"
@@ -500,6 +550,8 @@
     "language_code": "no",
     "created_at": "2018-06-11T08:00:00.000Z",
     "updated_at": "2025-11-05T09:20:00.000Z",
+    "in_project": false,
+    "current_project": null,
     "extra_roles": ["cv_editor"],
     "image": {
       "url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=240&q=80"
@@ -548,6 +600,13 @@
     "language_code": "int",
     "created_at": "2021-12-07T08:00:00.000Z",
     "updated_at": "2026-01-10T14:45:00.000Z",
+    "in_project": true,
+    "current_project": {
+      "customer_name": "Telenor",
+      "project_name": "Developer portal modernization",
+      "start_date": "2026-01-13T00:00:00.000Z",
+      "end_date": "2026-12-19T00:00:00.000Z"
+    },
     "extra_roles": [],
     "image": {
       "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80"

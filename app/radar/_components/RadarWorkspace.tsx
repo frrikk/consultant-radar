@@ -25,6 +25,7 @@ type ConsultantOption = {
   city: string;
   department: string;
   roleTags: string[];
+  inProject: boolean;
   searchValue: string;
 };
 
