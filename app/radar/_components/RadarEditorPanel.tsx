@@ -429,15 +429,17 @@ export function RadarEditorPanel({
                         : "cursor-pointer"
                     }`}
                   >
-                    <span className="min-w-0 flex-1">
+                    <span className="flex min-h-full min-w-0 flex-1 flex-col justify-between gap-3 self-stretch">
                       <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
-                      <span className="mt-2 flex flex-wrap gap-1.5">
-                        <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                      </span>
-                      <span className="mt-1.5 flex flex-wrap gap-1.5">
-                        {consultant.roleTags.map((role) => (
-                          <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
-                        ))}
+                      <span className="flex flex-col gap-1.5">
+                        <span className="flex flex-wrap gap-1.5">
+                          <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
+                        </span>
+                        <span className="flex flex-wrap gap-1.5">
+                          {consultant.roleTags.map((role) => (
+                            <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
+                          ))}
+                        </span>
                       </span>
                     </span>
                     <span className="flex min-h-full w-[7.25rem] shrink-0 flex-col items-end justify-between gap-3 self-stretch">
