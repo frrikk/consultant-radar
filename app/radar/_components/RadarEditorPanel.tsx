@@ -110,7 +110,7 @@ function getUpdateTone(updatedAt: string) {
   };
 }
 
-function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; selected?: boolean }) {
+function UpdateDatePill({ updatedAt }: { updatedAt: string }) {
   const tone = getUpdateTone(updatedAt);
   const t = getT();
 
@@ -118,16 +118,9 @@ function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; se
     <Tooltip>
       <TooltipTrigger
         type="button"
-        className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${tone.pill} ${
-          selected
-            ? "bg-muted ring-1 ring-[#021e57]/14 dark:bg-muted dark:ring-white/14"
-            : "bg-muted"
-        }`}
+        className={`inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] ${tone.pill}`}
       >
-        <FileTextIcon
-          className={`size-3 ${tone.icon} ${selected ? "dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.55)]" : ""}`}
-          strokeWidth={2.35}
-        />
+        <FileTextIcon className={`size-3 ${tone.icon}`} strokeWidth={2.35} />
         {formatLocaleShortDate(updatedAt)}
       </TooltipTrigger>
       <TooltipContent>
@@ -137,32 +130,22 @@ function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; se
   );
 }
 
-function MetaPill({ icon, label, selected = false }: { icon?: ReactNode; label: string; selected?: boolean }) {
+function MetaPill({ icon, label }: { icon?: ReactNode; label: string }) {
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
-        selected
-          ? "bg-muted text-[#021e57] ring-1 ring-[#021e57]/14 dark:bg-muted dark:text-[#eff3ff] dark:ring-white/14"
-          : "bg-muted text-foreground"
-      }`}
-    >
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] text-foreground">
       {icon}
       {label}
     </span>
   );
 }
 
-function ProjectStatusPill({ inProject, label, selected = false }: { inProject: boolean; label: string; selected?: boolean }) {
+function ProjectStatusPill({ inProject, label }: { inProject: boolean; label: string }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
         inProject
-          ? selected
-            ? "bg-amber-500/12 text-amber-900 ring-1 ring-amber-500/20 dark:bg-amber-400/16 dark:text-amber-100 dark:ring-amber-200/16"
-            : "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
-          : selected
-            ? "bg-emerald-500/12 text-emerald-900 ring-1 ring-emerald-500/20 dark:bg-emerald-400/16 dark:text-emerald-100 dark:ring-emerald-200/16"
-            : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
+          ? "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
+          : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
       }`}
     >
       <span
@@ -644,10 +627,10 @@ export function RadarEditorPanel({
                           handleToggleSelected(consultant.value);
                         }
                       }}
-                      className={`animate-selection-card-in flex min-h-[5.75rem] w-full items-stretch justify-between gap-2 rounded-[12px] border px-2.5 py-2 text-left transition-colors ${
+                      className={`animate-selection-card-in flex min-h-[5.75rem] w-full items-stretch justify-between gap-2 rounded-[12px] border-2 px-2.5 py-2 text-left transition-colors ${
                         selected
-                          ? "border-[#021e57]/35 bg-[#021e57]/8 dark:border-[#839df9]/35 dark:bg-[#12306f]/35"
-                          : "border-border bg-muted/35 hover:border-accent hover:bg-muted/55"
+                          ? "border-[#021e57]/40 bg-[#021e57]/10 dark:border-white/24 dark:bg-white/10"
+                          : "border-transparent bg-muted/35 hover:border-accent/60 hover:bg-muted/55"
                       } ${
                         disabled
                           ? "cursor-not-allowed opacity-40"
@@ -660,26 +643,25 @@ export function RadarEditorPanel({
                           <span className="block">
                             <ProjectStatusPill
                               inProject={consultant.inProject}
-                              selected={selected}
                               label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
                             />
                           </span>
                         </span>
                         <span className="space-y-1.5 pt-1">
                           <span className="flex flex-wrap gap-1">
-                            <MetaPill selected={selected} icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                            <MetaPill selected={selected} icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
+                            <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
+                            <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
                           </span>
                           <span className="flex flex-wrap gap-1">
                             {consultant.roleTags.map((role) => (
-                              <MetaPill selected={selected} key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
+                              <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
                             ))}
                           </span>
                         </span>
                       </span>
                       <div className="flex min-h-full w-[5.25rem] shrink-0 self-stretch flex-col items-end justify-between">
                         {cvsByUserId[consultant.value] ? (
-                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} selected={selected} />
+                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} />
                         ) : null}
                         <span className="flex items-end justify-end">
                           <span
