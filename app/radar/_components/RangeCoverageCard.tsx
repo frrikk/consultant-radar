@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { InfoIcon } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
@@ -107,6 +108,7 @@ export function RangeCoverageCard({
 }: RangeCoverageCardProps) {
   const t = getT(locale);
   const isCoverageComplete = coverage.isFullyCovered;
+  const reduceMotion = useReducedMotion();
 
   return (
     <Card className="flex h-full min-h-0 max-h-full overflow-hidden rounded-xl border border-border bg-card shadow-none ring-0 lg:max-h-full">
@@ -144,22 +146,35 @@ export function RangeCoverageCard({
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
-                {[1, 2, 3, 4].map((size) => (
-                  <button
-                    key={size}
-                    type="button"
-                    onClick={() => onRecommendedTeamSizeChange(size as RangeTeamSize)}
-                    className={`rounded-[12px] border px-3 py-1.5 text-xs font-medium transition-colors ${
-                      recommendedTeamSize === size
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-background text-foreground hover:border-accent"
-                    }`}
-                  >
-                    {t("radar.range.recommendation.size", { count: size })}
-                  </button>
-                ))}
+              <LayoutGroup>
+              <div className="inline-flex flex-wrap gap-1 rounded-[14px] border border-border bg-muted/35 p-1">
+                {[1, 2, 3, 4].map((size) => {
+                  const active = recommendedTeamSize === size;
+
+                  return (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => onRecommendedTeamSizeChange(size as RangeTeamSize)}
+                      className={`relative rounded-[10px] px-3 py-1.5 text-xs font-medium transition-colors ${
+                        active
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:bg-background/70 hover:text-foreground"
+                      }`}
+                    >
+                      {active ? (
+                        <motion.span
+                          layoutId="team-size-active-pill"
+                          className="absolute inset-0 rounded-[10px] bg-background shadow-[0_1px_2px_rgba(15,23,42,0.08)] ring-1 ring-border"
+                          transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      ) : null}
+                      <span className="relative z-10">{t("radar.range.recommendation.size", { count: size })}</span>
+                    </button>
+                  );
+                })}
               </div>
+              </LayoutGroup>
             </div>
 
             {onApplyRecommendation ? (
@@ -167,7 +182,7 @@ export function RangeCoverageCard({
                 <button
                   type="button"
                   onClick={onApplyRecommendation}
-                  className="rounded-[12px] border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-[#021b42] dark:hover:bg-[#f6ff67] dark:hover:text-[#021b42]"
+                  className="rounded-[12px] border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[0_10px_20px_-16px_rgba(2,30,87,0.7)] transition-colors hover:bg-[#021b42] dark:hover:bg-[#f6ff67] dark:hover:text-[#021b42]"
                 >
                   {t("radar.range.recommendation.apply")}
                 </button>
@@ -176,8 +191,15 @@ export function RangeCoverageCard({
           </div>
         </div>
 
+        <AnimatePresence mode="wait" initial={false}>
         {series.length > 0 ? (
-          <>
+          <motion.div
+            key="range-series"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.16, ease: "easeOut" }}
+          >
             <div
               className={`rounded-[20px] p-4 ${
                 isCoverageComplete
@@ -198,8 +220,11 @@ export function RangeCoverageCard({
                   const covered = coverage.coveredStageIds.includes(stageId);
 
                   return (
-                    <div
+                    <motion.div
                       key={stageId}
+                      initial={reduceMotion ? false : { scaleX: 0.96, opacity: 0.85 }}
+                      animate={{ scaleX: 1, opacity: 1 }}
+                      transition={{ duration: reduceMotion ? 0.12 : 0.22, ease: "easeOut" }}
                       className={`h-3 rounded-full ${
                         covered
                           ? isCoverageComplete
@@ -208,19 +233,30 @@ export function RangeCoverageCard({
                           : "bg-border/80"
                       }`}
                       aria-hidden="true"
+                      style={{ transformOrigin: "center" }}
                     />
                   );
                 })}
               </div>
             </div>
 
-            <div className="space-y-3">
+            <LayoutGroup>
+            <motion.div layout className="relative pt-2 space-y-3">
+              <AnimatePresence initial={false} mode="popLayout">
               {series.map((consultant, index) => {
                 const left = `${consultant.startIndex * 25}%`;
                 const width = `${(consultant.endIndex - consultant.startIndex + 1) * 25}%`;
 
                 return (
-                  <div key={consultant.consultantId} className="rounded-[18px] border border-border/80 bg-background px-4 py-3">
+                  <motion.div
+                    key={consultant.consultantId}
+                    layout="position"
+                    initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -14, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 28, y: -10, scale: 0.92, filter: "blur(4px)" }}
+                    transition={{ duration: reduceMotion ? 0.12 : 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    className="rounded-[18px] border border-border/80 bg-background px-4 py-3"
+                  >
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
                         <div className="flex items-center gap-1.5">
@@ -255,9 +291,12 @@ export function RangeCoverageCard({
                             />
                           ))}
                         </div>
-                        <div
+                        <motion.div
                           className="absolute bottom-1.5 top-1.5 rounded-[10px] shadow-[inset_0_-1px_0_rgba(255,255,255,0.22)]"
-                          style={{ left, width, backgroundColor: palette[index % palette.length] }}
+                          initial={reduceMotion ? false : { opacity: 0.7, scaleX: 0.92 }}
+                          animate={{ opacity: 1, scaleX: 1 }}
+                          transition={{ duration: reduceMotion ? 0.12 : 0.26, ease: [0.22, 1, 0.36, 1] }}
+                          style={{ left, width, backgroundColor: palette[index % palette.length], transformOrigin: "left center" }}
                         />
                       </div>
 
@@ -269,13 +308,22 @@ export function RangeCoverageCard({
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
-          </>
+              </AnimatePresence>
+            </motion.div>
+            </LayoutGroup>
+          </motion.div>
         ) : (
-          <div className="flex h-[min(58vh,680px)] min-h-[320px] flex-col items-center justify-center gap-3 rounded-[18px] border border-dashed border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground sm:h-[min(60vh,720px)] sm:min-h-[380px] lg:h-[min(64vh,760px)] xl:h-[min(64vh,760px)]">
+          <motion.div
+            key="range-empty"
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.16, ease: "easeOut" }}
+            className="flex h-[min(58vh,680px)] min-h-[320px] flex-col items-center justify-center gap-3 rounded-[18px] border border-dashed border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground sm:h-[min(60vh,720px)] sm:min-h-[380px] lg:h-[min(64vh,760px)] xl:h-[min(64vh,760px)]"
+          >
             <p>{t("radar.range.empty")}</p>
             {onEmptyAddFirst ? (
               <button
@@ -286,8 +334,9 @@ export function RangeCoverageCard({
                 {t("radar.chart.addFirst")}
               </button>
             ) : null}
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </CardContent>
 
       <CardFooter className="flex-col items-start gap-1 border-t border-border bg-card px-6 py-2 text-sm text-muted-foreground">
