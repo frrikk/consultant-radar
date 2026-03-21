@@ -6,7 +6,6 @@ import { getCv, getTechnologyCategories, searchUsers } from "@/lib/flowcase";
 import { RadarWorkspace } from "./radar/_components/RadarWorkspace";
 import {
   RADAR_STATISTIC,
-  buildRadarFieldCatalog,
   buildConsultantOption,
   buildConsultantSearchIndex,
   firstValue,
@@ -96,14 +95,12 @@ export default async function Home({ searchParams }: PageProps) {
     );
   }
   const cvsByUserId = Object.fromEntries(allConsultantCvs.map((entry) => [entry.user_id, entry]));
-  const fieldCatalog = buildRadarFieldCatalog(categories, allConsultantCvs);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="mx-auto flex w-full max-w-[1520px] flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
-        <header className="flex items-center justify-between gap-4 rounded-[20px] border border-border bg-card px-4 py-3">
+      <section className="mx-auto flex w-full max-w-[1760px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-5 lg:py-4">
+        <header className="flex items-center justify-between gap-3 rounded-[20px] border border-border bg-card px-4 py-3">
           <div className="flex items-center gap-2">
-            <Badge className="border-border bg-muted text-foreground hover:bg-muted">{t("radar.page.badge")}</Badge>
             <h1 className="text-lg font-semibold tracking-tight">{t("radar.page.title")}</h1>
           </div>
 
@@ -112,7 +109,7 @@ export default async function Home({ searchParams }: PageProps) {
               href="/api/v2/users/search?keyword=react"
               target="_blank"
               rel="noreferrer"
-              className={getButtonStyles("secondary") + " no-underline"}
+              className={getButtonStyles("secondary") + " min-h-9 px-3 py-1.5 text-xs no-underline"}
             >
               {t("radar.page.openApi")}
             </a>
@@ -125,7 +122,6 @@ export default async function Home({ searchParams }: PageProps) {
           consultantOptions={consultantOptions}
           cvsByUserId={cvsByUserId}
           categories={categories}
-          fieldCatalog={fieldCatalog}
           initialStatistic={statistic}
           initialSelectedIds={effectiveSelectedIds}
         />

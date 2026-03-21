@@ -4,8 +4,6 @@ import { translateConsultantTitle } from "@/lib/i18n";
 export const RADAR_STATISTIC = "category-score" as const;
 
 export type RadarStatistic = typeof RADAR_STATISTIC;
-export type RadarConfigMode = "standard" | "custom";
-export type RadarFieldSource = "category" | "skill";
 export type RadarPresetId = "default" | "frontend-core" | "ux-accessibility" | "platform";
 
 export type RadarAxisDatum = {
@@ -49,15 +47,12 @@ export type RadarFieldOption = {
   id: string;
   label: string;
   description: string;
-  sourceType: RadarFieldSource;
   categorySlug: string;
-  skillSlug?: string;
-  searchValue: string;
 };
 
 export type RadarPresetOption = {
   id: RadarPresetId;
-  fieldIds: string[];
+  fields: RadarFieldOption[];
 };
 
 const presetCategoryMap: Record<Exclude<RadarPresetId, "default">, string[]> = {
@@ -108,14 +103,6 @@ export function listValue(value: string | string[] | undefined) {
     .filter(Boolean);
 }
 
-function getSkillValue(cv: FlowcaseCv, skillSlug: string) {
-  return (
-    cv.technologies
-      .flatMap((group) => group.technology_skills)
-      .find((skill) => skill.slug === skillSlug)?.proficiency ?? 0
-  );
-}
-
 export function buildRadarData(
   _statistic: RadarStatistic,
   cv: FlowcaseCv,
@@ -123,10 +110,7 @@ export function buildRadarData(
   fields: RadarFieldOption[],
 ): RadarAxisDatum[] {
   return fields.map((field) => {
-    const value =
-      field.sourceType === "category"
-        ? cv.category_scores.find((score) => score.category_slug === field.categorySlug)?.score ?? 0
-        : getSkillValue(cv, field.skillSlug ?? "");
+    const value = cv.category_scores.find((score) => score.category_slug === field.categorySlug)?.score ?? 0;
 
     return {
       category: field.id,
@@ -163,83 +147,35 @@ export function buildConsultantSearchIndex(consultant: FlowcaseUserSummary) {
     .toLowerCase();
 }
 
-export function buildRadarFieldCatalog(
-  categories: FlowcaseTechnologyCategory[],
-  cvs: FlowcaseCv[],
-): RadarFieldOption[] {
-  const categoryFields = categories.map((category) => ({
+function buildCategoryFields(categories: FlowcaseTechnologyCategory[]): RadarFieldOption[] {
+  return categories.map((category) => ({
     id: `category:${category.slug}`,
     label: category.values.no,
     description: category.values.no,
-    sourceType: "category" as const,
     categorySlug: category.slug,
-    searchValue: `${category.values.no} ${category.slug}`.toLowerCase(),
   }));
-
-  const skillsBySlug = new Map<string, RadarFieldOption>();
-
-  cvs.forEach((cv) => {
-    cv.technologies.forEach((group) => {
-      group.technology_skills.forEach((skill) => {
-        if (skillsBySlug.has(skill.slug)) {
-          return;
-        }
-
-        skillsBySlug.set(skill.slug, {
-          id: `skill:${skill.slug}`,
-          label: skill.name.no,
-          description: group.category.values.no,
-          sourceType: "skill",
-          categorySlug: group.category.slug,
-          skillSlug: skill.slug,
-          searchValue: `${skill.name.no} ${skill.slug} ${group.category.values.no}`.toLowerCase(),
-        });
-      });
-    });
-  });
-
-  return [...categoryFields, ...[...skillsBySlug.values()].sort((left, right) => left.label.localeCompare(right.label))];
 }
 
 export function buildStandardRadarPresets(categories: FlowcaseTechnologyCategory[]): RadarPresetOption[] {
-  const allCategoryFieldIds = categories.map((category) => `category:${category.slug}`);
+  const allCategoryFields = buildCategoryFields(categories);
+  const fieldsById = new Map(allCategoryFields.map((field) => [field.id, field]));
+  const toFields = (slugs: string[]) => slugs.map((slug) => fieldsById.get(`category:${slug}`)).filter((field): field is RadarFieldOption => Boolean(field));
 
   return [
-    { id: "default", fieldIds: allCategoryFieldIds },
+    { id: "default", fields: allCategoryFields },
     {
       id: "frontend-core",
-      fieldIds: presetCategoryMap["frontend-core"].map((slug) => `category:${slug}`),
+      fields: toFields(presetCategoryMap["frontend-core"]),
     },
     {
       id: "ux-accessibility",
-      fieldIds: presetCategoryMap["ux-accessibility"].map((slug) => `category:${slug}`),
+      fields: toFields(presetCategoryMap["ux-accessibility"]),
     },
     {
       id: "platform",
-      fieldIds: presetCategoryMap.platform.map((slug) => `category:${slug}`),
+      fields: toFields(presetCategoryMap.platform),
     },
   ];
-}
-
-export function resolveRadarFields(
-  mode: RadarConfigMode,
-  presetId: RadarPresetId,
-  customFieldIds: string[],
-  catalog: RadarFieldOption[],
-  presets: RadarPresetOption[],
-) {
-  const catalogById = new Map(catalog.map((field) => [field.id, field]));
-
-  if (mode === "standard") {
-    const preset = presets.find((item) => item.id === presetId) ?? presets[0];
-    return preset.fieldIds
-      .map((fieldId) => catalogById.get(fieldId))
-      .filter((field): field is RadarFieldOption => Boolean(field));
-  }
-
-  return customFieldIds
-    .map((fieldId) => catalogById.get(fieldId))
-    .filter((field): field is RadarFieldOption => Boolean(field));
 }
 
 export function buildRadarSeries(

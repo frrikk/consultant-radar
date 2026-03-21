@@ -22,7 +22,6 @@
     "page": {
       "emptyTitle": "Fant ingen konsulenter",
       "emptyDescription": "Start mock-API-et og kontroller at konsulentsøket matcher det seedede Flowcase-mockdatasettet.",
-      "badge": "Frontend-radar",
       "title": "Radar",
       "openApi": "Åpne mock-API",
       "resetView": "Nullstill visning",
@@ -38,11 +37,14 @@
       "selectedCount_one": "{{count}} valgt",
       "selectedCount_other": "{{count}} valgte",
       "clearFilters": "Fjern filtre",
+      "updatedAtHelp": "Datoen viser sist konsulentens CV ble oppdatert.",
       "departmentTitle": "Avdeling",
       "roleTitle": "Rolle",
       "locationTitle": "Lokasjon",
       "quickAddLabel": "Legg til konsulent",
       "quickAddPlaceholder": "F.eks. Nora, Trondheim eller senior",
+      "listCount_one": "{{count}} treff",
+      "listCount_other": "{{count}} treff",
       "addAction": "Legg til",
       "emptyCandidates": "Ingen konsulenter matcher filtrene.",
       "removeConsultant": "Fjern {{name}} fra sammenligningen",
@@ -54,15 +56,7 @@
     },
     "config": {
       "modeTitle": "Radaroppsett",
-      "standard": "Standard",
-      "custom": "Egendefinert",
       "standardTitle": "Mal",
-      "customTitle": "Felter",
-      "customPlaceholder": "Søk etter ferdighetsområder eller teknologier",
-      "removeField": "Fjern {{name}}",
-      "categoryTag": "Område",
-      "skillTag": "Ferdighet",
-      "emptyFields": "Ingen felter matcher søket.",
       "presets": {
         "default": "Alle områder",
         "frontend-core": "Frontend-kjerne",
@@ -77,7 +71,6 @@
       "footerAxes_one": "{{count}} akse",
       "footerAxes_other": "{{count}} akser",
       "empty": "Velg konsulenter for å vise radar",
-      "emptyCustom": "Legg til felter i egendefinert modus for å vise radar",
       "addFirst": "Legg til forste konsulent"
     },
     "summary": {
