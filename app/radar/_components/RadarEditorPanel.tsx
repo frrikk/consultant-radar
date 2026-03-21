@@ -22,7 +22,15 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatLocaleShortDate, getT } from "@/lib/i18n";
-import { type RadarPresetId, type RadarVisualizationMode } from "../_lib/radar";
+import {
+  EMPTY_RADAR_CONSULTANT_FILTERS,
+  PROJECT_STATUS_OPTIONS,
+  matchesConsultantFilters,
+  type RadarConsultantFilters,
+  type ProjectStatusFilter,
+  type RadarPresetId,
+  type RadarVisualizationMode,
+} from "../_lib/radar";
 import type { FlowcaseCv } from "@/lib/flowcase";
 
 type ConsultantOption = {
@@ -53,13 +61,11 @@ type RadarEditorPanelProps = {
   visualizationMode: RadarVisualizationMode;
   onVisualizationModeChange: (mode: RadarVisualizationMode) => void;
   maxSelected: number;
+  onFiltersChange?: (filters: RadarConsultantFilters) => void;
 };
 
 const DEFAULT_DEPARTMENTS = ["Digital Experience", "Software Engineering"] as const;
 const ROLE_OPTIONS = ["developer", "designer"] as const;
-const PROJECT_STATUS_OPTIONS = ["in-project", "available"] as const;
-
-type ProjectStatusFilter = (typeof PROJECT_STATUS_OPTIONS)[number];
 
 function getDepartmentAbbreviation(department: string) {
   const normalizedDepartment = department.trim().toLowerCase();
@@ -226,36 +232,6 @@ function activeFilterCount(selectedCities: string[], selectedDepartments: string
   return selectedCities.length + selectedDepartments.length + selectedRoles.length;
 }
 
-function matchesActiveFilters(
-  consultant: ConsultantOption,
-  selectedCities: string[],
-  selectedDepartments: string[],
-  selectedRoles: string[],
-  selectedProjectStatuses: ProjectStatusFilter[],
-) {
-  if (selectedCities.length > 0 && !selectedCities.includes(consultant.city)) {
-    return false;
-  }
-
-  if (selectedDepartments.length > 0 && !selectedDepartments.includes(consultant.department)) {
-    return false;
-  }
-
-  if (selectedRoles.length > 0 && !selectedRoles.every((role) => consultant.roleTags.includes(role))) {
-    return false;
-  }
-
-  if (selectedProjectStatuses.length > 0) {
-    const projectStatus = consultant.inProject ? "in-project" : "available";
-
-    if (!selectedProjectStatuses.includes(projectStatus)) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 export function RadarEditorPanel({
   consultants,
   cvsByUserId,
@@ -268,14 +244,25 @@ export function RadarEditorPanel({
   visualizationMode,
   onVisualizationModeChange,
   maxSelected,
+  onFiltersChange,
 }: RadarEditorPanelProps) {
   const t = getT();
   const [addQuery, setAddQuery] = useState("");
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  const [selectedProjectStatuses, setSelectedProjectStatuses] = useState<ProjectStatusFilter[]>([]);
+  const [selectedProjectStatuses, setSelectedProjectStatuses] = useState<RadarConsultantFilters["projectStatuses"]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const activeFilters = useMemo<RadarConsultantFilters>(
+    () => ({
+      cities: selectedCities,
+      departments: selectedDepartments,
+      roles: selectedRoles,
+      projectStatuses: selectedProjectStatuses,
+    }),
+    [selectedCities, selectedDepartments, selectedProjectStatuses, selectedRoles],
+  );
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const cityOptions = useMemo(
@@ -289,20 +276,14 @@ export function RadarEditorPanel({
 
   const filteredCandidates = useMemo(() => {
     const query = addQuery.trim().toLowerCase();
-    const pool = consultants.filter((consultant) => {
-      if (!matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles, selectedProjectStatuses)) {
-        return false;
-      }
-
-      return true;
-    });
+    const pool = consultants.filter((consultant) => matchesConsultantFilters(consultant, activeFilters));
 
     if (!query) {
       return pool;
     }
 
     return pool.filter((consultant) => consultant.searchValue.toLowerCase().includes(query));
-  }, [consultants, addQuery, selectedCities, selectedDepartments, selectedProjectStatuses, selectedRoles]);
+  }, [consultants, activeFilters, addQuery]);
   const visibleCandidates = filteredCandidates;
   const totalActiveFilters = activeFilterCount(selectedCities, selectedDepartments, selectedRoles) + selectedProjectStatuses.length;
   const presetLabel = t(`radar.config.presets.${presetId}`);
@@ -332,11 +313,15 @@ export function RadarEditorPanel({
   }
 
   function clearFilters() {
-    setSelectedCities([]);
-    setSelectedDepartments([]);
-    setSelectedRoles([]);
-    setSelectedProjectStatuses([]);
+    setSelectedCities(EMPTY_RADAR_CONSULTANT_FILTERS.cities);
+    setSelectedDepartments(EMPTY_RADAR_CONSULTANT_FILTERS.departments);
+    setSelectedRoles(EMPTY_RADAR_CONSULTANT_FILTERS.roles);
+    setSelectedProjectStatuses(EMPTY_RADAR_CONSULTANT_FILTERS.projectStatuses);
   }
+
+  useEffect(() => {
+    onFiltersChange?.(activeFilters);
+  }, [activeFilters, onFiltersChange]);
 
   useEffect(() => {
     const filteredSelectedIds = selectedIds.filter((selectedId) => {
@@ -345,13 +330,13 @@ export function RadarEditorPanel({
         return false;
       }
 
-      return matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles, selectedProjectStatuses);
+      return matchesConsultantFilters(consultant, activeFilters);
     });
 
     if (!sameIds(filteredSelectedIds, selectedIds)) {
       onSelectedIdsChange(filteredSelectedIds);
     }
-  }, [consultants, onSelectedIdsChange, selectedCities, selectedDepartments, selectedIds, selectedProjectStatuses, selectedRoles]);
+  }, [activeFilters, consultants, onSelectedIdsChange, selectedIds]);
 
   function handleAddSelected(id: string) {
     onSelectedIdsChange(uniqueIds([...selectedIds, id], maxSelected));

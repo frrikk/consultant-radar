@@ -4,6 +4,7 @@ import { translateConsultantTitle } from "@/lib/i18n";
 export const RADAR_STATISTIC = "category-score" as const;
 export const RANGE_ACTIVE_THRESHOLD = 3 as const;
 export const RANGE_STAGE_IDS = ["design", "frontend", "backend", "cloud"] as const;
+export const PROJECT_STATUS_OPTIONS = ["in-project", "available"] as const;
 
 export type RadarStatistic = typeof RADAR_STATISTIC;
 export type RadarPresetId = "default" | "frontend-core" | "ux-accessibility" | "platform";
@@ -71,6 +72,7 @@ export type RangeRecommendation = {
 };
 
 export type RangeTeamSize = 1 | 2 | 3 | 4;
+export type ProjectStatusFilter = (typeof PROJECT_STATUS_OPTIONS)[number];
 
 export type RadarConsultantOption = {
   value: string;
@@ -81,6 +83,20 @@ export type RadarConsultantOption = {
   roleTags: string[];
   inProject: boolean;
   searchValue: string;
+};
+
+export type RadarConsultantFilters = {
+  cities: string[];
+  departments: string[];
+  roles: string[];
+  projectStatuses: ProjectStatusFilter[];
+};
+
+export const EMPTY_RADAR_CONSULTANT_FILTERS: RadarConsultantFilters = {
+  cities: [],
+  departments: [],
+  roles: [],
+  projectStatuses: [],
 };
 
 export type RadarFieldOption = {
@@ -193,6 +209,33 @@ export function buildConsultantSearchIndex(consultant: FlowcaseUserSummary) {
   ]
     .join(" ")
     .toLowerCase();
+}
+
+export function matchesConsultantFilters(
+  consultant: Pick<RadarConsultantOption, "city" | "department" | "roleTags" | "inProject">,
+  filters: RadarConsultantFilters,
+) {
+  if (filters.cities.length > 0 && !filters.cities.includes(consultant.city)) {
+    return false;
+  }
+
+  if (filters.departments.length > 0 && !filters.departments.includes(consultant.department)) {
+    return false;
+  }
+
+  if (filters.roles.length > 0 && !filters.roles.every((role) => consultant.roleTags.includes(role))) {
+    return false;
+  }
+
+  if (filters.projectStatuses.length > 0) {
+    const projectStatus = consultant.inProject ? "in-project" : "available";
+
+    if (!filters.projectStatuses.includes(projectStatus)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function buildCategoryFields(categories: FlowcaseTechnologyCategory[]): RadarFieldOption[] {
