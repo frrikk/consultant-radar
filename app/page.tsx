@@ -98,10 +98,10 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="mx-auto flex w-full max-w-[1760px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-5 lg:py-4">
-        <header className="flex items-center justify-between gap-3 rounded-[20px] border border-border bg-card px-4 py-3">
+      <section className="mx-auto grid min-h-screen w-full max-w-[1760px] grid-rows-[auto_minmax(0,1fr)] gap-2 px-3 py-2 sm:px-4 lg:h-dvh lg:min-h-0 lg:overflow-hidden lg:px-4 lg:py-2.5">
+        <header className="shrink-0 flex items-center justify-between gap-2 rounded-[16px] border border-border bg-card px-3 py-1.5">
           <div className="flex items-center gap-2">
-            <h1 className="text-lg font-semibold tracking-tight">{t("radar.page.title")}</h1>
+            <h1 className="text-sm font-semibold tracking-tight">{t("radar.page.title")}</h1>
           </div>
 
           <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export default async function Home({ searchParams }: PageProps) {
               href="/api/v2/users/search?keyword=react"
               target="_blank"
               rel="noreferrer"
-              className={getButtonStyles("secondary") + " min-h-9 px-3 py-1.5 text-xs no-underline"}
+              className="inline-flex h-7 items-center justify-center rounded-[12px] border border-[#021e57]/24 bg-white px-2 text-[11px] font-medium text-[#021e57] no-underline transition-all hover:border-[#021e57]/50 hover:bg-[#f3f0ef] hover:text-[#021e57] dark:border-white/18 dark:bg-[#082455] dark:text-[#fcfaf7] dark:hover:border-white/28 dark:hover:bg-[#12306f]"
             >
               {t("radar.page.openApi")}
             </a>
@@ -117,14 +117,16 @@ export default async function Home({ searchParams }: PageProps) {
           </div>
         </header>
 
-        <RadarWorkspace
-          consultants={consultants}
-          consultantOptions={consultantOptions}
-          cvsByUserId={cvsByUserId}
-          categories={categories}
-          initialStatistic={statistic}
-          initialSelectedIds={effectiveSelectedIds}
-        />
+        <div className="min-h-0 lg:overflow-hidden">
+          <RadarWorkspace
+            consultants={consultants}
+            consultantOptions={consultantOptions}
+            cvsByUserId={cvsByUserId}
+            categories={categories}
+            initialStatistic={statistic}
+            initialSelectedIds={effectiveSelectedIds}
+          />
+        </div>
       </section>
     </main>
   );

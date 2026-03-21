@@ -31,11 +31,17 @@
       "panelBadge": "Edit radar",
       "title": "Controls",
       "statSectionTitle": "Statistic",
-      "reset": "Reset"
+      "reset": "Reset",
+      "resetHint": "Clear filters and start over from the top."
     },
     "compare": {
-      "selectedCount_one": "{{count}} selected",
-      "selectedCount_other": "{{count}} selected",
+      "selectedCount_one": "{{count}}/{{max}} selected",
+      "selectedCount_other": "{{count}}/{{max}} selected",
+      "filtersTitle": "Filters",
+      "activeFilters_one": "{{count}} active",
+      "activeFilters_other": "{{count}} active",
+      "showFilters": "Show filters",
+      "hideFilters": "Hide filters",
       "clearFilters": "Clear filters",
       "updatedAtHelp": "Date shows when the consultant CV was last updated.",
       "departmentTitle": "Department",
@@ -46,6 +52,7 @@
       "listCount_one": "{{count}} match",
       "listCount_other": "{{count}} matches",
       "addAction": "Add",
+      "emptyList": "Empty",
       "emptyCandidates": "No consultants match the filters.",
       "removeConsultant": "Remove {{name}} from comparison",
       "consultantsTitle": "Consultants",
@@ -56,7 +63,16 @@
     },
     "config": {
       "modeTitle": "Radar setup",
+      "visualizationTitle": "Visualization",
       "standardTitle": "Template",
+      "visualizations": {
+        "radar": "Radar",
+        "range": "Range"
+      },
+      "visualizationHelp": {
+        "radar": "Compare consultants across the selected capability template with overlapping radar shapes.",
+        "range": "See how the team stretches from design to cloud and whether the full span is covered."
+      },
       "presets": {
         "default": "All areas",
         "frontend-core": "Frontend core",
@@ -72,6 +88,35 @@
       "footerAxes_other": "{{count}} axes",
       "empty": "Select consultants to show the radar",
       "addFirst": "Add first consultant"
+    },
+    "range": {
+      "title": "Coverage range",
+      "description": "Compare consultants by how far they stretch from design to cloud.",
+      "selectionHint": "Range mode is optimized for teams of three or fewer consultants.",
+      "empty": "Select consultants to fill the range",
+      "strongestStage": "Strongest in {{stage}}",
+      "stages": {
+        "design": "Design",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "cloud": "Cloud"
+      },
+      "coverage": {
+        "complete": "Full range covered",
+        "incomplete": "Coverage has gaps",
+        "missing": "Missing: {{stages}}",
+        "fullSpectrum": "The selected consultants cover the full spectrum.",
+        "teamSize_one": "{{count}} consultant selected",
+        "teamSize_other": "{{count}} consultants selected"
+      },
+      "recommendation": {
+        "title": "Suggested team",
+        "description": "Best coverage with {{count}} consultants: {{names}}.",
+        "apply": "Use suggestion",
+        "unavailable": "No suitable combination found for {{count}} consultants.",
+        "size_one": "{{count}} consultant",
+        "size_other": "{{count}} consultants"
+      }
     },
     "summary": {
       "selectedStatistic": "Selected statistic",

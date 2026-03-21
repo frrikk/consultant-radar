@@ -59,17 +59,17 @@ export function RadarChartCard({ consultantSeries, officeSeries, statistic, mode
   ) satisfies ChartConfig;
 
   return (
-    <Card className="overflow-hidden rounded-[24px] border border-border bg-card shadow-none">
-      <CardHeader className="border-b border-border pb-3">
+    <Card className="flex h-full min-h-0 max-h-full overflow-hidden rounded-xl border border-border bg-card shadow-none ring-0">
+      <CardHeader className="border-b border-border px-6 py-3 pb-2">
         <div className="flex items-start justify-between gap-4">
           <div>
             <CardTitle className="text-base">{isConsultantMode ? t("radar.chart.consultantTitle") : t("radar.chart.officeTitle")}</CardTitle>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="px-2 pb-2 pt-2 sm:px-3 sm:pb-3 sm:pt-3">
+      <CardContent className="min-h-0 flex-1 overflow-y-auto px-2 pb-2 pt-2 sm:px-3 sm:pb-2.5 sm:pt-2.5">
         {series.length > 0 ? (
-          <ChartContainer config={chartConfig} className="mx-auto min-h-[500px] w-full max-w-none rounded-[18px] bg-white px-1.5 py-2 text-foreground sm:min-h-[580px] sm:px-2 sm:py-3 lg:min-h-[660px] [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[#021e57]/18 [&_.recharts-legend-wrapper]:!text-[#021e57] [&_.recharts-polar-angle-axis-tick_text]:fill-[#021e57] [&_.recharts-polar-radius-axis-tick_value]:fill-[#5c6286] dark:bg-[#082455] dark:text-white dark:[&_.recharts-polar-grid_[stroke='#ccc']]:stroke-white/16 dark:[&_.recharts-legend-wrapper]:!text-white dark:[&_.recharts-polar-angle-axis-tick_text]:fill-white/84 dark:[&_.recharts-polar-radius-axis-tick_value]:fill-white/70">
+          <ChartContainer config={chartConfig} className="mx-auto h-[min(58vh,680px)] min-h-[320px] w-full max-w-none rounded-[18px] bg-white px-1.5 py-2 text-foreground sm:h-[min(60vh,720px)] sm:min-h-[380px] sm:px-2 sm:py-3 lg:h-[min(64vh,760px)] xl:h-[min(64vh,760px)] [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-[#021e57]/18 [&_.recharts-legend-wrapper]:!text-[#021e57] [&_.recharts-polar-angle-axis-tick_text]:fill-[#021e57] [&_.recharts-polar-radius-axis-tick_value]:fill-[#5c6286] dark:bg-[#082455] dark:text-white dark:[&_.recharts-polar-grid_[stroke='#ccc']]:stroke-white/16 dark:[&_.recharts-legend-wrapper]:!text-white dark:[&_.recharts-polar-angle-axis-tick_text]:fill-white/84 dark:[&_.recharts-polar-radius-axis-tick_value]:fill-white/70">
             <RadarChart data={chartData} outerRadius="74%">
               <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" nameKey="categoryLabel" />} />
               <ChartLegend content={<ChartLegendContent className="flex-wrap gap-x-5 gap-y-2 text-sm" />} />
@@ -98,7 +98,7 @@ export function RadarChartCard({ consultantSeries, officeSeries, statistic, mode
             </RadarChart>
           </ChartContainer>
         ) : (
-          <div className="flex min-h-[520px] flex-col items-center justify-center gap-3 rounded-[18px] border border-dashed border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground sm:min-h-[600px] lg:min-h-[680px]">
+          <div className="flex h-[min(58vh,680px)] min-h-[320px] flex-col items-center justify-center gap-3 rounded-[18px] border border-dashed border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground sm:h-[min(60vh,720px)] sm:min-h-[380px] lg:h-[min(64vh,760px)] xl:h-[min(64vh,760px)]">
             <p>{t("radar.chart.empty")}</p>
             {onEmptyAddFirst ? (
               <button
@@ -112,7 +112,7 @@ export function RadarChartCard({ consultantSeries, officeSeries, statistic, mode
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex-col items-start gap-1 border-t border-border bg-card text-sm text-muted-foreground">
+      <CardFooter className="flex-col items-start gap-1 border-t border-border bg-card px-6 py-2 text-sm text-muted-foreground">
         <p>{t("radar.chart.footerAxes", { count: axisCount })}</p>
       </CardFooter>
     </Card>
