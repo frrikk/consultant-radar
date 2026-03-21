@@ -5,10 +5,15 @@ export const RADAR_STATISTIC = "category-score" as const;
 export const RANGE_ACTIVE_THRESHOLD = 3 as const;
 export const RANGE_STAGE_IDS = ["design", "frontend", "backend", "cloud"] as const;
 export const PROJECT_STATUS_OPTIONS = ["in-project", "available"] as const;
+export const RADAR_PRESET_IDS = ["default", "frontend-core", "ux-accessibility", "platform"] as const;
+export const RADAR_VISUALIZATION_MODES = ["radar", "range"] as const;
+export const RANGE_TEAM_SIZES = [1, 2, 3, 4] as const;
+export const RADAR_MAX_SELECTED = 5 as const;
+export const RANGE_MAX_SELECTED = 4 as const;
 
 export type RadarStatistic = typeof RADAR_STATISTIC;
-export type RadarPresetId = "default" | "frontend-core" | "ux-accessibility" | "platform";
-export type RadarVisualizationMode = "radar" | "range";
+export type RadarPresetId = (typeof RADAR_PRESET_IDS)[number];
+export type RadarVisualizationMode = (typeof RADAR_VISUALIZATION_MODES)[number];
 export type RangeStageId = (typeof RANGE_STAGE_IDS)[number];
 
 export type RadarAxisDatum = {
@@ -71,7 +76,7 @@ export type RangeRecommendation = {
   stageStrength: number;
 };
 
-export type RangeTeamSize = 1 | 2 | 3 | 4;
+export type RangeTeamSize = (typeof RANGE_TEAM_SIZES)[number];
 export type ProjectStatusFilter = (typeof PROJECT_STATUS_OPTIONS)[number];
 
 export type RadarConsultantOption = {
@@ -97,6 +102,22 @@ export const EMPTY_RADAR_CONSULTANT_FILTERS: RadarConsultantFilters = {
   departments: [],
   roles: [],
   projectStatuses: [],
+};
+
+export type RadarUrlState = {
+  selectedIds: string[];
+  visualizationMode: RadarVisualizationMode;
+  presetId: RadarPresetId;
+  recommendedTeamSize: RangeTeamSize;
+  filters: RadarConsultantFilters;
+};
+
+export const DEFAULT_RADAR_URL_STATE: RadarUrlState = {
+  selectedIds: [],
+  visualizationMode: "radar",
+  presetId: "frontend-core",
+  recommendedTeamSize: 3,
+  filters: EMPTY_RADAR_CONSULTANT_FILTERS,
 };
 
 export type RadarFieldOption = {
@@ -164,6 +185,95 @@ export function listValue(value: string | string[] | undefined) {
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
+}
+
+function uniqueValues<T>(values: T[]) {
+  return [...new Set(values)];
+}
+
+function filterAllowedValues<T extends string>(values: string[], allowedValues: readonly T[]) {
+  const allowed = new Set<string>(allowedValues);
+  return uniqueValues(values).filter((value): value is T => allowed.has(value));
+}
+
+function parseRangeTeamSize(value: string | string[] | undefined) {
+  const parsed = Number(firstValue(value, String(DEFAULT_RADAR_URL_STATE.recommendedTeamSize)));
+
+  return RANGE_TEAM_SIZES.includes(parsed as RangeTeamSize)
+    ? (parsed as RangeTeamSize)
+    : DEFAULT_RADAR_URL_STATE.recommendedTeamSize;
+}
+
+function normalizeSelectedIds(selectedIds: string[], maxSelected: number, consultantOptions: RadarConsultantOption[]) {
+  const validConsultantIds = new Set(consultantOptions.map((consultant) => consultant.value));
+
+  return uniqueValues(selectedIds).filter((selectedId) => validConsultantIds.has(selectedId)).slice(0, maxSelected);
+}
+
+export function parseRadarUrlState(
+  searchParams: Record<string, string | string[] | undefined>,
+  consultantOptions: RadarConsultantOption[],
+): RadarUrlState {
+  const visualizationMode = filterAllowedValues(listValue(searchParams.view), RADAR_VISUALIZATION_MODES)[0]
+    ?? DEFAULT_RADAR_URL_STATE.visualizationMode;
+  const presetId = filterAllowedValues(listValue(searchParams.preset), RADAR_PRESET_IDS)[0] ?? DEFAULT_RADAR_URL_STATE.presetId;
+  const recommendedTeamSize = parseRangeTeamSize(searchParams.team);
+  const maxSelected = visualizationMode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED;
+
+  const cityOptions = uniqueValues(consultantOptions.map((consultant) => consultant.city).filter(Boolean));
+  const departmentOptions = uniqueValues(consultantOptions.map((consultant) => consultant.department).filter(Boolean));
+  const roleOptions = uniqueValues(consultantOptions.flatMap((consultant) => consultant.roleTags));
+
+  return {
+    selectedIds: normalizeSelectedIds(listValue(searchParams.selected), maxSelected, consultantOptions),
+    visualizationMode,
+    presetId,
+    recommendedTeamSize,
+    filters: {
+      cities: filterAllowedValues(listValue(searchParams.city), cityOptions),
+      departments: filterAllowedValues(listValue(searchParams.dept), departmentOptions),
+      roles: filterAllowedValues(listValue(searchParams.role), roleOptions),
+      projectStatuses: filterAllowedValues(listValue(searchParams.status), PROJECT_STATUS_OPTIONS),
+    },
+  };
+}
+
+export function serializeRadarUrlState(state: RadarUrlState) {
+  const query = new URLSearchParams();
+
+  state.selectedIds.forEach((selectedId) => {
+    query.append("selected", selectedId);
+  });
+
+  if (state.visualizationMode !== DEFAULT_RADAR_URL_STATE.visualizationMode) {
+    query.set("view", state.visualizationMode);
+  }
+
+  if (state.visualizationMode === "radar" && state.presetId !== DEFAULT_RADAR_URL_STATE.presetId) {
+    query.set("preset", state.presetId);
+  }
+
+  if (state.visualizationMode === "range" && state.recommendedTeamSize !== DEFAULT_RADAR_URL_STATE.recommendedTeamSize) {
+    query.set("team", String(state.recommendedTeamSize));
+  }
+
+  state.filters.cities.forEach((city) => {
+    query.append("city", city);
+  });
+
+  state.filters.departments.forEach((department) => {
+    query.append("dept", department);
+  });
+
+  state.filters.roles.forEach((role) => {
+    query.append("role", role);
+  });
+
+  state.filters.projectStatuses.forEach((projectStatus) => {
+    query.append("status", projectStatus);
+  });
+
+  return query.toString();
 }
 
 export function buildRadarData(

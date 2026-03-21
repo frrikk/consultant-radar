@@ -5,11 +5,9 @@ import { getT } from "@/lib/i18n";
 import { getCv, getTechnologyCategories, searchUsers } from "@/lib/flowcase";
 import { RadarWorkspace } from "./radar/_components/RadarWorkspace";
 import {
-  RADAR_STATISTIC,
   buildConsultantOption,
   buildConsultantSearchIndex,
-  firstValue,
-  listValue,
+  parseRadarUrlState,
   type RadarStatistic,
 } from "./radar/_lib/radar";
 
@@ -20,9 +18,7 @@ type PageProps = {
 export default async function Home({ searchParams }: PageProps) {
   const t = getT();
   const resolvedSearchParams = await searchParams;
-  const statisticValue = firstValue(resolvedSearchParams.stat, RADAR_STATISTIC);
-  const statistic: RadarStatistic = statisticValue === RADAR_STATISTIC ? RADAR_STATISTIC : RADAR_STATISTIC;
-  const explicitSelectedIds = listValue(resolvedSearchParams.selected);
+  const statistic: RadarStatistic = "category-score";
 
   let usersResponse;
   let categoriesResponse;
@@ -69,7 +65,7 @@ export default async function Home({ searchParams }: PageProps) {
   const categories = categoriesResponse.data;
 
   const consultantOptions = consultants.map(buildConsultantOption);
-  const effectiveSelectedIds = explicitSelectedIds.slice(0, 5);
+  const initialUrlState = parseRadarUrlState(resolvedSearchParams, consultantOptions);
 
   let allConsultantCvs;
 
@@ -124,7 +120,7 @@ export default async function Home({ searchParams }: PageProps) {
             cvsByUserId={cvsByUserId}
             categories={categories}
             initialStatistic={statistic}
-            initialSelectedIds={effectiveSelectedIds}
+            initialUrlState={initialUrlState}
           />
         </div>
       </section>

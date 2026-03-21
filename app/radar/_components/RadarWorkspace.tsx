@@ -1,23 +1,26 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { RangeCoverageCard } from "./RangeCoverageCard";
 import { RadarChartCard } from "./RadarChartCard";
 import { RadarEditorPanel } from "./RadarEditorPanel";
 import {
+  DEFAULT_RADAR_URL_STATE,
   EMPTY_RADAR_CONSULTANT_FILTERS,
+  RADAR_MAX_SELECTED,
+  RANGE_MAX_SELECTED,
   buildBestRangeRecommendation,
   buildConsultantRangeSeries,
   buildRangeCoverageSummary,
   buildRadarSeries,
   buildStandardRadarPresets,
   matchesConsultantFilters,
+  parseRadarUrlState,
+  serializeRadarUrlState,
   type RangeRecommendation,
-  type RangeTeamSize,
   type RadarConsultantFilters,
-  type RadarPresetId,
   type RadarStatistic,
-  type RadarVisualizationMode,
+  type RadarUrlState,
 } from "../_lib/radar";
 import type { FlowcaseCv, FlowcaseTechnologyCategory, FlowcaseUserSummary } from "@/lib/flowcase";
 
@@ -38,14 +41,37 @@ type RadarWorkspaceProps = {
   cvsByUserId: Record<string, FlowcaseCv>;
   categories: FlowcaseTechnologyCategory[];
   initialStatistic: RadarStatistic;
-  initialSelectedIds: string[];
+  initialUrlState?: RadarUrlState;
 };
 
-const RADAR_MAX_SELECTED = 5;
-const RANGE_MAX_SELECTED = 4;
+const URL_STATE_EVENT = "radar-url-state-change";
 
 function uniqueIds(values: string[], limit: number) {
   return [...new Set(values)].slice(0, limit);
+}
+
+function searchParamsToRecord(searchParams: URLSearchParams) {
+  const values = new Map<string, string[]>();
+
+  searchParams.forEach((value, key) => {
+    const existing = values.get(key) ?? [];
+    existing.push(value);
+    values.set(key, existing);
+  });
+
+  return Object.fromEntries(
+    [...values.entries()].map(([key, entries]) => [key, entries.length === 1 ? entries[0] : entries]),
+  ) as Record<string, string | string[] | undefined>;
+}
+
+function subscribeToUrlChanges(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  window.addEventListener(URL_STATE_EVENT, callback);
+
+  return () => {
+    window.removeEventListener("popstate", callback);
+    window.removeEventListener(URL_STATE_EVENT, callback);
+  };
 }
 
 export function RadarWorkspace({
@@ -54,18 +80,41 @@ export function RadarWorkspace({
   cvsByUserId,
   categories,
   initialStatistic,
-  initialSelectedIds,
+  initialUrlState = DEFAULT_RADAR_URL_STATE,
 }: RadarWorkspaceProps) {
   const standardPresets = useMemo(() => buildStandardRadarPresets(categories), [categories]);
-  const [presetId, setPresetId] = useState<RadarPresetId>("frontend-core");
-  const [statistic] = useState<RadarStatistic>(initialStatistic);
-  const [visualizationMode, setVisualizationMode] = useState<RadarVisualizationMode>("radar");
-  const [recommendedTeamSize, setRecommendedTeamSize] = useState<RangeTeamSize>(3);
-  const [selectedIds, setSelectedIds] = useState<string[]>(uniqueIds([...initialSelectedIds], RADAR_MAX_SELECTED));
-  const [activeFilters, setActiveFilters] = useState<RadarConsultantFilters>(EMPTY_RADAR_CONSULTANT_FILTERS);
+  const statistic: RadarStatistic = initialStatistic;
+  const initialSearch = useMemo(() => {
+    const query = serializeRadarUrlState(initialUrlState);
+    return query ? `?${query}` : "";
+  }, [initialUrlState]);
+  const currentSearch = useSyncExternalStore(
+    subscribeToUrlChanges,
+    () => window.location.search,
+    () => initialSearch,
+  );
+  const currentUrlState = useMemo(
+    () => parseRadarUrlState(searchParamsToRecord(new URLSearchParams(currentSearch)), consultantOptions),
+    [consultantOptions, currentSearch],
+  );
+  const presetId = currentUrlState.presetId;
+  const visualizationMode = currentUrlState.visualizationMode;
+  const recommendedTeamSize = currentUrlState.recommendedTeamSize;
+  const selectedIds = useMemo(
+    () => uniqueIds([...currentUrlState.selectedIds], visualizationMode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED),
+    [currentUrlState.selectedIds, visualizationMode],
+  );
+  const activeFilters = currentUrlState.filters ?? EMPTY_RADAR_CONSULTANT_FILTERS;
   const maxSelected = visualizationMode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED;
 
-  const selectedConsultants = consultants.filter((consultant) => selectedIds.includes(consultant.user_id));
+  const consultantsById = useMemo(
+    () => new Map(consultants.map((consultant) => [consultant.user_id, consultant])),
+    [consultants],
+  );
+  const selectedConsultants = useMemo(
+    () => selectedIds.map((selectedId) => consultantsById.get(selectedId)).filter((consultant): consultant is FlowcaseUserSummary => Boolean(consultant)),
+    [consultantsById, selectedIds],
+  );
   const activeFields = useMemo(() => {
     const preset = standardPresets.find((item) => item.id === presetId) ?? standardPresets[0];
     return preset?.fields ?? [];
@@ -106,21 +155,59 @@ export function RadarWorkspace({
   );
 
   function handleSelectedIdsChange(nextIds: string[]) {
-    setSelectedIds(uniqueIds(nextIds, maxSelected));
+    updateUrlState({
+      ...currentUrlState,
+      selectedIds: uniqueIds(nextIds, maxSelected),
+    });
   }
 
-  function handleVisualizationModeChange(mode: RadarVisualizationMode) {
-    setVisualizationMode(mode);
-    setSelectedIds((current) => uniqueIds(current, mode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED));
+  function handleVisualizationModeChange(mode: RadarUrlState["visualizationMode"]) {
+    updateUrlState({
+      ...currentUrlState,
+      visualizationMode: mode,
+      selectedIds: uniqueIds(selectedIds, mode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED),
+    });
+  }
+
+  function handlePresetChange(nextPresetId: RadarUrlState["presetId"]) {
+    updateUrlState({
+      ...currentUrlState,
+      presetId: nextPresetId,
+    });
+  }
+
+  function handleRecommendedTeamSizeChange(nextRecommendedTeamSize: RadarUrlState["recommendedTeamSize"]) {
+    updateUrlState({
+      ...currentUrlState,
+      recommendedTeamSize: nextRecommendedTeamSize,
+    });
+  }
+
+  function handleFiltersChange(nextFilters: RadarConsultantFilters) {
+    updateUrlState({
+      ...currentUrlState,
+      filters: nextFilters,
+    });
   }
 
   function handleReset() {
-    setSelectedIds([]);
+    handleSelectedIdsChange([]);
   }
 
   function handleAddFirstConsultant() {
     if (consultants[0]) {
-      setSelectedIds(uniqueIds([consultants[0].user_id], maxSelected));
+      handleSelectedIdsChange([consultants[0].user_id]);
+    }
+  }
+
+  function updateUrlState(nextState: RadarUrlState) {
+    const nextQuery = serializeRadarUrlState(nextState);
+    const nextUrl = nextQuery ? `${window.location.pathname}?${nextQuery}` : window.location.pathname;
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+
+    if (nextUrl !== currentUrl) {
+      window.history.replaceState(window.history.state, "", nextUrl);
+      window.dispatchEvent(new Event(URL_STATE_EVENT));
     }
   }
 
@@ -131,15 +218,16 @@ export function RadarWorkspace({
           consultants={consultantOptions}
           cvsByUserId={cvsByUserId}
           selectedIds={selectedIds}
+          filters={activeFilters}
           onSelectedIdsChange={handleSelectedIdsChange}
           onReset={handleReset}
           presetId={presetId}
-          onPresetChange={setPresetId}
+          onPresetChange={handlePresetChange}
           presetOptions={standardPresets}
           visualizationMode={visualizationMode}
           onVisualizationModeChange={handleVisualizationModeChange}
           maxSelected={maxSelected}
-          onFiltersChange={setActiveFilters}
+          onFiltersChange={handleFiltersChange}
         />
       </aside>
 
@@ -158,7 +246,7 @@ export function RadarWorkspace({
             coverage={coverageSummary}
             recommendation={bestRecommendation}
             recommendedTeamSize={recommendedTeamSize}
-            onRecommendedTeamSizeChange={setRecommendedTeamSize}
+            onRecommendedTeamSizeChange={handleRecommendedTeamSizeChange}
             onApplyRecommendation={
               bestRecommendation ? () => handleSelectedIdsChange(bestRecommendation.consultantIds) : undefined
             }
