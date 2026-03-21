@@ -26,6 +26,11 @@
       "emptyTitle": "Fant ingen konsulenter",
       "emptyDescription": "Start mock-API-et og kontroller at konsulentsøket matcher det seedede Flowcase-mockdatasettet.",
       "title": "Radar",
+      "settings": "Innstillinger",
+      "language": "Språk",
+      "theme": "Tema",
+      "toggleTheme": "Bytt tema",
+      "api": "API",
       "openApi": "Åpne mock-API",
       "resetView": "Nullstill visning",
       "selectedLabel": "Valgte"

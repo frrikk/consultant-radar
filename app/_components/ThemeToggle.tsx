@@ -29,7 +29,7 @@ function getSnapshot() {
   return document.documentElement.classList.contains("dark") || window.localStorage.getItem(STORAGE_KEY) === "dark";
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ ariaLabel = "Toggle theme" }: { ariaLabel?: string }) {
   const dark = useSyncExternalStore(subscribe, getSnapshot, () => false);
 
   function toggleTheme() {
@@ -40,7 +40,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <Button type="button" variant="outline" size="sm" onClick={toggleTheme} aria-label="Toggle theme">
+    <Button type="button" variant="outline" size="sm" onClick={toggleTheme} aria-label={ariaLabel}>
       {dark ? <SunIcon /> : <MoonIcon />}
     </Button>
   );

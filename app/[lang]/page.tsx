@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { LocaleSelect } from "@/app/_components/LocaleSelect";
-import { ThemeToggle } from "@/app/_components/ThemeToggle";
+import { SettingsMenu } from "@/app/_components/SettingsMenu";
 import { getButtonStyles } from "@/app/_lib/button-styles";
 import { getT, isAppLocale, defaultLocale, type AppLocale } from "@/lib/i18n";
 import { getCv, getTechnologyCategories, searchUsers } from "@/lib/flowcase";
@@ -112,16 +111,7 @@ export default async function Home({ params, searchParams }: PageProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <LocaleSelect value={locale} />
-            <a
-              href="/api/v2/users/search?keyword=react"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-7 items-center justify-center rounded-[12px] border border-[#021e57]/24 bg-white px-2 text-[11px] font-medium text-[#021e57] no-underline transition-all hover:border-[#021e57]/50 hover:bg-[#f3f0ef] hover:text-[#021e57] dark:border-white/18 dark:bg-[#082455] dark:text-[#fcfaf7] dark:hover:border-white/28 dark:hover:bg-[#12306f]"
-            >
-              {t("radar.page.openApi")}
-            </a>
-            <ThemeToggle />
+            <SettingsMenu locale={locale} />
           </div>
         </header>
 

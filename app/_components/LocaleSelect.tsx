@@ -32,7 +32,7 @@ export function LocaleSelect({ value }: LocaleSelectProps) {
   return (
     <Select value={value} onValueChange={handleValueChange}>
       <SelectTrigger size="sm" className="w-[112px] rounded-[12px] bg-background text-xs">
-        <SelectValue />
+        <SelectValue>{localeLabels[value]}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         {Object.entries(localeLabels).map(([locale, label]) => (

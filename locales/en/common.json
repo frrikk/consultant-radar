@@ -26,6 +26,11 @@
       "emptyTitle": "No consultants found",
       "emptyDescription": "Start the mock API and make sure the consultant search query matches the seeded Flowcase mock dataset.",
       "title": "Radar",
+      "settings": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "toggleTheme": "Toggle theme",
+      "api": "API",
       "openApi": "Open mock API",
       "resetView": "Reset view",
       "selectedLabel": "Selected"
