@@ -37,6 +37,13 @@ export type FlowcaseDefaultCvSummary = {
   keyword_slugs: string[];
 };
 
+export type FlowcaseCurrentProject = {
+  customer_name: string;
+  project_name: string;
+  start_date: string;
+  end_date: string | null;
+};
+
 export type FlowcaseUserSummary = {
   id: string;
   user_id: string;
@@ -61,6 +68,8 @@ export type FlowcaseUserSummary = {
   seniority: string;
   experience_years: number;
   deactivated: boolean;
+  in_project: boolean;
+  current_project: FlowcaseCurrentProject | null;
   created_at: string;
   updated_at: string;
   image: {

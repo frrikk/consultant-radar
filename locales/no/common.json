@@ -45,6 +45,7 @@
       "clearFilters": "Fjern filtre",
       "updatedAtHelp": "Datoen viser sist konsulentens CV ble oppdatert.",
       "departmentTitle": "Avdeling",
+      "projectStatusTitle": "Prosjektstatus",
       "roleTitle": "Rolle",
       "locationTitle": "Lokasjon",
       "quickAddLabel": "Legg til konsulent",
@@ -56,6 +57,10 @@
       "emptyCandidates": "Ingen konsulenter matcher filtrene.",
       "removeConsultant": "Fjern {{name}} fra sammenligningen",
       "consultantsTitle": "Konsulenter",
+      "projectStatus": {
+        "in-project": "I prosjekt",
+        "available": "Ledig"
+      },
       "roles": {
         "developer": "Utvikler",
         "designer": "Designer"

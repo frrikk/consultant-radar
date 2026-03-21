@@ -6,6 +6,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  FileTextIcon,
   FunnelIcon,
   MapPinIcon,
   OrbitIcon,
@@ -31,6 +32,7 @@ type ConsultantOption = {
   city: string;
   department: string;
   roleTags: string[];
+  inProject: boolean;
   searchValue: string;
 };
 
@@ -55,6 +57,9 @@ type RadarEditorPanelProps = {
 
 const DEFAULT_DEPARTMENTS = ["Digital Experience", "Software Engineering"] as const;
 const ROLE_OPTIONS = ["developer", "designer"] as const;
+const PROJECT_STATUS_OPTIONS = ["in-project", "available"] as const;
+
+type ProjectStatusFilter = (typeof PROJECT_STATUS_OPTIONS)[number];
 
 function getDepartmentAbbreviation(department: string) {
   const normalizedDepartment = department.trim().toLowerCase();
@@ -104,12 +109,21 @@ function getUpdateTone(updatedAt: string) {
 
 function UpdateDatePill({ updatedAt }: { updatedAt: string }) {
   const tone = getUpdateTone(updatedAt);
+  const t = getT();
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] ${tone.pill}`}>
-      <span className={`size-1.5 rounded-full ${tone.dot}`} />
-      {formatLocaleShortDate(updatedAt)}
-    </span>
+    <Tooltip>
+      <TooltipTrigger
+        type="button"
+        className={`inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] ${tone.pill}`}
+      >
+        <FileTextIcon className={`size-3 ${tone.dot.replace("bg-", "text-")}`} />
+        {formatLocaleShortDate(updatedAt)}
+      </TooltipTrigger>
+      <TooltipContent>
+        <TooltipTitle>{t("radar.compare.updatedAtHelp")}</TooltipTitle>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -117,6 +131,24 @@ function MetaPill({ icon, label }: { icon?: ReactNode; label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] text-foreground">
       {icon}
+      {label}
+    </span>
+  );
+}
+
+function ProjectStatusPill({ inProject, label }: { inProject: boolean; label: string }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
+        inProject
+          ? "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
+          : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
+      }`}
+    >
+      <span
+        aria-hidden="true"
+        className={`size-1.5 rounded-full ${inProject ? "bg-amber-500 dark:bg-amber-300" : "bg-emerald-500 dark:bg-emerald-300"}`}
+      />
       {label}
     </span>
   );
@@ -179,6 +211,7 @@ function matchesActiveFilters(
   selectedCities: string[],
   selectedDepartments: string[],
   selectedRoles: string[],
+  selectedProjectStatuses: ProjectStatusFilter[],
 ) {
   if (selectedCities.length > 0 && !selectedCities.includes(consultant.city)) {
     return false;
@@ -190,6 +223,14 @@ function matchesActiveFilters(
 
   if (selectedRoles.length > 0 && !selectedRoles.every((role) => consultant.roleTags.includes(role))) {
     return false;
+  }
+
+  if (selectedProjectStatuses.length > 0) {
+    const projectStatus = consultant.inProject ? "in-project" : "available";
+
+    if (!selectedProjectStatuses.includes(projectStatus)) {
+      return false;
+    }
   }
 
   return true;
@@ -213,6 +254,7 @@ export function RadarEditorPanel({
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [selectedProjectStatuses, setSelectedProjectStatuses] = useState<ProjectStatusFilter[]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
@@ -228,7 +270,7 @@ export function RadarEditorPanel({
   const filteredCandidates = useMemo(() => {
     const query = addQuery.trim().toLowerCase();
     const pool = consultants.filter((consultant) => {
-      if (!matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles)) {
+      if (!matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles, selectedProjectStatuses)) {
         return false;
       }
 
@@ -240,9 +282,9 @@ export function RadarEditorPanel({
     }
 
     return pool.filter((consultant) => consultant.searchValue.toLowerCase().includes(query));
-  }, [consultants, addQuery, selectedCities, selectedDepartments, selectedRoles]);
+  }, [consultants, addQuery, selectedCities, selectedDepartments, selectedProjectStatuses, selectedRoles]);
   const visibleCandidates = filteredCandidates;
-  const totalActiveFilters = activeFilterCount(selectedCities, selectedDepartments, selectedRoles);
+  const totalActiveFilters = activeFilterCount(selectedCities, selectedDepartments, selectedRoles) + selectedProjectStatuses.length;
   const presetLabel = t(`radar.config.presets.${presetId}`);
 
   function toggleCity(city: string) {
@@ -263,10 +305,17 @@ export function RadarEditorPanel({
     );
   }
 
+  function toggleProjectStatus(status: ProjectStatusFilter) {
+    setSelectedProjectStatuses((current) =>
+      current.includes(status) ? current.filter((item) => item !== status) : [...current, status],
+    );
+  }
+
   function clearFilters() {
     setSelectedCities([]);
     setSelectedDepartments([]);
     setSelectedRoles([]);
+    setSelectedProjectStatuses([]);
   }
 
   useEffect(() => {
@@ -276,13 +325,13 @@ export function RadarEditorPanel({
         return false;
       }
 
-      return matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles);
+      return matchesActiveFilters(consultant, selectedCities, selectedDepartments, selectedRoles, selectedProjectStatuses);
     });
 
     if (!sameIds(filteredSelectedIds, selectedIds)) {
       onSelectedIdsChange(filteredSelectedIds);
     }
-  }, [consultants, onSelectedIdsChange, selectedCities, selectedDepartments, selectedIds, selectedRoles]);
+  }, [consultants, onSelectedIdsChange, selectedCities, selectedDepartments, selectedIds, selectedProjectStatuses, selectedRoles]);
 
   function handleAddSelected(id: string) {
     onSelectedIdsChange(uniqueIds([...selectedIds, id], maxSelected));
@@ -409,6 +458,24 @@ export function RadarEditorPanel({
                 >
                   {t("radar.compare.clearFilters")}
                 </button>
+              </div>
+
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  {t("radar.compare.projectStatusTitle")}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {PROJECT_STATUS_OPTIONS.map((status) => {
+                    return (
+                      <FilterPill
+                        key={status}
+                        active={selectedProjectStatuses.includes(status)}
+                        label={t(`radar.compare.projectStatus.${status}`)}
+                        onClick={() => toggleProjectStatus(status)}
+                      />
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="space-y-1.5">
@@ -568,8 +635,16 @@ export function RadarEditorPanel({
                       }`}
                     >
                       <span className="flex min-h-full min-w-0 flex-1 flex-col justify-between gap-2">
-                        <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
                         <span className="space-y-1">
+                          <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
+                          <span className="block">
+                            <ProjectStatusPill
+                              inProject={consultant.inProject}
+                              label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
+                            />
+                          </span>
+                        </span>
+                        <span className="space-y-1.5 pt-1">
                           <span className="flex flex-wrap gap-1">
                             <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
                             <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />

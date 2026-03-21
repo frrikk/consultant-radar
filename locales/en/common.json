@@ -45,6 +45,7 @@
       "clearFilters": "Clear filters",
       "updatedAtHelp": "Date shows when the consultant CV was last updated.",
       "departmentTitle": "Department",
+      "projectStatusTitle": "Project status",
       "roleTitle": "Role",
       "locationTitle": "Location",
       "quickAddLabel": "Add consultant",
@@ -56,6 +57,10 @@
       "emptyCandidates": "No consultants match the filters.",
       "removeConsultant": "Remove {{name}} from comparison",
       "consultantsTitle": "Consultants",
+      "projectStatus": {
+        "in-project": "In project",
+        "available": "Available"
+      },
       "roles": {
         "developer": "Developer",
         "designer": "Designer"

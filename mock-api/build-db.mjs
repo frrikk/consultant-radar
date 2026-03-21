@@ -74,6 +74,8 @@ function buildUsers(consultantProfiles) {
     seniority: profile.seniority,
     experience_years: profile.experience_years,
     deactivated: false,
+    in_project: profile.in_project,
+    current_project: profile.current_project,
     created_at: profile.created_at,
     updated_at: profile.updated_at,
     image: profile.image,
