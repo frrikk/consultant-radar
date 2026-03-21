@@ -31,11 +31,17 @@
       "panelBadge": "Rediger radar",
       "title": "Kontroller",
       "statSectionTitle": "Statistikk",
-      "reset": "Nullstill"
+      "reset": "Nullstill",
+      "resetHint": "Fjern filtre og start pa nytt fra toppen."
     },
     "compare": {
-      "selectedCount_one": "{{count}} valgt",
-      "selectedCount_other": "{{count}} valgte",
+      "selectedCount_one": "{{count}}/{{max}} valgt",
+      "selectedCount_other": "{{count}}/{{max}} valgte",
+      "filtersTitle": "Filtre",
+      "activeFilters_one": "{{count}} aktivt",
+      "activeFilters_other": "{{count}} aktive",
+      "showFilters": "Vis filtre",
+      "hideFilters": "Skjul filtre",
       "clearFilters": "Fjern filtre",
       "updatedAtHelp": "Datoen viser sist konsulentens CV ble oppdatert.",
       "departmentTitle": "Avdeling",
@@ -46,6 +52,7 @@
       "listCount_one": "{{count}} treff",
       "listCount_other": "{{count}} treff",
       "addAction": "Legg til",
+      "emptyList": "Tøm",
       "emptyCandidates": "Ingen konsulenter matcher filtrene.",
       "removeConsultant": "Fjern {{name}} fra sammenligningen",
       "consultantsTitle": "Konsulenter",
@@ -56,7 +63,16 @@
     },
     "config": {
       "modeTitle": "Radaroppsett",
+      "visualizationTitle": "Visualisering",
       "standardTitle": "Mal",
+      "visualizations": {
+        "radar": "Sammensetning",
+        "range": "Område"
+      },
+      "visualizationHelp": {
+        "radar": "Sammenlign konsulenter pa tvers av valgt kompetansemal med overlappende radardiagrammer.",
+        "range": "Se hvordan teamet strekker seg fra design til cloud, og om hele spennet er dekket."
+      },
       "presets": {
         "default": "Alle områder",
         "frontend-core": "Frontend-kjerne",
@@ -72,6 +88,35 @@
       "footerAxes_other": "{{count}} akser",
       "empty": "Velg konsulenter for å vise radar",
       "addFirst": "Legg til forste konsulent"
+    },
+    "range": {
+      "title": "Dekningsområde",
+      "description": "Sammenlign konsulenter etter hvor langt de strekker seg fra design til cloud.",
+      "selectionHint": "Områdevisningen er optimalisert for team på tre konsulenter eller færre.",
+      "empty": "Velg konsulenter for å fylle området",
+      "strongestStage": "Sterkest i {{stage}}",
+      "stages": {
+        "design": "Design",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "cloud": "Cloud"
+      },
+      "coverage": {
+        "complete": "Hele området er dekket",
+        "incomplete": "Dekningen har hull",
+        "missing": "Mangler: {{stages}}",
+        "fullSpectrum": "De valgte konsulentene dekker hele spekteret.",
+        "teamSize_one": "{{count}} konsulent valgt",
+        "teamSize_other": "{{count}} konsulenter valgt"
+      },
+      "recommendation": {
+        "title": "Anbefalt team",
+        "description": "Best dekning med {{count}} konsulenter: {{names}}.",
+        "apply": "Bruk anbefaling",
+        "unavailable": "Fant ingen passende kombinasjon for {{count}} konsulenter.",
+        "size_one": "{{count}} konsulent",
+        "size_other": "{{count}} konsulenter"
+      }
     },
     "summary": {
       "selectedStatistic": "Valgt statistikk",

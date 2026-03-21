@@ -1,14 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { BriefcaseBusinessIcon, MapPinIcon, RotateCcwIcon, SearchIcon, XIcon } from "lucide-react";
+import {
+  BriefcaseBusinessIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  FunnelIcon,
+  MapPinIcon,
+  OrbitIcon,
+  PanelTopIcon,
+  SearchIcon,
+  StretchHorizontalIcon,
+  XIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatLocaleShortDate, getT } from "@/lib/i18n";
-import { type RadarPresetId } from "../_lib/radar";
+import { type RadarPresetId, type RadarVisualizationMode } from "../_lib/radar";
 import type { FlowcaseCv } from "@/lib/flowcase";
 
 type ConsultantOption = {
@@ -35,6 +47,9 @@ type RadarEditorPanelProps = {
   presetId: RadarPresetId;
   onPresetChange: (presetId: RadarPresetId) => void;
   presetOptions: RadarPresetOption[];
+  visualizationMode: RadarVisualizationMode;
+  onVisualizationModeChange: (mode: RadarVisualizationMode) => void;
+  maxSelected: number;
 };
 
 const DEFAULT_DEPARTMENTS = ["Digital Experience", "Software Engineering"] as const;
@@ -54,8 +69,8 @@ function getDepartmentAbbreviation(department: string) {
   return department;
 }
 
-function uniqueIds(values: string[]) {
-  return [...new Set(values)].slice(0, 5);
+function uniqueIds(values: string[], limit: number) {
+  return [...new Set(values)].slice(0, limit);
 }
 
 function sameIds(left: string[], right: string[]) {
@@ -106,8 +121,31 @@ function MetaPill({ icon, label }: { icon?: ReactNode; label: string }) {
   );
 }
 
-function isAddDisabled(selectedIds: string[], consultantId: string) {
-  return selectedIds.includes(consultantId) || selectedIds.length >= 5;
+function FilterPill({
+  active,
+  label,
+  onClick,
+}: {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex w-fit items-center rounded-full border px-2 py-1 text-xs transition-colors ${
+        active ? "border-primary bg-primary/10 text-foreground" : "border-border bg-background text-foreground hover:border-accent"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function isAddDisabled(selectedIds: string[], consultantId: string, maxSelected: number) {
+  return selectedIds.includes(consultantId) || selectedIds.length >= maxSelected;
 }
 
 function SearchInput({
@@ -129,10 +167,14 @@ function SearchInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="h-10 rounded-xl border-border bg-background pl-9 text-sm"
+        className="h-11 rounded-[12px] border-border/70 bg-muted/15 pl-9 text-sm"
       />
-    </div>
-  );
+      </div>
+    );
+}
+
+function activeFilterCount(selectedCities: string[], selectedDepartments: string[], selectedRoles: string[]) {
+  return selectedCities.length + selectedDepartments.length + selectedRoles.length;
 }
 
 function matchesActiveFilters(
@@ -165,12 +207,16 @@ export function RadarEditorPanel({
   presetId,
   onPresetChange,
   presetOptions,
+  visualizationMode,
+  onVisualizationModeChange,
+  maxSelected,
 }: RadarEditorPanelProps) {
   const t = getT();
   const [addQuery, setAddQuery] = useState("");
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const cityOptions = useMemo(
@@ -198,8 +244,9 @@ export function RadarEditorPanel({
 
     return pool.filter((consultant) => consultant.searchValue.toLowerCase().includes(query));
   }, [consultants, addQuery, selectedCities, selectedDepartments, selectedRoles]);
-  const addMatches = filteredCandidates.filter((consultant) => !selectedSet.has(consultant.value)).slice(0, 5);
-  const emptySlots = Math.max(0, 5 - addMatches.length);
+  const addMatches = filteredCandidates.filter((consultant) => !selectedSet.has(consultant.value));
+  const totalActiveFilters = activeFilterCount(selectedCities, selectedDepartments, selectedRoles);
+  const presetLabel = t(`radar.config.presets.${presetId}`);
 
   function toggleCity(city: string) {
     setSelectedCities((current) =>
@@ -241,7 +288,7 @@ export function RadarEditorPanel({
   }, [consultants, onSelectedIdsChange, selectedCities, selectedDepartments, selectedIds, selectedRoles]);
 
   function handleAddSelected(id: string) {
-    onSelectedIdsChange(uniqueIds([...selectedIds, id]));
+    onSelectedIdsChange(uniqueIds([...selectedIds, id], maxSelected));
     setAddQuery("");
   }
 
@@ -251,116 +298,167 @@ export function RadarEditorPanel({
   }
 
   return (
-    <Card className="rounded-[24px] border border-border bg-card py-0 shadow-none">
-      <CardContent className="space-y-5 px-0 pt-0">
-        <section className="space-y-3 border-b border-border/70 px-4 pt-4 pb-5">
+    <Card className="flex h-full min-h-0 max-h-full rounded-xl border border-border bg-card py-0 shadow-none ring-0 overflow-hidden">
+      <CardContent className="flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden px-0 pt-0">
+        <section className="space-y-2.5 border-b border-border/70 px-3 pt-3 pb-3">
           <p className="text-sm font-semibold text-foreground">{t("radar.config.modeTitle")}</p>
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-              {t("radar.config.standardTitle")}
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {presetOptions.map((preset) => (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => onPresetChange(preset.id)}
-                  className={`rounded-md border px-2.5 py-1.5 text-sm transition-colors ${
-                    presetId === preset.id
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-background text-foreground hover:border-accent"
-                  }`}
-                >
-                  {t(`radar.config.presets.${preset.id}`)}
-                </button>
+
+          <div className="flex items-center gap-2">
+            <div className="inline-flex h-8 items-center rounded-[12px] border border-border bg-muted/30 p-0.5">
+              {([
+                { id: "radar", icon: OrbitIcon },
+                { id: "range", icon: StretchHorizontalIcon },
+              ] as const).map(({ id, icon: Icon }) => (
+                <Tooltip key={id}>
+                  <TooltipTrigger
+                    type="button"
+                    aria-label={t(`radar.config.visualizations.${id}`)}
+                    onClick={() => onVisualizationModeChange(id)}
+                    className={`flex h-7 w-7 items-center justify-center rounded-[12px] transition-colors ${
+                      visualizationMode === id
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-background hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="size-3.5" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <TooltipTitle>{t(`radar.config.visualizations.${id}`)}:</TooltipTitle>{" "}
+                    {t(`radar.config.visualizationHelp.${id}`)}
+                  </TooltipContent>
+                </Tooltip>
               ))}
             </div>
+
+            {visualizationMode === "radar" ? (
+              <Select value={presetId} onValueChange={(value) => onPresetChange(value as RadarPresetId)}>
+                <SelectTrigger size="sm" className="min-w-0 flex-1 rounded-[12px] bg-background">
+                  <PanelTopIcon className="size-3.5 text-muted-foreground" />
+                  <SelectValue>{presetLabel}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {presetOptions.map((preset) => (
+                    <SelectItem key={preset.id} value={preset.id}>
+                      {t(`radar.config.presets.${preset.id}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <p className="line-clamp-2 text-xs text-muted-foreground">{t("radar.range.selectionHint")}</p>
+            )}
           </div>
         </section>
 
-        <section className="space-y-3 px-4">
+        <section className="flex min-h-0 flex-1 flex-col space-y-3 px-3 pb-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-foreground">{t("radar.compare.consultantsTitle")}</p>
-            <Badge className="border-border bg-muted/50 text-foreground hover:bg-muted/50">
-              {t("radar.compare.selectedCount", { count: selectedIds.length })}
-            </Badge>
-          </div>
-
-          <div className="grid gap-3 border-b border-border/70 pb-4">
-            <div className="flex items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={clearFilters}
-                disabled={selectedDepartments.length === 0 && selectedCities.length === 0 && selectedRoles.length === 0}
-                className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:cursor-default disabled:opacity-40 disabled:hover:text-muted-foreground"
-              >
-                {t("radar.compare.clearFilters")}
-              </button>
-            </div>
-
-            <div className="space-y-1.5">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                {t("radar.compare.roleTitle")}
-              </p>
-              <div className="flex flex-wrap justify-start gap-1.5">
-                {ROLE_OPTIONS.map((role) => {
-                  const active = selectedRoles.includes(role);
-
-                  return (
-                     <label
-                       key={role}
-                       className="inline-flex w-fit items-center justify-start gap-2 rounded-md border border-border bg-muted/35 px-2.5 py-1.5 text-left text-sm text-foreground"
-                     >
-                      <Checkbox className="mt-0" checked={active} onCheckedChange={() => toggleRole(role)} />
-                      <span>{t(`radar.compare.roles.${role}`)}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                {t("radar.compare.departmentTitle")}
-              </p>
-              <div className="flex flex-wrap justify-start gap-1.5">
-                {departmentOptions.map((department) => {
-                  const active = selectedDepartments.includes(department);
-
-                  return (
-                     <label
-                       key={department}
-                       className="inline-flex w-fit items-center justify-start gap-2 rounded-md border border-border bg-muted/35 px-2.5 py-1.5 text-left text-sm text-foreground"
-                     >
-                      <Checkbox className="mt-0" checked={active} onCheckedChange={() => toggleDepartment(department)} />
-                      <span>{department}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                {t("radar.compare.locationTitle")}
-              </p>
-              <div className="flex flex-wrap justify-start gap-1.5">
-                {cityOptions.map((city) => {
-                  const active = selectedCities.includes(city);
-
-                  return (
-                     <label
-                       key={city}
-                       className="inline-flex w-fit items-center justify-start gap-2 rounded-md border border-border bg-muted/35 px-2.5 py-1.5 text-left text-sm text-foreground"
-                     >
-                      <Checkbox className="mt-0" checked={active} onCheckedChange={() => toggleCity(city)} />
-                      <span>{city}</span>
-                    </label>
-                  );
-                })}
-              </div>
+            <div className="flex flex-1 items-center justify-end gap-2">
+              <Badge className="border-border bg-muted/50 text-foreground hover:bg-muted/50">
+                {t("radar.compare.selectedCount", { count: selectedIds.length, max: maxSelected })}
+              </Badge>
+              {totalActiveFilters > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen(true)}
+                  className="inline-flex h-5 items-center justify-center gap-1 rounded-full border border-border bg-muted/50 px-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                >
+                  <FunnelIcon className="size-3" />
+                  {totalActiveFilters}
+                </button>
+              ) : null}
             </div>
           </div>
+
+          <details
+            className="rounded-[12px] border border-border/70 bg-muted/15"
+            open={filtersOpen}
+            onToggle={(event) => setFiltersOpen((event.currentTarget as HTMLDetailsElement).open)}
+          >
+            <summary className="flex h-11 cursor-pointer list-none items-center justify-between gap-2 px-3 text-sm font-medium text-foreground">
+              <span className="inline-flex items-center gap-2">
+                <FunnelIcon className="size-3.5 text-muted-foreground" />
+                {t("radar.compare.filtersTitle")}
+              </span>
+              <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+                <span>
+                  {filtersOpen
+                    ? t("radar.compare.hideFilters")
+                    : totalActiveFilters > 0
+                      ? t("radar.compare.activeFilters", { count: totalActiveFilters })
+                      : t("radar.compare.showFilters")}
+                </span>
+                {filtersOpen ? <ChevronUpIcon className="size-3.5" /> : <ChevronDownIcon className="size-3.5" />}
+              </span>
+            </summary>
+
+            <div className="grid gap-3 px-3 pb-3">
+              <div className="flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  disabled={totalActiveFilters === 0}
+                  className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:cursor-default disabled:opacity-40 disabled:hover:text-muted-foreground"
+                >
+                  {t("radar.compare.clearFilters")}
+                </button>
+              </div>
+
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  {t("radar.compare.roleTitle")}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {ROLE_OPTIONS.map((role) => {
+                    return (
+                      <FilterPill
+                        key={role}
+                        active={selectedRoles.includes(role)}
+                        label={t(`radar.compare.roles.${role}`)}
+                        onClick={() => toggleRole(role)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  {t("radar.compare.departmentTitle")}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {departmentOptions.map((department) => {
+                    return (
+                      <FilterPill
+                        key={department}
+                        active={selectedDepartments.includes(department)}
+                        label={department}
+                        onClick={() => toggleDepartment(department)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  {t("radar.compare.locationTitle")}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {cityOptions.map((city) => {
+                    return (
+                      <FilterPill
+                        key={city}
+                        active={selectedCities.includes(city)}
+                        label={city}
+                        onClick={() => toggleCity(city)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </details>
 
           <SearchInput
             id="add-consultant"
@@ -369,11 +467,23 @@ export function RadarEditorPanel({
             placeholder={t("radar.compare.quickAddPlaceholder")}
           />
 
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
             <span>{t("radar.compare.listCount", { count: filteredCandidates.length })}</span>
+            <div className="flex items-center justify-end">
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={onReset}
+                disabled={selectedIds.length === 0}
+                className="h-7 px-2.5 text-xs"
+              >
+                {t("radar.compare.emptyList")}
+              </Button>
+            </div>
           </div>
 
-          <div className="min-h-9 flex flex-wrap content-start gap-2">
+          <div className="min-h-7 flex flex-wrap content-start gap-1.5">
             {selectedIds.map((selectedId) => {
               const consultant = consultants.find((item) => item.value === selectedId);
               if (!consultant) {
@@ -383,7 +493,7 @@ export function RadarEditorPanel({
               return (
                 <span
                   key={consultant.value}
-                  className="animate-selection-card-in inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1.5 text-sm text-foreground"
+                  className="animate-selection-card-in inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs text-foreground"
                 >
                   <span className="font-medium">{consultant.label}</span>
                   <button
@@ -399,90 +509,75 @@ export function RadarEditorPanel({
             })}
           </div>
 
-          <div className="h-[30rem] space-y-2 overflow-y-auto pr-1 [scrollbar-gutter:stable]">
-            {addMatches.length > 0 ? (
-              <>
-                {addMatches.map((consultant) => (
-                  <div
-                    key={consultant.value}
-                    role="button"
-                   tabIndex={isAddDisabled(selectedIds, consultant.value) ? -1 : 0}
-                   aria-disabled={isAddDisabled(selectedIds, consultant.value)}
-                   onClick={() => {
-                     if (!isAddDisabled(selectedIds, consultant.value)) {
-                       handleAddSelected(consultant.value);
-                     }
-                   }}
-                   onKeyDown={(event) => {
-                     if (isAddDisabled(selectedIds, consultant.value)) {
-                       return;
-                     }
+          <div className="min-h-0 flex-1 overflow-y-auto pr-1 [scrollbar-gutter:stable]">
+            <div className="space-y-1.5">
+              {addMatches.length > 0 ? (
+                <>
+                  {addMatches.map((consultant) => (
+                    <div
+                      key={consultant.value}
+                      role="button"
+                      tabIndex={isAddDisabled(selectedIds, consultant.value, maxSelected) ? -1 : 0}
+                      aria-disabled={isAddDisabled(selectedIds, consultant.value, maxSelected)}
+                      onClick={() => {
+                        if (!isAddDisabled(selectedIds, consultant.value, maxSelected)) {
+                          handleAddSelected(consultant.value);
+                        }
+                      }}
+                      onKeyDown={(event) => {
+                        if (isAddDisabled(selectedIds, consultant.value, maxSelected)) {
+                          return;
+                        }
 
-                     if (event.key === "Enter" || event.key === " ") {
-                       event.preventDefault();
-                       handleAddSelected(consultant.value);
-                     }
-                   }}
-                    className={`animate-selection-card-in flex min-h-[6.75rem] w-full items-start justify-between gap-3 rounded-xl border border-border bg-muted/35 px-3 py-2.5 text-left transition-colors hover:border-accent hover:bg-muted/55 ${
-                      isAddDisabled(selectedIds, consultant.value)
-                        ? "cursor-not-allowed opacity-40"
-                        : "cursor-pointer"
-                    }`}
-                  >
-                    <span className="flex min-h-full min-w-0 flex-1 flex-col justify-between gap-3 self-stretch">
-                      <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
-                      <span className="flex flex-col gap-1.5">
-                        <span className="flex flex-wrap gap-1.5">
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          handleAddSelected(consultant.value);
+                        }
+                      }}
+                      className={`animate-selection-card-in flex w-full items-start justify-between gap-2 rounded-[12px] border border-border bg-muted/35 px-2.5 py-2 text-left transition-colors hover:border-accent hover:bg-muted/55 ${
+                        isAddDisabled(selectedIds, consultant.value, maxSelected)
+                          ? "cursor-not-allowed opacity-40"
+                          : "cursor-pointer"
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1 space-y-2">
+                        <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
+                        <span className="flex flex-wrap gap-1">
                           <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                        </span>
-                        <span className="flex flex-wrap gap-1.5">
+                          <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
                           {consultant.roleTags.map((role) => (
                             <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
                           ))}
                         </span>
                       </span>
-                    </span>
-                    <span className="flex min-h-full w-[7.25rem] shrink-0 flex-col items-end justify-between gap-3 self-stretch">
-                      <span className="flex items-center gap-2">
-                        {cvsByUserId[consultant.value] ? <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} /> : null}
-                        <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            handleAddSelected(consultant.value);
-                          }}
-                          disabled={isAddDisabled(selectedIds, consultant.value)}
-                          className="whitespace-nowrap rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-background disabled:cursor-not-allowed disabled:opacity-40"
-                        >
-                          {t("radar.compare.addAction")}
-                        </button>
+                      <span className="flex shrink-0 flex-col items-end gap-2">
+                        <span className="flex items-center gap-1.5">
+                          {cvsByUserId[consultant.value] ? <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} /> : null}
+                          <button
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleAddSelected(consultant.value);
+                            }}
+                            disabled={isAddDisabled(selectedIds, consultant.value, maxSelected)}
+                            className="whitespace-nowrap rounded-full bg-background px-2 py-1 text-[11px] font-medium text-foreground transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            {t("radar.compare.addAction")}
+                          </button>
+                        </span>
                       </span>
-                      <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
-                    </span>
-                  </div>
-                ))}
-                {Array.from({ length: emptySlots }).map((_, index) => (
-                  <div
-                    key={`empty-slot-${index}`}
-                    aria-hidden="true"
-                    className="flex min-h-[6.75rem] w-full rounded-xl border border-dashed border-border/60 bg-muted/10"
-                  />
-                ))}
-              </>
-            ) : (
-              <div className="flex h-full min-h-48 items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/10 px-4 text-center text-sm text-muted-foreground">
-                {t("radar.compare.emptyCandidates")}
-              </div>
-            )}
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <div className="flex h-full min-h-48 items-center justify-center rounded-[12px] border border-dashed border-border/80 bg-muted/10 px-4 text-center text-sm text-muted-foreground">
+                  {t("radar.compare.emptyCandidates")}
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
-        <div className="flex flex-wrap gap-3 px-4 pb-4 pt-1">
-          <Button type="button" variant="outline" onClick={onReset}>
-            <RotateCcwIcon />
-            {t("radar.controls.reset")}
-          </Button>
-        </div>
       </CardContent>
     </Card>
   );

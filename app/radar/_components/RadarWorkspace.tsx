@@ -1,13 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { RangeCoverageCard } from "./RangeCoverageCard";
 import { RadarChartCard } from "./RadarChartCard";
 import { RadarEditorPanel } from "./RadarEditorPanel";
 import {
+  buildBestRangeRecommendation,
+  buildConsultantRangeSeries,
+  buildRangeCoverageSummary,
   buildRadarSeries,
   buildStandardRadarPresets,
+  type RangeRecommendation,
+  type RangeTeamSize,
   type RadarPresetId,
   type RadarStatistic,
+  type RadarVisualizationMode,
 } from "../_lib/radar";
 import type { FlowcaseCv, FlowcaseTechnologyCategory, FlowcaseUserSummary } from "@/lib/flowcase";
 
@@ -30,8 +37,11 @@ type RadarWorkspaceProps = {
   initialSelectedIds: string[];
 };
 
-function uniqueIds(values: string[]) {
-  return [...new Set(values)].slice(0, 5);
+const RADAR_MAX_SELECTED = 5;
+const RANGE_MAX_SELECTED = 4;
+
+function uniqueIds(values: string[], limit: number) {
+  return [...new Set(values)].slice(0, limit);
 }
 
 export function RadarWorkspace({
@@ -43,9 +53,12 @@ export function RadarWorkspace({
   initialSelectedIds,
 }: RadarWorkspaceProps) {
   const standardPresets = useMemo(() => buildStandardRadarPresets(categories), [categories]);
-  const [presetId, setPresetId] = useState<RadarPresetId>("default");
-  const [statistic, setStatistic] = useState<RadarStatistic>(initialStatistic);
-  const [selectedIds, setSelectedIds] = useState<string[]>(uniqueIds([...initialSelectedIds]));
+  const [presetId, setPresetId] = useState<RadarPresetId>("frontend-core");
+  const [statistic] = useState<RadarStatistic>(initialStatistic);
+  const [visualizationMode, setVisualizationMode] = useState<RadarVisualizationMode>("radar");
+  const [recommendedTeamSize, setRecommendedTeamSize] = useState<RangeTeamSize>(3);
+  const [selectedIds, setSelectedIds] = useState<string[]>(uniqueIds([...initialSelectedIds], RADAR_MAX_SELECTED));
+  const maxSelected = visualizationMode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED;
 
   const selectedConsultants = consultants.filter((consultant) => selectedIds.includes(consultant.user_id));
   const activeFields = useMemo(() => {
@@ -60,42 +73,79 @@ export function RadarWorkspace({
       ),
     [activeFields, cvsByUserId, selectedConsultants, statistic],
   );
+  const rangeSeries = useMemo(
+    () => selectedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
+    [cvsByUserId, selectedConsultants],
+  );
+  const coverageSummary = useMemo(() => buildRangeCoverageSummary(rangeSeries, recommendedTeamSize), [rangeSeries, recommendedTeamSize]);
+  const allRangeSeries = useMemo(
+    () => consultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
+    [consultants, cvsByUserId],
+  );
+  const bestRecommendation = useMemo<RangeRecommendation | null>(
+    () => buildBestRangeRecommendation(allRangeSeries, recommendedTeamSize),
+    [allRangeSeries, recommendedTeamSize],
+  );
+
+  function handleSelectedIdsChange(nextIds: string[]) {
+    setSelectedIds(uniqueIds(nextIds, maxSelected));
+  }
+
+  function handleVisualizationModeChange(mode: RadarVisualizationMode) {
+    setVisualizationMode(mode);
+    setSelectedIds((current) => uniqueIds(current, mode === "range" ? RANGE_MAX_SELECTED : RADAR_MAX_SELECTED));
+  }
 
   function handleReset() {
-    setStatistic(initialStatistic);
     setSelectedIds([]);
-    setPresetId("default");
   }
 
   function handleAddFirstConsultant() {
     if (consultants[0]) {
-      setSelectedIds([consultants[0].user_id]);
+      setSelectedIds(uniqueIds([consultants[0].user_id], maxSelected));
     }
   }
 
   return (
-    <section className="grid gap-4 xl:grid-cols-[360px_minmax(0,1fr)] xl:items-start 2xl:grid-cols-[380px_minmax(0,1fr)]">
-      <aside className="order-1 flex min-w-0 flex-col gap-3">
+    <section className="grid min-h-0 gap-3 overflow-visible lg:h-[calc(100dvh-5rem)] xl:grid-cols-[360px_minmax(0,1fr)] xl:items-stretch 2xl:grid-cols-[380px_minmax(0,1fr)]">
+      <aside className="order-1 flex min-h-0 min-w-0 flex-col gap-3 lg:h-full">
         <RadarEditorPanel
           consultants={consultantOptions}
           cvsByUserId={cvsByUserId}
           selectedIds={selectedIds}
-          onSelectedIdsChange={setSelectedIds}
+          onSelectedIdsChange={handleSelectedIdsChange}
           onReset={handleReset}
           presetId={presetId}
           onPresetChange={setPresetId}
           presetOptions={standardPresets}
+          visualizationMode={visualizationMode}
+          onVisualizationModeChange={handleVisualizationModeChange}
+          maxSelected={maxSelected}
         />
       </aside>
 
-      <div className="order-2 min-w-0 xl:sticky xl:top-4 xl:self-start">
-        <RadarChartCard
-          consultantSeries={consultantSeries}
-          officeSeries={[]}
-          statistic={statistic}
-          mode="consultants"
-          onEmptyAddFirst={handleAddFirstConsultant}
-        />
+      <div className="order-2 min-h-0 min-w-0 lg:h-full xl:max-h-full xl:self-stretch">
+        {visualizationMode === "radar" ? (
+          <RadarChartCard
+            consultantSeries={consultantSeries}
+            officeSeries={[]}
+            statistic={statistic}
+            mode="consultants"
+            onEmptyAddFirst={handleAddFirstConsultant}
+          />
+        ) : (
+          <RangeCoverageCard
+            series={rangeSeries}
+            coverage={coverageSummary}
+            recommendation={bestRecommendation}
+            recommendedTeamSize={recommendedTeamSize}
+            onRecommendedTeamSizeChange={setRecommendedTeamSize}
+            onApplyRecommendation={
+              bestRecommendation ? () => handleSelectedIdsChange(bestRecommendation.consultantIds) : undefined
+            }
+            onEmptyAddFirst={handleAddFirstConsultant}
+          />
+        )}
       </div>
     </section>
   );

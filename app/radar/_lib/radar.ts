@@ -2,9 +2,13 @@ import type { FlowcaseCv, FlowcaseTechnologyCategory, FlowcaseUserSummary } from
 import { translateConsultantTitle } from "@/lib/i18n";
 
 export const RADAR_STATISTIC = "category-score" as const;
+export const RANGE_ACTIVE_THRESHOLD = 3 as const;
+export const RANGE_STAGE_IDS = ["design", "frontend", "backend", "cloud"] as const;
 
 export type RadarStatistic = typeof RADAR_STATISTIC;
 export type RadarPresetId = "default" | "frontend-core" | "ux-accessibility" | "platform";
+export type RadarVisualizationMode = "radar" | "range";
+export type RangeStageId = (typeof RANGE_STAGE_IDS)[number];
 
 export type RadarAxisDatum = {
   category: string;
@@ -32,6 +36,40 @@ export type RadarOfficeSeries = {
   consultants: number;
   data: RadarAxisDatum[];
 };
+
+export type ConsultantRangeStage = {
+  id: RangeStageId;
+  value: number;
+  active: boolean;
+};
+
+export type ConsultantRangeSeries = {
+  consultantId: string;
+  consultantName: string;
+  office: string;
+  title: string;
+  stages: ConsultantRangeStage[];
+  startIndex: number;
+  endIndex: number;
+  strongestStageId: RangeStageId;
+};
+
+export type RangeCoverageSummary = {
+  coveredStageIds: RangeStageId[];
+  missingStageIds: RangeStageId[];
+  isFullyCovered: boolean;
+  isWithinRecommendedTeamSize: boolean;
+};
+
+export type RangeRecommendation = {
+  consultantIds: string[];
+  consultantNames: string[];
+  coverage: RangeCoverageSummary;
+  teamSize: number;
+  stageStrength: number;
+};
+
+export type RangeTeamSize = 1 | 2 | 3 | 4;
 
 export type RadarConsultantOption = {
   value: string;
@@ -77,6 +115,13 @@ const presetCategoryMap: Record<Exclude<RadarPresetId, "default">, string[]> = {
     "web-development",
     "cms-content-platforms",
   ],
+};
+
+const rangeStageCategoryMap: Record<RangeStageId, string[]> = {
+  design: ["ux-interaction-frontend", "accessibility-wcag", "design-systems-components"],
+  frontend: ["web-development", "cms-content-platforms"],
+  backend: ["integrations-security-privacy", "quality-performance-maintenance"],
+  cloud: ["frontend-cloud-devops"],
 };
 
 export function firstValue(value: string | string[] | undefined, fallback = "") {
@@ -197,6 +242,142 @@ export function buildRadarSeries(
     title: translateConsultantTitle(consultant.title),
     data,
   };
+}
+
+function getCategoryScore(cv: FlowcaseCv, categorySlug: string) {
+  return cv.category_scores.find((score) => score.category_slug === categorySlug)?.score ?? 0;
+}
+
+function average(values: number[]) {
+  if (values.length === 0) {
+    return 0;
+  }
+
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+export function buildConsultantRangeSeries(consultant: FlowcaseUserSummary, cv: FlowcaseCv): ConsultantRangeSeries {
+  const stages = RANGE_STAGE_IDS.map((stageId) => {
+    const score = average(rangeStageCategoryMap[stageId].map((categorySlug) => getCategoryScore(cv, categorySlug)));
+
+    return {
+      id: stageId,
+      value: Number(score.toFixed(1)),
+      active: score >= RANGE_ACTIVE_THRESHOLD,
+    } satisfies ConsultantRangeStage;
+  });
+
+  const activeIndices = stages.flatMap((stage, index) => (stage.active ? [index] : []));
+  const strongestIndex = stages.reduce(
+    (bestIndex, stage, index, allStages) => (stage.value > allStages[bestIndex].value ? index : bestIndex),
+    0,
+  );
+  const startIndex = activeIndices[0] ?? strongestIndex;
+  const endIndex = activeIndices[activeIndices.length - 1] ?? strongestIndex;
+
+  return {
+    consultantId: consultant.user_id,
+    consultantName: consultant.name,
+    office: consultant.office_name,
+    title: translateConsultantTitle(consultant.title),
+    stages,
+    startIndex,
+    endIndex,
+    strongestStageId: stages[strongestIndex]?.id ?? "frontend",
+  };
+}
+
+export function buildRangeCoverageSummary(
+  series: ConsultantRangeSeries[],
+  maxRecommendedConsultants = 3,
+): RangeCoverageSummary {
+  const coveredIndices = new Set<number>();
+
+  series.forEach((consultant) => {
+    for (let index = consultant.startIndex; index <= consultant.endIndex; index += 1) {
+      coveredIndices.add(index);
+    }
+  });
+
+  const coveredStageIds = RANGE_STAGE_IDS.filter((_, index) => coveredIndices.has(index));
+  const missingStageIds = RANGE_STAGE_IDS.filter((_, index) => !coveredIndices.has(index));
+
+  return {
+    coveredStageIds,
+    missingStageIds,
+    isFullyCovered: missingStageIds.length === 0,
+    isWithinRecommendedTeamSize: series.length > 0 && series.length <= maxRecommendedConsultants,
+  };
+}
+
+function getRangeStageStrength(series: ConsultantRangeSeries[]) {
+  return RANGE_STAGE_IDS.reduce((sum, stageId) => {
+    const strongestValue = Math.max(...series.map((consultant) => consultant.stages.find((stage) => stage.id === stageId)?.value ?? 0), 0);
+    return sum + strongestValue;
+  }, 0);
+}
+
+function buildRangeRecommendation(series: ConsultantRangeSeries[], maxRecommendedConsultants: number): RangeRecommendation {
+  const coverage = buildRangeCoverageSummary(series, maxRecommendedConsultants);
+
+  return {
+    consultantIds: series.map((consultant) => consultant.consultantId),
+    consultantNames: series.map((consultant) => consultant.consultantName),
+    coverage,
+    teamSize: series.length,
+    stageStrength: Number(getRangeStageStrength(series).toFixed(1)),
+  };
+}
+
+function compareRangeRecommendations(left: RangeRecommendation, right: RangeRecommendation) {
+  if (left.coverage.isFullyCovered !== right.coverage.isFullyCovered) {
+    return left.coverage.isFullyCovered ? -1 : 1;
+  }
+
+  if (left.coverage.missingStageIds.length !== right.coverage.missingStageIds.length) {
+    return left.coverage.missingStageIds.length - right.coverage.missingStageIds.length;
+  }
+
+  if (left.teamSize !== right.teamSize) {
+    return left.teamSize - right.teamSize;
+  }
+
+  if (left.stageStrength !== right.stageStrength) {
+    return right.stageStrength - left.stageStrength;
+  }
+
+  return left.consultantNames.join("|").localeCompare(right.consultantNames.join("|"));
+}
+
+export function buildBestRangeRecommendation(
+  consultants: ConsultantRangeSeries[],
+  targetTeamSize: RangeTeamSize,
+): RangeRecommendation | null {
+  if (consultants.length === 0 || consultants.length < targetTeamSize) {
+    return null;
+  }
+
+  let bestRecommendation: RangeRecommendation | null = null;
+
+  function visit(startIndex: number, selection: ConsultantRangeSeries[]) {
+    if (selection.length === targetTeamSize) {
+      const candidate = buildRangeRecommendation(selection, targetTeamSize);
+      if (!bestRecommendation || compareRangeRecommendations(candidate, bestRecommendation) < 0) {
+        bestRecommendation = candidate;
+      }
+      return;
+    }
+
+    for (let index = startIndex; index < consultants.length; index += 1) {
+      selection.push(consultants[index]);
+      visit(index + 1, selection);
+      selection.pop();
+    }
+  }
+
+  visit(0, []);
+
+  return bestRecommendation;
 }
 
 export function buildOfficeAverageSeries(
