@@ -49,7 +49,7 @@ function ConsultantSkillsTooltip({
       >
         <InfoIcon
           className={`size-4.5 ${inverted ? "drop-shadow-none" : "drop-shadow-[0_1px_1px_rgba(2,30,87,0.18)]"}`}
-          strokeWidth={2.75}
+          strokeWidth={1.8}
         />
       </TooltipTrigger>
       <TooltipContent className="max-w-96 px-4 py-3">
