@@ -71,8 +71,8 @@
       "visualizationTitle": "Visualisering",
       "standardTitle": "Mal",
       "visualizations": {
-        "radar": "Ferdigheter",
-        "range": "Sammensetning"
+        "radar": "Sammensetning",
+        "range": "Område"
       },
       "visualizationHelp": {
         "radar": "Sammenlign konsulenter på tvers av valgt kompetansemal med overlappende radardiagrammer.",

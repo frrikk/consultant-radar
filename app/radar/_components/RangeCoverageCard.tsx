@@ -43,13 +43,13 @@ function ConsultantSkillsTooltip({
       <TooltipTrigger
         type="button"
         className={`rounded-[8px] p-1 transition-all hover:scale-105 ${
-          inverted ? "text-white hover:text-white" : "text-[#021e57] hover:text-[#021e57] dark:text-[#dfe8ff] dark:hover:text-white"
+          inverted ? "text-white hover:text-white" : "text-[#021e57] hover:text-[#021e57]"
         }`}
         aria-label={t("radar.range.skillsPopover.ariaLabel", { name: consultant.consultantName })}
       >
         <InfoIcon
           className={`size-4.5 ${inverted ? "drop-shadow-none" : "drop-shadow-[0_1px_1px_rgba(2,30,87,0.18)]"}`}
-          strokeWidth={2.2}
+          strokeWidth={2.75}
         />
       </TooltipTrigger>
       <TooltipContent className="max-w-96 px-4 py-3">

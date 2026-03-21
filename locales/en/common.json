@@ -71,8 +71,8 @@
       "visualizationTitle": "Visualization",
       "standardTitle": "Template",
       "visualizations": {
-        "radar": "Skills",
-        "range": "Composition"
+        "radar": "Radar",
+        "range": "Range"
       },
       "visualizationHelp": {
         "radar": "Compare consultants across the selected capability template with overlapping radar shapes.",
