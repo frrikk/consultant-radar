@@ -90,6 +90,7 @@ function getUpdateTone(updatedAt: string) {
   if (ageInDays < 30) {
     return {
       dot: "bg-emerald-500 dark:bg-emerald-400",
+      icon: "text-emerald-600 dark:text-emerald-300",
       pill: "text-emerald-700 dark:text-emerald-300",
     };
   }
@@ -97,17 +98,19 @@ function getUpdateTone(updatedAt: string) {
   if (ageInDays < 90) {
     return {
       dot: "bg-amber-500 dark:bg-amber-400",
+      icon: "text-amber-600 dark:text-amber-300",
       pill: "text-amber-700 dark:text-amber-300",
     };
   }
 
   return {
     dot: "bg-red-500 dark:bg-red-400",
+    icon: "text-red-600 dark:text-red-300",
     pill: "text-red-700 dark:text-red-300",
   };
 }
 
-function UpdateDatePill({ updatedAt }: { updatedAt: string }) {
+function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; selected?: boolean }) {
   const tone = getUpdateTone(updatedAt);
   const t = getT();
 
@@ -115,9 +118,16 @@ function UpdateDatePill({ updatedAt }: { updatedAt: string }) {
     <Tooltip>
       <TooltipTrigger
         type="button"
-        className={`inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] ${tone.pill}`}
+        className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${tone.pill} ${
+          selected
+            ? "bg-muted ring-1 ring-[#021e57]/14 dark:bg-muted dark:ring-white/14"
+            : "bg-muted"
+        }`}
       >
-        <FileTextIcon className={`size-3 ${tone.dot.replace("bg-", "text-")}`} />
+        <FileTextIcon
+          className={`size-3 ${tone.icon} ${selected ? "dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.55)]" : ""}`}
+          strokeWidth={2.35}
+        />
         {formatLocaleShortDate(updatedAt)}
       </TooltipTrigger>
       <TooltipContent>
@@ -127,22 +137,32 @@ function UpdateDatePill({ updatedAt }: { updatedAt: string }) {
   );
 }
 
-function MetaPill({ icon, label }: { icon?: ReactNode; label: string }) {
+function MetaPill({ icon, label, selected = false }: { icon?: ReactNode; label: string; selected?: boolean }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-[11px] text-foreground">
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
+        selected
+          ? "bg-muted text-[#021e57] ring-1 ring-[#021e57]/14 dark:bg-muted dark:text-[#eff3ff] dark:ring-white/14"
+          : "bg-muted text-foreground"
+      }`}
+    >
       {icon}
       {label}
     </span>
   );
 }
 
-function ProjectStatusPill({ inProject, label }: { inProject: boolean; label: string }) {
+function ProjectStatusPill({ inProject, label, selected = false }: { inProject: boolean; label: string; selected?: boolean }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
         inProject
-          ? "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
-          : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
+          ? selected
+            ? "bg-amber-500/12 text-amber-900 ring-1 ring-amber-500/20 dark:bg-amber-400/16 dark:text-amber-100 dark:ring-amber-200/16"
+            : "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
+          : selected
+            ? "bg-emerald-500/12 text-emerald-900 ring-1 ring-emerald-500/20 dark:bg-emerald-400/16 dark:text-emerald-100 dark:ring-emerald-200/16"
+            : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
       }`}
     >
       <span
@@ -640,24 +660,27 @@ export function RadarEditorPanel({
                           <span className="block">
                             <ProjectStatusPill
                               inProject={consultant.inProject}
+                              selected={selected}
                               label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
                             />
                           </span>
                         </span>
                         <span className="space-y-1.5 pt-1">
                           <span className="flex flex-wrap gap-1">
-                            <MetaPill icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                            <MetaPill icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
+                            <MetaPill selected={selected} icon={<MapPinIcon className="size-3" />} label={consultant.city} />
+                            <MetaPill selected={selected} icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
                           </span>
                           <span className="flex flex-wrap gap-1">
                             {consultant.roleTags.map((role) => (
-                              <MetaPill key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
+                              <MetaPill selected={selected} key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
                             ))}
                           </span>
                         </span>
                       </span>
                       <div className="flex min-h-full w-[5.25rem] shrink-0 self-stretch flex-col items-end justify-between">
-                        {cvsByUserId[consultant.value] ? <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} /> : null}
+                        {cvsByUserId[consultant.value] ? (
+                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} selected={selected} />
+                        ) : null}
                         <span className="flex items-end justify-end">
                           <span
                             aria-hidden="true"

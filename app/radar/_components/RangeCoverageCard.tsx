@@ -1,6 +1,8 @@
 "use client";
 
+import { InfoIcon } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
 import { getT } from "@/lib/i18n";
 import {
   RANGE_STAGE_IDS,
@@ -25,6 +27,71 @@ const palette = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--ch
 
 function stageLabel(stageId: RangeStageId, t: ReturnType<typeof getT>) {
   return t(`radar.range.stages.${stageId}`);
+}
+
+function ConsultantSkillsTooltip({
+  consultant,
+  t,
+  inverted,
+}: {
+  consultant: ConsultantRangeSeries;
+  t: ReturnType<typeof getT>;
+  inverted: boolean;
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        type="button"
+        className={`rounded-[8px] p-1 transition-all hover:scale-105 ${
+          inverted ? "text-white hover:text-white" : "text-[#021e57] hover:text-[#021e57]"
+        }`}
+        aria-label={t("radar.range.skillsPopover.ariaLabel", { name: consultant.consultantName })}
+      >
+        <InfoIcon
+          className={`size-4.5 ${inverted ? "drop-shadow-none" : "drop-shadow-[0_1px_1px_rgba(2,30,87,0.18)]"}`}
+          strokeWidth={2.75}
+        />
+      </TooltipTrigger>
+      <TooltipContent className="max-w-96 px-4 py-3">
+        <TooltipTitle>{consultant.consultantName}</TooltipTitle>
+        <p className="mt-1 text-xs normal-case tracking-normal text-muted-foreground">
+          {t("radar.range.skillsPopover.description")}
+        </p>
+        <p className="mt-1 text-xs normal-case tracking-normal text-muted-foreground">
+          {t("radar.range.skillsPopover.thresholdNote")}
+        </p>
+        <div className="mt-3 space-y-3">
+          {RANGE_STAGE_IDS.map((stageId) => {
+            const skills = consultant.stageSkills[stageId] ?? [];
+
+            return (
+              <div key={`${consultant.consultantId}-${stageId}`} className="space-y-1.5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground">
+                  {stageLabel(stageId, t)}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {skills.length > 0 ? (
+                    skills.map((skill) => (
+                      <span
+                        key={`${stageId}-${skill}`}
+                        className="rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-medium normal-case tracking-normal text-foreground"
+                      >
+                        {skill}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs normal-case tracking-normal text-muted-foreground">
+                      {t("radar.range.skillsPopover.empty")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </TooltipContent>
+    </Tooltip>
+  );
 }
 
 export function RangeCoverageCard({
@@ -151,21 +218,24 @@ export function RangeCoverageCard({
                 const width = `${(consultant.endIndex - consultant.startIndex + 1) * 25}%`;
 
                 return (
-                  <div key={consultant.consultantId} className="rounded-[20px] border border-border/80 bg-background p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div key={consultant.consultantId} className="rounded-[18px] border border-border/80 bg-background px-4 py-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
-                        <p className="text-sm font-semibold text-foreground">{consultant.consultantName}</p>
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-sm font-semibold text-foreground">{consultant.consultantName}</p>
+                          <ConsultantSkillsTooltip consultant={consultant} t={t} inverted={false} />
+                        </div>
                         <p className="text-xs text-muted-foreground">{`${consultant.title} - ${consultant.office}`}</p>
                       </div>
-                      <p className="text-xs font-medium text-muted-foreground">
+                      <div className="text-xs font-medium text-muted-foreground">
                         {t("radar.range.strongestStage", {
                           stage: stageLabel(consultant.strongestStageId, t),
                         })}
-                      </p>
+                      </div>
                     </div>
 
-                    <div className="mt-4 space-y-3">
-                      <div className="grid grid-cols-4 gap-2 text-[11px] font-medium text-muted-foreground">
+                    <div className="mt-3 space-y-2.5">
+                      <div className="grid grid-cols-4 gap-2 text-[10px] font-medium text-muted-foreground">
                         {consultant.stages.map((stage) => (
                           <div key={stage.id} className="text-center">
                             {stage.value.toFixed(1)}
@@ -173,8 +243,8 @@ export function RangeCoverageCard({
                         ))}
                       </div>
 
-                      <div className="relative h-11 rounded-[16px] bg-muted/45">
-                        <div className="absolute inset-0 grid grid-cols-4 gap-2 p-2">
+                      <div className="relative h-9 rounded-[14px] bg-muted/45">
+                        <div className="absolute inset-0 grid grid-cols-4 gap-2 p-1.5">
                           {consultant.stages.map((stage) => (
                             <div
                               key={stage.id}
@@ -184,12 +254,12 @@ export function RangeCoverageCard({
                           ))}
                         </div>
                         <div
-                          className="absolute bottom-2 top-2 rounded-[12px] shadow-[inset_0_-1px_0_rgba(255,255,255,0.22)]"
+                          className="absolute bottom-1.5 top-1.5 rounded-[10px] shadow-[inset_0_-1px_0_rgba(255,255,255,0.22)]"
                           style={{ left, width, backgroundColor: palette[index % palette.length] }}
                         />
                       </div>
 
-                      <div className="grid grid-cols-4 gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                      <div className="grid grid-cols-4 gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                         {RANGE_STAGE_IDS.map((stageId) => (
                           <div key={stageId} className="text-center">
                             {stageLabel(stageId, t)}

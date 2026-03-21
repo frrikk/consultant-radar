@@ -100,6 +100,12 @@
       "selectionHint": "Range mode is optimized for teams of three or fewer consultants.",
       "empty": "Select consultants to fill the range",
       "strongestStage": "Strongest in {{stage}}",
+      "skillsPopover": {
+        "ariaLabel": "Show skills used in the coverage calculation for {{name}}",
+        "description": "Skills from the consultant's mock profile used in the coverage calculation",
+        "thresholdNote": "The line counts as covered when the area score is above 2 (3 or higher).",
+        "empty": "No registered skills"
+      },
       "stages": {
         "design": "Design",
         "frontend": "Frontend",

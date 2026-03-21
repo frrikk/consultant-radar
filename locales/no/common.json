@@ -9,14 +9,14 @@
   },
   "statistics": {
     "category-score": {
-      "label": "Skår per ferdighetsomrade",
-      "description": "Viser skaren per ferdighetsomrade direkte fra CV-en."
+      "label": "Score per ferdighetsområde",
+      "description": "Viser score per ferdighetsområde direkte fra CV-en."
     }
   },
   "shared": {
     "years": "{{count}} år",
     "json": "JSON",
-    "score": "Skår {{value}}/5"
+    "score": "Score {{value}}/5"
   },
   "radar": {
     "page": {
@@ -32,7 +32,7 @@
       "title": "Kontroller",
       "statSectionTitle": "Statistikk",
       "reset": "Nullstill",
-      "resetHint": "Fjern filtre og start pa nytt fra toppen."
+      "resetHint": "Fjern filtre og start på nytt fra toppen."
     },
     "compare": {
       "selectedCount_one": "{{count}}/{{max}} valgt",
@@ -75,7 +75,7 @@
         "range": "Område"
       },
       "visualizationHelp": {
-        "radar": "Sammenlign konsulenter pa tvers av valgt kompetansemal med overlappende radardiagrammer.",
+        "radar": "Sammenlign konsulenter på tvers av valgt kompetansemal med overlappende radardiagrammer.",
         "range": "Se hvordan teamet strekker seg fra design til cloud, og om hele spennet er dekket."
       },
       "presets": {
@@ -92,7 +92,7 @@
       "footerAxes_one": "{{count}} akse",
       "footerAxes_other": "{{count}} akser",
       "empty": "Velg konsulenter for å vise radar",
-      "addFirst": "Legg til forste konsulent"
+        "addFirst": "Legg til første konsulent"
     },
     "range": {
       "title": "Dekningsområde",
@@ -100,6 +100,12 @@
       "selectionHint": "Områdevisningen er optimalisert for team på tre konsulenter eller færre.",
       "empty": "Velg konsulenter for å fylle området",
       "strongestStage": "Sterkest i {{stage}}",
+      "skillsPopover": {
+        "ariaLabel": "Vis ferdigheter brukt i dekningsberegningen for {{name}}",
+        "description": "Ferdigheter fra konsulentens mock-profil som brukes i dekningsberegningen",
+        "thresholdNote": "Linjen regnes som dekket når score for området er over 2 (3 eller høyere).",
+        "empty": "Ingen registrerte ferdigheter"
+      },
       "stages": {
         "design": "Design",
         "frontend": "Frontend",

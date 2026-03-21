@@ -49,6 +49,7 @@ export type ConsultantRangeSeries = {
   office: string;
   title: string;
   stages: ConsultantRangeStage[];
+  stageSkills: Record<RangeStageId, string[]>;
   startIndex: number;
   endIndex: number;
   strongestStageId: RangeStageId;
@@ -259,15 +260,36 @@ function average(values: number[]) {
 }
 
 export function buildConsultantRangeSeries(consultant: FlowcaseUserSummary, cv: FlowcaseCv): ConsultantRangeSeries {
-  const stages = RANGE_STAGE_IDS.map((stageId) => {
-    const score = average(rangeStageCategoryMap[stageId].map((categorySlug) => getCategoryScore(cv, categorySlug)));
+  const stagesWithSkills = RANGE_STAGE_IDS.map((stageId) => {
+    const relevantTechnologies = cv.technologies.filter((technology) =>
+      rangeStageCategoryMap[stageId].includes(technology.category.slug),
+    );
+    const scoredSkills = relevantTechnologies.flatMap((technology) =>
+      technology.technology_skills.map((skill) => ({
+        label: skill.name.no,
+        score: skill.proficiency,
+      })),
+    );
+    const categoryScores = rangeStageCategoryMap[stageId].map((categorySlug) => getCategoryScore(cv, categorySlug));
+    const score = average(categoryScores);
+    const skills = scoredSkills
+      .filter((item) => item.score > 0)
+      .sort((left, right) => right.score - left.score)
+      .map((item) => item.label)
+      .filter((skill, index, allSkills) => allSkills.indexOf(skill) === index);
 
     return {
       id: stageId,
       value: Number(score.toFixed(1)),
       active: score >= RANGE_ACTIVE_THRESHOLD,
-    } satisfies ConsultantRangeStage;
+      skills,
+    };
   });
+
+  const stages = stagesWithSkills.map(({ id, value, active }) => ({ id, value, active } satisfies ConsultantRangeStage));
+  const stageSkills = Object.fromEntries(
+    stagesWithSkills.map(({ id, skills }) => [id, skills]),
+  ) as Record<RangeStageId, string[]>;
 
   const activeIndices = stages.flatMap((stage, index) => (stage.active ? [index] : []));
   const strongestIndex = stages.reduce(
@@ -283,6 +305,7 @@ export function buildConsultantRangeSeries(consultant: FlowcaseUserSummary, cv: 
     office: consultant.office_name,
     title: translateConsultantTitle(consultant.title),
     stages,
+    stageSkills,
     startIndex,
     endIndex,
     strongestStageId: stages[strongestIndex]?.id ?? "frontend",
