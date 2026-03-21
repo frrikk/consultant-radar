@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import {
   BriefcaseBusinessIcon,
   CheckIcon,
@@ -21,7 +22,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
-import { formatLocaleShortDate, getT, type AppLocale } from "@/lib/i18n";
+import { formatLocaleDate, getT, type AppLocale } from "@/lib/i18n";
 import {
   EMPTY_RADAR_CONSULTANT_FILTERS,
   PROJECT_STATUS_OPTIONS,
@@ -97,49 +98,46 @@ function getUpdateTone(updatedAt: string) {
 
   if (ageInDays < 30) {
     return {
-      dot: "bg-emerald-500 dark:bg-emerald-400",
-      icon: "text-emerald-600 dark:text-emerald-300",
-      pill: "text-emerald-700 dark:text-emerald-300",
+      icon: "text-emerald-700 dark:text-emerald-200",
+      selected: "border-emerald-500/18 bg-emerald-500/10 dark:border-emerald-300/20 dark:bg-emerald-400/14",
+      idle: "border-emerald-500/14 bg-emerald-500/8 dark:border-emerald-300/18 dark:bg-emerald-400/12",
     };
   }
 
   if (ageInDays < 90) {
     return {
-      dot: "bg-amber-500 dark:bg-amber-400",
-      icon: "text-amber-600 dark:text-amber-300",
-      pill: "text-amber-700 dark:text-amber-300",
+      icon: "text-amber-700 dark:text-amber-200",
+      selected: "border-amber-500/18 bg-amber-500/10 dark:border-amber-300/20 dark:bg-amber-400/14",
+      idle: "border-amber-500/14 bg-amber-500/8 dark:border-amber-300/18 dark:bg-amber-400/12",
     };
   }
 
   return {
-    dot: "bg-red-500 dark:bg-red-400",
-    icon: "text-red-600 dark:text-red-300",
-    pill: "text-red-700 dark:text-red-300",
+    icon: "text-rose-700 dark:text-rose-200",
+    selected: "border-rose-500/18 bg-rose-500/10 dark:border-rose-300/20 dark:bg-rose-400/14",
+    idle: "border-rose-500/14 bg-rose-500/8 dark:border-rose-300/18 dark:bg-rose-400/12",
   };
 }
 
 function UpdateDatePill({ updatedAt, locale, selected = false }: { updatedAt: string; locale: AppLocale; selected?: boolean }) {
-  const tone = getUpdateTone(updatedAt);
   const t = getT(locale);
+  const tone = getUpdateTone(updatedAt);
 
   return (
     <Tooltip>
       <TooltipTrigger
         type="button"
-        className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${tone.pill} ${
+        className={`inline-flex size-5 items-center justify-center rounded-full border text-[11px] shadow-sm transition-colors ${
           selected
-            ? "bg-muted ring-1 ring-[#021e57]/14 dark:bg-muted dark:ring-white/14"
-            : "bg-muted"
+            ? `${tone.selected} ${tone.icon}`
+            : `${tone.idle} ${tone.icon} hover:border-border`
         }`}
       >
-        <FileTextIcon
-          className={`size-3 ${tone.icon} ${selected ? "dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.55)]" : ""}`}
-          strokeWidth={2.35}
-        />
-        {formatLocaleShortDate(updatedAt, locale)}
+        <FileTextIcon className="size-2.75" strokeWidth={2.1} />
       </TooltipTrigger>
       <TooltipContent>
-        <TooltipTitle>{t("radar.compare.updatedAtHelp")}</TooltipTitle>
+        <TooltipTitle>{t("radar.summary.lastUpdatedLong")}</TooltipTitle>
+        <p className="mt-1 text-xs text-muted-foreground">{formatLocaleDate(updatedAt, locale)}</p>
       </TooltipContent>
     </Tooltip>
   );
@@ -148,10 +146,10 @@ function UpdateDatePill({ updatedAt, locale, selected = false }: { updatedAt: st
 function MetaPill({ icon, label, selected = false }: { icon?: ReactNode; label: string; selected?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
+      className={`inline-flex items-center gap-1.5 rounded-[10px] border px-2 py-0.5 text-[11px] ${
         selected
-          ? "bg-muted text-[#021e57] ring-1 ring-[#021e57]/14 dark:bg-muted dark:text-[#eff3ff] dark:ring-white/14"
-          : "bg-muted text-foreground"
+          ? "border-[#021e57]/12 bg-white/90 text-[#021e57] dark:border-white/12 dark:bg-white/10 dark:text-[#eff3ff]"
+          : "border-border/60 bg-background/70 text-muted-foreground"
       }`}
     >
       {icon}
@@ -162,11 +160,11 @@ function MetaPill({ icon, label, selected = false }: { icon?: ReactNode; label: 
 
 function ProjectStatusPill({ inProject, label, selected = false }: { inProject: boolean; label: string; selected?: boolean }) {
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] ${
-        inProject
-          ? selected
-            ? "bg-amber-500/12 text-amber-900 ring-1 ring-amber-500/20 dark:bg-amber-400/16 dark:text-amber-100 dark:ring-amber-200/16"
+      <span
+        className={`inline-flex items-center gap-1.5 rounded-[10px] px-2 py-0.5 text-[11px] ${
+          inProject
+            ? selected
+              ? "bg-amber-500/12 text-amber-900 ring-1 ring-amber-500/20 dark:bg-amber-400/16 dark:text-amber-100 dark:ring-amber-200/16"
             : "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
           : selected
             ? "bg-emerald-500/12 text-emerald-900 ring-1 ring-emerald-500/20 dark:bg-emerald-400/16 dark:text-emerald-100 dark:ring-emerald-200/16"
@@ -251,6 +249,8 @@ export function RadarEditorPanel({
   onFiltersChange,
 }: RadarEditorPanelProps) {
   const t = getT(locale);
+  const reduceMotion = useReducedMotion();
+  const layoutTransition = { duration: reduceMotion ? 0.12 : 0.22, ease: [0.22, 1, 0.36, 1] as const };
   const [addQuery, setAddQuery] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const selectedCities = filters.cities;
@@ -335,7 +335,7 @@ export function RadarEditorPanel({
   }, [activeFilters, consultants, onSelectedIdsChange, selectedIds]);
 
   function handleAddSelected(id: string) {
-    onSelectedIdsChange(uniqueIds([...selectedIds, id], maxSelected));
+    onSelectedIdsChange(uniqueIds([id, ...selectedIds], maxSelected));
     setAddQuery("");
   }
 
@@ -411,28 +411,42 @@ export function RadarEditorPanel({
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-foreground">{t("radar.compare.consultantsTitle")}</p>
             <div className="flex flex-1 items-center justify-end gap-2">
+              <motion.div layout transition={{ duration: reduceMotion ? 0.12 : 0.18, ease: "easeOut" }}>
               <Badge className="border-border bg-muted/50 text-foreground hover:bg-muted/50">
                 {t("radar.compare.selectedCount", { count: selectedIds.length, max: maxSelected })}
               </Badge>
+              </motion.div>
               {totalActiveFilters > 0 ? (
-                <button
+                <motion.button
+                  layout
                   type="button"
                   onClick={() => setFiltersOpen(true)}
                   className="inline-flex h-5 items-center justify-center gap-1 rounded-full border border-border bg-muted/50 px-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                  initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
+                  transition={{ duration: reduceMotion ? 0.12 : 0.16, ease: "easeOut" }}
                 >
                   <FunnelIcon className="size-3" />
                   {totalActiveFilters}
-                </button>
+                </motion.button>
               ) : null}
             </div>
           </div>
 
-          <details
-            className="rounded-[12px] border border-border/70 bg-muted/15"
-            open={filtersOpen}
-            onToggle={(event) => setFiltersOpen((event.currentTarget as HTMLDetailsElement).open)}
+          <div
+            className={`rounded-[12px] border bg-muted/15 transition-[border-color,background-color,box-shadow] ${
+              filtersOpen || totalActiveFilters > 0
+                ? "border-[#021e57]/16 bg-[#021e57]/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] dark:border-[#839df9]/22 dark:bg-[#12306f]/16"
+                : "border-border/70"
+            }`}
           >
-            <summary className="flex h-11 cursor-pointer list-none items-center justify-between gap-2 px-3 text-sm font-medium text-foreground">
+            <button
+              type="button"
+              onClick={() => setFiltersOpen((current) => !current)}
+              aria-expanded={filtersOpen}
+              className="flex h-11 w-full items-center justify-between gap-2 px-3 text-sm font-medium text-foreground"
+            >
               <span className="inline-flex items-center gap-2">
                 <FunnelIcon className="size-3.5 text-muted-foreground" />
                 {t("radar.compare.filtersTitle")}
@@ -447,93 +461,112 @@ export function RadarEditorPanel({
                 </span>
                 {filtersOpen ? <ChevronUpIcon className="size-3.5" /> : <ChevronDownIcon className="size-3.5" />}
               </span>
-            </summary>
+            </button>
 
-            <div className="grid gap-3 px-3 pb-3">
-              <div className="flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={clearFilters}
-                  disabled={totalActiveFilters === 0}
-                  className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:cursor-default disabled:opacity-40 disabled:hover:text-muted-foreground"
+            <AnimatePresence initial={false}>
+              {filtersOpen ? (
+                <motion.div
+                  key="filter-panel"
+                  initial={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                  animate={reduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                  exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
                 >
-                  {t("radar.compare.clearFilters")}
-                </button>
-              </div>
+                  <motion.div
+                    initial={reduceMotion ? false : { y: -6 }}
+                    animate={{ y: 0 }}
+                    exit={reduceMotion ? undefined : { y: -4 }}
+                    transition={{ duration: reduceMotion ? 0.12 : 0.18, ease: "easeOut" }}
+                    className="grid gap-3 px-3 pb-3"
+                  >
+                    <div className="flex items-center justify-end gap-3">
+                      <button
+                        type="button"
+                        onClick={clearFilters}
+                        disabled={totalActiveFilters === 0}
+                        className="text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground disabled:cursor-default disabled:opacity-40 disabled:hover:text-muted-foreground"
+                      >
+                        {t("radar.compare.clearFilters")}
+                      </button>
+                    </div>
 
-              <div className="space-y-1.5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  {t("radar.compare.projectStatusTitle")}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {PROJECT_STATUS_OPTIONS.map((status) => {
-                    return (
-                      <FilterPill
-                        key={status}
-                        active={selectedProjectStatuses.includes(status)}
-                        label={t(`radar.compare.projectStatus.${status}`)}
-                        onClick={() => toggleProjectStatus(status)}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+                    <div className="space-y-1.5">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                        {t("radar.compare.projectStatusTitle")}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {PROJECT_STATUS_OPTIONS.map((status) => {
+                          return (
+                            <FilterPill
+                              key={status}
+                              active={selectedProjectStatuses.includes(status)}
+                              label={t(`radar.compare.projectStatus.${status}`)}
+                              onClick={() => toggleProjectStatus(status)}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
 
-              <div className="space-y-1.5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  {t("radar.compare.roleTitle")}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {ROLE_OPTIONS.map((role) => {
-                    return (
-                      <FilterPill
-                        key={role}
-                        active={selectedRoles.includes(role)}
-                        label={t(`radar.compare.roles.${role}`)}
-                        onClick={() => toggleRole(role)}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+                    <div className="space-y-1.5">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                        {t("radar.compare.roleTitle")}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {ROLE_OPTIONS.map((role) => {
+                          return (
+                            <FilterPill
+                              key={role}
+                              active={selectedRoles.includes(role)}
+                              label={t(`radar.compare.roles.${role}`)}
+                              onClick={() => toggleRole(role)}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
 
-              <div className="space-y-1.5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  {t("radar.compare.departmentTitle")}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {departmentOptions.map((department) => {
-                    return (
-                      <FilterPill
-                        key={department}
-                        active={selectedDepartments.includes(department)}
-                        label={department}
-                        onClick={() => toggleDepartment(department)}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+                    <div className="space-y-1.5">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                        {t("radar.compare.departmentTitle")}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {departmentOptions.map((department) => {
+                          return (
+                            <FilterPill
+                              key={department}
+                              active={selectedDepartments.includes(department)}
+                              label={department}
+                              onClick={() => toggleDepartment(department)}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
 
-              <div className="space-y-1.5">
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  {t("radar.compare.locationTitle")}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {cityOptions.map((city) => {
-                    return (
-                      <FilterPill
-                        key={city}
-                        active={selectedCities.includes(city)}
-                        label={city}
-                        onClick={() => toggleCity(city)}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </details>
+                    <div className="space-y-1.5">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                        {t("radar.compare.locationTitle")}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cityOptions.map((city) => {
+                          return (
+                            <FilterPill
+                              key={city}
+                              active={selectedCities.includes(city)}
+                              label={city}
+                              onClick={() => toggleCity(city)}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
 
           </section>
         </div>
@@ -547,7 +580,7 @@ export function RadarEditorPanel({
             placeholder={t("radar.compare.quickAddPlaceholder")}
           />
 
-          <div className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
+          <motion.div layout="position" transition={layoutTransition} className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
             <span>{t("radar.compare.listCount", { count: filteredCandidates.length })}</span>
             <div className="flex items-center justify-end">
               <Button
@@ -561,10 +594,12 @@ export function RadarEditorPanel({
                 {t("radar.compare.emptyList")}
               </Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="min-h-7">
-            <div className="flex min-h-7 flex-wrap items-center gap-1.5">
+          <motion.div layout="position" transition={layoutTransition} className="min-h-7">
+            <LayoutGroup>
+            <motion.div layout="position" transition={layoutTransition} className="flex min-h-7 flex-wrap items-center gap-1.5">
+            <AnimatePresence initial={false} mode="popLayout">
             {selectedIds.map((selectedId) => {
               const consultant = consultants.find((item) => item.value === selectedId);
               if (!consultant) {
@@ -572,9 +607,14 @@ export function RadarEditorPanel({
               }
 
               return (
-                <span
+                <motion.span
+                  layout
+                  initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -2 }}
+                  transition={{ duration: reduceMotion ? 0.12 : 0.18, ease: [0.22, 1, 0.36, 1] }}
                   key={consultant.value}
-                  className="animate-selection-card-in inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs text-foreground"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs text-foreground"
                 >
                   <span className="font-medium">{consultant.label}</span>
                   <button
@@ -585,13 +625,15 @@ export function RadarEditorPanel({
                   >
                     <XIcon className="size-3.5" />
                   </button>
-                </span>
+                </motion.span>
               );
             })}
-            </div>
-          </div>
+            </AnimatePresence>
+            </motion.div>
+            </LayoutGroup>
+          </motion.div>
 
-          <div className="max-h-[52vh] overflow-y-auto pr-1 [scrollbar-gutter:stable] lg:min-h-0 lg:max-h-none lg:flex-1 lg:overflow-visible">
+          <motion.div layout="position" transition={layoutTransition} className="max-h-[52vh] overflow-y-auto pr-1 [scrollbar-gutter:stable] lg:min-h-0 lg:max-h-none lg:flex-1 lg:overflow-visible">
             <div className="space-y-1.5">
               {visibleCandidates.length > 0 ? (
                 <>
@@ -625,54 +667,78 @@ export function RadarEditorPanel({
                           handleToggleSelected(consultant.value);
                         }
                       }}
-                      className={`animate-selection-card-in flex min-h-[5.75rem] w-full items-stretch justify-between gap-2 rounded-[12px] border px-2.5 py-2 text-left transition-colors ${
+                      className={`animate-selection-card-in relative flex min-h-[5.25rem] w-full items-center justify-between gap-3 rounded-[14px] border px-3 py-2.5 text-left transition-[background-color,border-color,box-shadow] ${
                         selected
-                          ? "border-[#021e57]/35 bg-[#021e57]/8 dark:border-[#839df9]/35 dark:bg-[#12306f]/35"
-                          : "border-border bg-muted/35 hover:border-accent hover:bg-muted/55"
+                          ? "border-[#021e57]/18 bg-[#021e57]/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_10px_24px_-22px_rgba(2,30,87,0.7)] dark:border-[#839df9]/28 dark:bg-[#12306f]/24"
+                          : "border-border/80 bg-background hover:border-border hover:bg-muted/20"
                       } ${
                         disabled
                           ? "cursor-not-allowed opacity-40"
                           : "cursor-pointer"
                       }`}
                     >
-                      <span className="flex min-h-full min-w-0 flex-1 flex-col justify-between gap-2">
-                        <span className="space-y-1">
-                          <span className="block truncate text-sm font-medium text-foreground">{consultant.label}</span>
-                          <span className="block">
-                            <ProjectStatusPill
-                              inProject={consultant.inProject}
-                              selected={selected}
-                              label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
-                            />
+                      <span className="flex min-w-0 flex-1 items-start gap-3">
+                        <span className="flex min-w-0 flex-1 flex-col gap-2">
+                          <span className="flex min-w-0 items-start justify-between gap-3">
+                            <span className="min-w-0 space-y-1">
+                              <span className="block truncate text-sm font-semibold text-foreground">{consultant.label}</span>
+                              <span className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
+                                <span className="inline-flex items-center gap-1">
+                                  <MapPinIcon className="size-3" />
+                                  {consultant.city}
+                                </span>
+                                <span aria-hidden="true" className="text-border">/</span>
+                                <span className="inline-flex items-center gap-1">
+                                  <BriefcaseBusinessIcon className="size-3" />
+                                  {getDepartmentAbbreviation(consultant.department)}
+                                </span>
+                              </span>
+                            </span>
                           </span>
-                        </span>
-                        <span className="space-y-1.5 pt-1">
-                          <span className="flex flex-wrap gap-1">
-                            <MetaPill selected={selected} icon={<MapPinIcon className="size-3" />} label={consultant.city} />
-                            <MetaPill selected={selected} icon={<BriefcaseBusinessIcon className="size-3" />} label={getDepartmentAbbreviation(consultant.department)} />
-                          </span>
-                          <span className="flex flex-wrap gap-1">
+                          <span className="flex flex-wrap items-center gap-1">
+                            {cvsByUserId[consultant.value] ? (
+                              <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} locale={locale} selected={selected} />
+                            ) : null}
+                            <span className="block">
+                              <ProjectStatusPill
+                                inProject={consultant.inProject}
+                                selected={selected}
+                                label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
+                              />
+                            </span>
                             {consultant.roleTags.map((role) => (
                               <MetaPill selected={selected} key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
                             ))}
                           </span>
                         </span>
                       </span>
-                      <div className="flex min-h-full w-[5.25rem] shrink-0 self-stretch flex-col items-end justify-between">
-                        {cvsByUserId[consultant.value] ? (
-                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} locale={locale} selected={selected} />
-                        ) : null}
-                        <span className="flex items-end justify-end">
-                          <span
+                      <div className="flex shrink-0 items-center justify-end self-stretch">
+                        <span className="flex items-center justify-end">
+                          <motion.span
                             aria-hidden="true"
-                            className={`flex size-6 items-center justify-center rounded-full border transition-colors ${
+                            initial={false}
+                            animate={selected && !reduceMotion ? { scale: 1 } : { scale: 0.98 }}
+                            transition={{ duration: reduceMotion ? 0.1 : 0.16, ease: "easeOut" }}
+                            className={`flex size-7 items-center justify-center rounded-full border transition-colors ${
                               selected
                                 ? "border-[#021e57] bg-[#021e57] text-white hover:bg-[#021b42] dark:border-[#839df9] dark:bg-[#839df9] dark:text-[#021e57] dark:hover:bg-[#9bb0ff]"
-                                : "border-dashed border-[#021e57]/45 bg-[#021e57]/[0.04] text-[#021e57]/70 hover:border-[#021e57]/70 hover:bg-[#021e57]/[0.08] hover:text-[#021e57] dark:border-[#839df9]/50 dark:bg-[#839df9]/10 dark:text-[#c7d4ff] dark:hover:border-[#9bb0ff] dark:hover:bg-[#839df9]/16 dark:hover:text-[#e4ebff]"
+                                : "border-border/80 bg-muted/35 text-muted-foreground hover:border-[#021e57]/24 hover:bg-[#021e57]/[0.04] hover:text-[#021e57] dark:hover:border-[#9bb0ff]/35 dark:hover:bg-[#839df9]/12 dark:hover:text-[#e4ebff]"
                             }`}
                           >
-                            {selected ? <CheckIcon className="size-3" /> : null}
-                          </span>
+                            <AnimatePresence initial={false}>
+                              {selected ? (
+                                <motion.span
+                                  key="selected-check"
+                                  initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.7 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.7 }}
+                                  transition={{ duration: reduceMotion ? 0.1 : 0.14, ease: "easeOut" }}
+                                >
+                                  <CheckIcon className="size-3" />
+                                </motion.span>
+                              ) : null}
+                            </AnimatePresence>
+                          </motion.span>
                         </span>
                       </div>
                     </div>
@@ -685,7 +751,7 @@ export function RadarEditorPanel({
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </section>
 
       </CardContent>

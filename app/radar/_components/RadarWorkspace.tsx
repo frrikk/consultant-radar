@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { RangeCoverageCard } from "./RangeCoverageCard";
 import { RadarChartCard } from "./RadarChartCard";
 import { RadarEditorPanel } from "./RadarEditorPanel";
@@ -90,6 +91,7 @@ export function RadarWorkspace({
 }: RadarWorkspaceProps) {
   const standardPresets = useMemo(() => buildStandardRadarPresets(categories, locale), [categories, locale]);
   const statistic: RadarStatistic = initialStatistic;
+  const reduceMotion = useReducedMotion();
   const fallbackSearch = useMemo(() => {
     if (typeof initialSearch === "string") {
       return initialSearch ? `?${initialSearch}` : "";
@@ -253,29 +255,49 @@ export function RadarWorkspace({
       </aside>
 
       <div className="order-2 min-h-0 min-w-0 lg:h-full xl:max-h-full xl:self-stretch">
-        {visualizationMode === "radar" ? (
-          <RadarChartCard
-            consultantSeries={consultantSeries}
-            officeSeries={[]}
-            statistic={statistic}
-            locale={locale}
-            mode="consultants"
-            onEmptyAddFirst={handleAddFirstConsultant}
-          />
-        ) : (
-          <RangeCoverageCard
-            series={rangeSeries}
-            coverage={coverageSummary}
-            recommendation={bestRecommendation}
-            recommendedTeamSize={recommendedTeamSize}
-            locale={locale}
-            onRecommendedTeamSizeChange={handleRecommendedTeamSizeChange}
-            onApplyRecommendation={
-              bestRecommendation ? () => handleSelectedIdsChange(bestRecommendation.consultantIds) : undefined
-            }
-            onEmptyAddFirst={handleAddFirstConsultant}
-          />
-        )}
+        <AnimatePresence mode="wait" initial={false}>
+          {visualizationMode === "radar" ? (
+            <motion.div
+              key="radar-view"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full"
+            >
+              <RadarChartCard
+                consultantSeries={consultantSeries}
+                officeSeries={[]}
+                statistic={statistic}
+                locale={locale}
+                mode="consultants"
+                onEmptyAddFirst={handleAddFirstConsultant}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="range-view"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full"
+            >
+              <RangeCoverageCard
+                series={rangeSeries}
+                coverage={coverageSummary}
+                recommendation={bestRecommendation}
+                recommendedTeamSize={recommendedTeamSize}
+                locale={locale}
+                onRecommendedTeamSizeChange={handleRecommendedTeamSizeChange}
+                onApplyRecommendation={
+                  bestRecommendation ? () => handleSelectedIdsChange(bestRecommendation.consultantIds) : undefined
+                }
+                onEmptyAddFirst={handleAddFirstConsultant}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
