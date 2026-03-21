@@ -53,6 +53,7 @@ type RadarEditorPanelProps = {
   consultants: ConsultantOption[];
   cvsByUserId: Record<string, FlowcaseCv>;
   selectedIds: string[];
+  filters: RadarConsultantFilters;
   onSelectedIdsChange: (ids: string[]) => void;
   onReset: () => void;
   presetId: RadarPresetId;
@@ -61,7 +62,7 @@ type RadarEditorPanelProps = {
   visualizationMode: RadarVisualizationMode;
   onVisualizationModeChange: (mode: RadarVisualizationMode) => void;
   maxSelected: number;
-  onFiltersChange?: (filters: RadarConsultantFilters) => void;
+  onFiltersChange: (filters: RadarConsultantFilters) => void;
 };
 
 const DEFAULT_DEPARTMENTS = ["Digital Experience", "Software Engineering"] as const;
@@ -236,6 +237,7 @@ export function RadarEditorPanel({
   consultants,
   cvsByUserId,
   selectedIds,
+  filters,
   onSelectedIdsChange,
   onReset,
   presetId,
@@ -248,21 +250,12 @@ export function RadarEditorPanel({
 }: RadarEditorPanelProps) {
   const t = getT();
   const [addQuery, setAddQuery] = useState("");
-  const [selectedCities, setSelectedCities] = useState<string[]>([]);
-  const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
-  const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
-  const [selectedProjectStatuses, setSelectedProjectStatuses] = useState<RadarConsultantFilters["projectStatuses"]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
-
-  const activeFilters = useMemo<RadarConsultantFilters>(
-    () => ({
-      cities: selectedCities,
-      departments: selectedDepartments,
-      roles: selectedRoles,
-      projectStatuses: selectedProjectStatuses,
-    }),
-    [selectedCities, selectedDepartments, selectedProjectStatuses, selectedRoles],
-  );
+  const selectedCities = filters.cities;
+  const selectedDepartments = filters.departments;
+  const selectedRoles = filters.roles;
+  const selectedProjectStatuses = filters.projectStatuses;
+  const activeFilters = filters;
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const cityOptions = useMemo(
@@ -289,39 +282,40 @@ export function RadarEditorPanel({
   const presetLabel = t(`radar.config.presets.${presetId}`);
 
   function toggleCity(city: string) {
-    setSelectedCities((current) =>
-      current.includes(city) ? current.filter((item) => item !== city) : [...current, city],
-    );
+    onFiltersChange({
+      ...activeFilters,
+      cities: selectedCities.includes(city) ? selectedCities.filter((item) => item !== city) : [...selectedCities, city],
+    });
   }
 
   function toggleDepartment(department: string) {
-    setSelectedDepartments((current) =>
-      current.includes(department) ? current.filter((item) => item !== department) : [...current, department],
-    );
+    onFiltersChange({
+      ...activeFilters,
+      departments: selectedDepartments.includes(department)
+        ? selectedDepartments.filter((item) => item !== department)
+        : [...selectedDepartments, department],
+    });
   }
 
   function toggleRole(role: string) {
-    setSelectedRoles((current) =>
-      current.includes(role) ? current.filter((item) => item !== role) : [...current, role],
-    );
+    onFiltersChange({
+      ...activeFilters,
+      roles: selectedRoles.includes(role) ? selectedRoles.filter((item) => item !== role) : [...selectedRoles, role],
+    });
   }
 
   function toggleProjectStatus(status: ProjectStatusFilter) {
-    setSelectedProjectStatuses((current) =>
-      current.includes(status) ? current.filter((item) => item !== status) : [...current, status],
-    );
+    onFiltersChange({
+      ...activeFilters,
+      projectStatuses: selectedProjectStatuses.includes(status)
+        ? selectedProjectStatuses.filter((item) => item !== status)
+        : [...selectedProjectStatuses, status],
+    });
   }
 
   function clearFilters() {
-    setSelectedCities(EMPTY_RADAR_CONSULTANT_FILTERS.cities);
-    setSelectedDepartments(EMPTY_RADAR_CONSULTANT_FILTERS.departments);
-    setSelectedRoles(EMPTY_RADAR_CONSULTANT_FILTERS.roles);
-    setSelectedProjectStatuses(EMPTY_RADAR_CONSULTANT_FILTERS.projectStatuses);
+    onFiltersChange(EMPTY_RADAR_CONSULTANT_FILTERS);
   }
-
-  useEffect(() => {
-    onFiltersChange?.(activeFilters);
-  }, [activeFilters, onFiltersChange]);
 
   useEffect(() => {
     const filteredSelectedIds = selectedIds.filter((selectedId) => {
