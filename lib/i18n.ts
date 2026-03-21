@@ -36,6 +36,15 @@ export function getT(locale: AppLocale = defaultLocale) {
   return i18n.getFixedT(locale, "common");
 }
 
+export function isAppLocale(value: string | undefined): value is AppLocale {
+  return locales.includes(value as AppLocale);
+}
+
+export function resolveLocale(value: string | string[] | undefined): AppLocale {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  return isAppLocale(candidate) ? candidate : defaultLocale;
+}
+
 export function translateConsultantTitle(value: string, locale: AppLocale = defaultLocale) {
   const key = consultantTitleKeyMap[value as keyof typeof consultantTitleKeyMap];
   if (!key) {

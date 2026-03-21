@@ -21,7 +21,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
-import { formatLocaleShortDate, getT } from "@/lib/i18n";
+import { formatLocaleShortDate, getT, type AppLocale } from "@/lib/i18n";
 import {
   EMPTY_RADAR_CONSULTANT_FILTERS,
   PROJECT_STATUS_OPTIONS,
@@ -54,6 +54,7 @@ type RadarEditorPanelProps = {
   cvsByUserId: Record<string, FlowcaseCv>;
   selectedIds: string[];
   filters: RadarConsultantFilters;
+  locale: AppLocale;
   onSelectedIdsChange: (ids: string[]) => void;
   onReset: () => void;
   presetId: RadarPresetId;
@@ -117,9 +118,9 @@ function getUpdateTone(updatedAt: string) {
   };
 }
 
-function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; selected?: boolean }) {
+function UpdateDatePill({ updatedAt, locale, selected = false }: { updatedAt: string; locale: AppLocale; selected?: boolean }) {
   const tone = getUpdateTone(updatedAt);
-  const t = getT();
+  const t = getT(locale);
 
   return (
     <Tooltip>
@@ -135,7 +136,7 @@ function UpdateDatePill({ updatedAt, selected = false }: { updatedAt: string; se
           className={`size-3 ${tone.icon} ${selected ? "dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.55)]" : ""}`}
           strokeWidth={2.35}
         />
-        {formatLocaleShortDate(updatedAt)}
+        {formatLocaleShortDate(updatedAt, locale)}
       </TooltipTrigger>
       <TooltipContent>
         <TooltipTitle>{t("radar.compare.updatedAtHelp")}</TooltipTitle>
@@ -238,6 +239,7 @@ export function RadarEditorPanel({
   cvsByUserId,
   selectedIds,
   filters,
+  locale,
   onSelectedIdsChange,
   onReset,
   presetId,
@@ -248,7 +250,7 @@ export function RadarEditorPanel({
   maxSelected,
   onFiltersChange,
 }: RadarEditorPanelProps) {
-  const t = getT();
+  const t = getT(locale);
   const [addQuery, setAddQuery] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const selectedCities = filters.cities;
@@ -658,7 +660,7 @@ export function RadarEditorPanel({
                       </span>
                       <div className="flex min-h-full w-[5.25rem] shrink-0 self-stretch flex-col items-end justify-between">
                         {cvsByUserId[consultant.value] ? (
-                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} selected={selected} />
+                          <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} locale={locale} selected={selected} />
                         ) : null}
                         <span className="flex items-end justify-end">
                           <span

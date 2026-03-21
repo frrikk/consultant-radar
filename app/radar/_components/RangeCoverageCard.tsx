@@ -3,7 +3,7 @@
 import { InfoIcon } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
-import { getT } from "@/lib/i18n";
+import { getT, type AppLocale } from "@/lib/i18n";
 import {
   RANGE_STAGE_IDS,
   type RangeRecommendation,
@@ -18,6 +18,7 @@ type RangeCoverageCardProps = {
   coverage: RangeCoverageSummary;
   recommendation: RangeRecommendation | null;
   recommendedTeamSize: RangeTeamSize;
+  locale: AppLocale;
   onRecommendedTeamSizeChange: (size: RangeTeamSize) => void;
   onApplyRecommendation?: () => void;
   onEmptyAddFirst?: () => void;
@@ -99,11 +100,12 @@ export function RangeCoverageCard({
   coverage,
   recommendation,
   recommendedTeamSize,
+  locale,
   onRecommendedTeamSizeChange,
   onApplyRecommendation,
   onEmptyAddFirst,
 }: RangeCoverageCardProps) {
-  const t = getT();
+  const t = getT(locale);
   const isCoverageComplete = coverage.isFullyCovered;
 
   return (

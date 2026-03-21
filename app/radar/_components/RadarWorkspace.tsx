@@ -23,6 +23,7 @@ import {
   type RadarUrlState,
 } from "../_lib/radar";
 import type { FlowcaseCv, FlowcaseTechnologyCategory, FlowcaseUserSummary } from "@/lib/flowcase";
+import type { AppLocale } from "@/lib/i18n";
 
 type ConsultantOption = {
   value: string;
@@ -41,10 +42,13 @@ type RadarWorkspaceProps = {
   cvsByUserId: Record<string, FlowcaseCv>;
   categories: FlowcaseTechnologyCategory[];
   initialStatistic: RadarStatistic;
+  initialSearch?: string;
   initialUrlState?: RadarUrlState;
+  locale: AppLocale;
 };
 
 const URL_STATE_EVENT = "radar-url-state-change";
+const RADAR_STATE_PARAM_KEYS = ["selected", "view", "preset", "team", "city", "dept", "role", "status"] as const;
 
 function uniqueIds(values: string[], limit: number) {
   return [...new Set(values)].slice(0, limit);
@@ -80,18 +84,24 @@ export function RadarWorkspace({
   cvsByUserId,
   categories,
   initialStatistic,
+  initialSearch,
   initialUrlState = DEFAULT_RADAR_URL_STATE,
+  locale,
 }: RadarWorkspaceProps) {
-  const standardPresets = useMemo(() => buildStandardRadarPresets(categories), [categories]);
+  const standardPresets = useMemo(() => buildStandardRadarPresets(categories, locale), [categories, locale]);
   const statistic: RadarStatistic = initialStatistic;
-  const initialSearch = useMemo(() => {
+  const fallbackSearch = useMemo(() => {
+    if (typeof initialSearch === "string") {
+      return initialSearch ? `?${initialSearch}` : "";
+    }
+
     const query = serializeRadarUrlState(initialUrlState);
     return query ? `?${query}` : "";
-  }, [initialUrlState]);
+  }, [initialSearch, initialUrlState]);
   const currentSearch = useSyncExternalStore(
     subscribeToUrlChanges,
     () => window.location.search,
-    () => initialSearch,
+    () => fallbackSearch,
   );
   const currentUrlState = useMemo(
     () => parseRadarUrlState(searchParamsToRecord(new URLSearchParams(currentSearch)), consultantOptions),
@@ -123,13 +133,13 @@ export function RadarWorkspace({
   const consultantSeries = useMemo(
     () =>
       selectedConsultants.map((consultant) =>
-        buildRadarSeries(statistic, consultant, cvsByUserId[consultant.user_id], activeFields),
+        buildRadarSeries(statistic, consultant, cvsByUserId[consultant.user_id], activeFields, locale),
       ),
-    [activeFields, cvsByUserId, selectedConsultants, statistic],
+    [activeFields, cvsByUserId, locale, selectedConsultants, statistic],
   );
   const rangeSeries = useMemo(
-    () => selectedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
-    [cvsByUserId, selectedConsultants],
+    () => selectedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id], locale)),
+    [cvsByUserId, locale, selectedConsultants],
   );
   const coverageSummary = useMemo(() => buildRangeCoverageSummary(rangeSeries, recommendedTeamSize), [rangeSeries, recommendedTeamSize]);
   const filteredConsultantIds = useMemo(
@@ -146,8 +156,8 @@ export function RadarWorkspace({
     [consultants, filteredConsultantIds],
   );
   const allRangeSeries = useMemo(
-    () => recommendedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id])),
-    [recommendedConsultants, cvsByUserId],
+    () => recommendedConsultants.map((consultant) => buildConsultantRangeSeries(consultant, cvsByUserId[consultant.user_id], locale)),
+    [recommendedConsultants, cvsByUserId, locale],
   );
   const bestRecommendation = useMemo<RangeRecommendation | null>(
     () => buildBestRangeRecommendation(allRangeSeries, recommendedTeamSize),
@@ -201,8 +211,18 @@ export function RadarWorkspace({
   }
 
   function updateUrlState(nextState: RadarUrlState) {
-    const nextQuery = serializeRadarUrlState(nextState);
-    const nextUrl = nextQuery ? `${window.location.pathname}?${nextQuery}` : window.location.pathname;
+    const url = new URL(window.location.href);
+
+    RADAR_STATE_PARAM_KEYS.forEach((key) => {
+      url.searchParams.delete(key);
+    });
+
+    const nextQuery = new URLSearchParams(serializeRadarUrlState(nextState));
+    nextQuery.forEach((value, key) => {
+      url.searchParams.append(key, value);
+    });
+
+    const nextUrl = `${url.pathname}${url.search}`;
     const currentUrl = `${window.location.pathname}${window.location.search}`;
 
     if (nextUrl !== currentUrl) {
@@ -219,6 +239,7 @@ export function RadarWorkspace({
           cvsByUserId={cvsByUserId}
           selectedIds={selectedIds}
           filters={activeFilters}
+          locale={locale}
           onSelectedIdsChange={handleSelectedIdsChange}
           onReset={handleReset}
           presetId={presetId}
@@ -237,6 +258,7 @@ export function RadarWorkspace({
             consultantSeries={consultantSeries}
             officeSeries={[]}
             statistic={statistic}
+            locale={locale}
             mode="consultants"
             onEmptyAddFirst={handleAddFirstConsultant}
           />
@@ -246,6 +268,7 @@ export function RadarWorkspace({
             coverage={coverageSummary}
             recommendation={bestRecommendation}
             recommendedTeamSize={recommendedTeamSize}
+            locale={locale}
             onRecommendedTeamSizeChange={handleRecommendedTeamSizeChange}
             onApplyRecommendation={
               bestRecommendation ? () => handleSelectedIdsChange(bestRecommendation.consultantIds) : undefined

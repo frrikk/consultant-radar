@@ -3,20 +3,21 @@
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-import { getT } from "@/lib/i18n";
+import { getT, type AppLocale } from "@/lib/i18n";
 import type { RadarOfficeSeries, RadarSeries, RadarStatistic } from "../_lib/radar";
 
 type RadarChartCardProps = {
   consultantSeries: RadarSeries[];
   officeSeries: RadarOfficeSeries[];
   statistic: RadarStatistic;
+  locale: AppLocale;
   mode: "consultants" | "offices";
   onEmptyAddFirst?: () => void;
 };
 
-export function RadarChartCard({ consultantSeries, officeSeries, statistic, mode, onEmptyAddFirst }: RadarChartCardProps) {
+export function RadarChartCard({ consultantSeries, officeSeries, statistic, locale, mode, onEmptyAddFirst }: RadarChartCardProps) {
   void statistic;
-  const t = getT();
+  const t = getT(locale);
   const isConsultantMode = mode === "consultants";
   const series = isConsultantMode ? consultantSeries : officeSeries;
   const axisCount = series[0]?.data.length ?? 0;

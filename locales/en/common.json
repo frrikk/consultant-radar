@@ -20,6 +20,9 @@
   },
   "radar": {
     "page": {
+      "badge": "Mock data",
+      "apiUnavailableTitle": "Mock API unavailable",
+      "apiUnavailableDescription": "Start the mock API and try again to load consultant and category data.",
       "emptyTitle": "No consultants found",
       "emptyDescription": "Start the mock API and make sure the consultant search query matches the seeded Flowcase mock dataset.",
       "title": "Radar",

@@ -1,5 +1,5 @@
 import type { FlowcaseCv, FlowcaseTechnologyCategory, FlowcaseUserSummary } from "@/lib/flowcase";
-import { translateConsultantTitle } from "@/lib/i18n";
+import { defaultLocale, translateConsultantTitle, type AppLocale } from "@/lib/i18n";
 
 export const RADAR_STATISTIC = "category-score" as const;
 export const RANGE_ACTIVE_THRESHOLD = 3 as const;
@@ -276,6 +276,25 @@ export function serializeRadarUrlState(state: RadarUrlState) {
   return query.toString();
 }
 
+export function serializeIncomingSearchParams(searchParams: Record<string, string | string[] | undefined>) {
+  const query = new URLSearchParams();
+
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((entry) => {
+        query.append(key, entry);
+      });
+      return;
+    }
+
+    if (typeof value === "string") {
+      query.append(key, value);
+    }
+  });
+
+  return query.toString();
+}
+
 export function buildRadarData(
   _statistic: RadarStatistic,
   cv: FlowcaseCv,
@@ -294,8 +313,12 @@ export function buildRadarData(
   });
 }
 
-export function buildConsultantOption(consultant: FlowcaseUserSummary): RadarConsultantOption {
-  const hint = `${consultant.office_name} - ${translateConsultantTitle(consultant.title)}`;
+function getLocalizedCategoryLabel(category: FlowcaseTechnologyCategory, locale: AppLocale) {
+  return locale === "en" ? category.values.int : category.values.no;
+}
+
+export function buildConsultantOption(consultant: FlowcaseUserSummary, locale: AppLocale = defaultLocale): RadarConsultantOption {
+  const hint = `${consultant.office_name} - ${translateConsultantTitle(consultant.title, locale)}`;
 
   return {
     value: consultant.user_id,
@@ -348,17 +371,17 @@ export function matchesConsultantFilters(
   return true;
 }
 
-function buildCategoryFields(categories: FlowcaseTechnologyCategory[]): RadarFieldOption[] {
+function buildCategoryFields(categories: FlowcaseTechnologyCategory[], locale: AppLocale): RadarFieldOption[] {
   return categories.map((category) => ({
     id: `category:${category.slug}`,
-    label: category.values.no,
-    description: category.values.no,
+    label: getLocalizedCategoryLabel(category, locale),
+    description: getLocalizedCategoryLabel(category, locale),
     categorySlug: category.slug,
   }));
 }
 
-export function buildStandardRadarPresets(categories: FlowcaseTechnologyCategory[]): RadarPresetOption[] {
-  const allCategoryFields = buildCategoryFields(categories);
+export function buildStandardRadarPresets(categories: FlowcaseTechnologyCategory[], locale: AppLocale = defaultLocale): RadarPresetOption[] {
+  const allCategoryFields = buildCategoryFields(categories, locale);
   const fieldsById = new Map(allCategoryFields.map((field) => [field.id, field]));
   const toFields = (slugs: string[]) => slugs.map((slug) => fieldsById.get(`category:${slug}`)).filter((field): field is RadarFieldOption => Boolean(field));
 
@@ -384,6 +407,7 @@ export function buildRadarSeries(
   consultant: FlowcaseUserSummary,
   cv: FlowcaseCv,
   fields: RadarFieldOption[],
+  locale: AppLocale = defaultLocale,
 ): RadarSeries {
   const data = buildRadarData(statistic, cv, consultant, fields).map((axis) => ({
     ...axis,
@@ -395,7 +419,7 @@ export function buildRadarSeries(
     consultantId: consultant.user_id,
     consultantName: consultant.name,
     office: consultant.office_name,
-    title: translateConsultantTitle(consultant.title),
+    title: translateConsultantTitle(consultant.title, locale),
     data,
   };
 }
@@ -412,14 +436,18 @@ function average(values: number[]) {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
-export function buildConsultantRangeSeries(consultant: FlowcaseUserSummary, cv: FlowcaseCv): ConsultantRangeSeries {
+export function buildConsultantRangeSeries(
+  consultant: FlowcaseUserSummary,
+  cv: FlowcaseCv,
+  locale: AppLocale = defaultLocale,
+): ConsultantRangeSeries {
   const stagesWithSkills = RANGE_STAGE_IDS.map((stageId) => {
     const relevantTechnologies = cv.technologies.filter((technology) =>
       rangeStageCategoryMap[stageId].includes(technology.category.slug),
     );
     const scoredSkills = relevantTechnologies.flatMap((technology) =>
       technology.technology_skills.map((skill) => ({
-        label: skill.name.no,
+        label: locale === "en" ? skill.name.int : skill.name.no,
         score: skill.proficiency,
       })),
     );
@@ -456,7 +484,7 @@ export function buildConsultantRangeSeries(consultant: FlowcaseUserSummary, cv: 
     consultantId: consultant.user_id,
     consultantName: consultant.name,
     office: consultant.office_name,
-    title: translateConsultantTitle(consultant.title),
+    title: translateConsultantTitle(consultant.title, locale),
     stages,
     stageSkills,
     startIndex,

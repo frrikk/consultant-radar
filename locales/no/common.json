@@ -20,6 +20,9 @@
   },
   "radar": {
     "page": {
+      "badge": "Mockdata",
+      "apiUnavailableTitle": "Mock-API utilgjengelig",
+      "apiUnavailableDescription": "Start mock-API-et og prøv igjen for å laste konsulent- og kategoridata.",
       "emptyTitle": "Fant ingen konsulenter",
       "emptyDescription": "Start mock-API-et og kontroller at konsulentsøket matcher det seedede Flowcase-mockdatasettet.",
       "title": "Radar",
