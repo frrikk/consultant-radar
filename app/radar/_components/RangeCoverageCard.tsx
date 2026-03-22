@@ -162,13 +162,13 @@ export function RangeCoverageCard({
                           : "text-muted-foreground hover:bg-background/70 hover:text-foreground"
                       }`}
                     >
-                      {active ? (
-                        <motion.span
-                          layoutId="team-size-active-pill"
-                          className="absolute inset-0 rounded-[10px] bg-background shadow-[0_1px_2px_rgba(15,23,42,0.08)] ring-1 ring-border"
-                          transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      ) : null}
+                        {active ? (
+                          <motion.span
+                            layoutId="team-size-active-pill"
+                            className="absolute inset-0 rounded-[10px] bg-background ring-1 ring-border"
+                            transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+                          />
+                        ) : null}
                       <span className="relative z-10">{t("radar.range.recommendation.size", { count: size })}</span>
                     </button>
                   );
@@ -182,7 +182,7 @@ export function RangeCoverageCard({
                 <button
                   type="button"
                   onClick={onApplyRecommendation}
-                  className="rounded-[12px] border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[0_10px_20px_-16px_rgba(2,30,87,0.7)] transition-colors hover:bg-[#021b42] dark:hover:bg-[#f6ff67] dark:hover:text-[#021b42]"
+                  className="rounded-[12px] border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-[#021b42] dark:hover:bg-[#f6ff67] dark:hover:text-[#021b42]"
                 >
                   {t("radar.range.recommendation.apply")}
                 </button>

@@ -5,8 +5,14 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { cn } from "@/lib/utils";
 
 const Tooltip = TooltipPrimitive.Root;
-const TooltipTrigger = TooltipPrimitive.Trigger;
 const TooltipPortal = TooltipPrimitive.Portal;
+
+const TooltipTrigger = React.forwardRef<HTMLButtonElement, TooltipPrimitive.Trigger.Props>(function TooltipTrigger(
+  { delay = 120, closeOnClick = false, ...props },
+  ref,
+) {
+  return <TooltipPrimitive.Trigger ref={ref} delay={delay} closeOnClick={closeOnClick} {...props} />;
+});
 
 function TooltipContent({ className, sideOffset = 8, children, ...props }: TooltipPrimitive.Popup.Props & { sideOffset?: number }) {
   return (
