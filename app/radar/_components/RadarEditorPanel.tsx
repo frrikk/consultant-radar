@@ -98,7 +98,6 @@ function getUpdateTone(updatedAt: string) {
 
   if (ageInDays < 30) {
     return {
-      icon: "text-emerald-700 dark:text-emerald-200",
       selected: "border-emerald-500/18 bg-emerald-500/10 dark:border-emerald-300/20 dark:bg-emerald-400/14",
       idle: "border-emerald-500/14 bg-emerald-500/8 dark:border-emerald-300/18 dark:bg-emerald-400/12",
     };
@@ -106,75 +105,44 @@ function getUpdateTone(updatedAt: string) {
 
   if (ageInDays < 90) {
     return {
-      icon: "text-amber-700 dark:text-amber-200",
       selected: "border-amber-500/18 bg-amber-500/10 dark:border-amber-300/20 dark:bg-amber-400/14",
       idle: "border-amber-500/14 bg-amber-500/8 dark:border-amber-300/18 dark:bg-amber-400/12",
     };
   }
 
   return {
-    icon: "text-rose-700 dark:text-rose-200",
     selected: "border-rose-500/18 bg-rose-500/10 dark:border-rose-300/20 dark:bg-rose-400/14",
     idle: "border-rose-500/14 bg-rose-500/8 dark:border-rose-300/18 dark:bg-rose-400/12",
   };
 }
 
 function UpdateDatePill({ updatedAt, locale, selected = false }: { updatedAt: string; locale: AppLocale; selected?: boolean }) {
-  const t = getT(locale);
   const tone = getUpdateTone(updatedAt);
 
   return (
-    <Tooltip>
-      <TooltipTrigger
-        type="button"
-        className={`inline-flex size-5 items-center justify-center rounded-full border text-[11px] shadow-sm transition-colors ${
-          selected
-            ? `${tone.selected} ${tone.icon}`
-            : `${tone.idle} ${tone.icon} hover:border-border`
-        }`}
-      >
+    <span
+      className={`inline-flex h-6 min-w-fit items-center justify-center gap-1.5 self-center rounded-[10px] border px-2 text-[11px] leading-none transition-colors ${
+        selected
+          ? `${tone.selected} text-[#021e57] dark:text-[#eff3ff]`
+          : `${tone.idle} text-muted-foreground`
+      }`}
+    >
         <FileTextIcon className="size-2.75" strokeWidth={2.1} />
-      </TooltipTrigger>
-      <TooltipContent>
-        <TooltipTitle>{t("radar.summary.lastUpdatedLong")}</TooltipTitle>
-        <p className="mt-1 text-xs text-muted-foreground">{formatLocaleDate(updatedAt, locale)}</p>
-      </TooltipContent>
-    </Tooltip>
+        {formatLocaleDate(updatedAt, locale)}
+    </span>
   );
 }
 
 function MetaPill({ icon, label, selected = false }: { icon?: ReactNode; label: string; selected?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-[10px] border px-2 py-0.5 text-[11px] ${
+      className={`inline-flex h-6 min-w-fit items-center justify-center gap-1.5 self-center rounded-[10px] border px-2 text-[11px] leading-none ${
         selected
           ? "border-[#021e57]/12 bg-white/90 text-[#021e57] dark:border-white/12 dark:bg-white/10 dark:text-[#eff3ff]"
           : "border-border/60 bg-background/70 text-muted-foreground"
       }`}
     >
       {icon}
-      {label}
-    </span>
-  );
-}
-
-function ProjectStatusPill({ inProject, label, selected = false }: { inProject: boolean; label: string; selected?: boolean }) {
-  return (
-      <span
-        className={`inline-flex items-center gap-1.5 rounded-[10px] px-2 py-0.5 text-[11px] ${
-          inProject
-            ? selected
-              ? "bg-amber-500/12 text-amber-900 ring-1 ring-amber-500/20 dark:bg-amber-400/16 dark:text-amber-100 dark:ring-amber-200/16"
-            : "bg-amber-500/12 text-amber-700 dark:bg-amber-400/16 dark:text-amber-200"
-          : selected
-            ? "bg-emerald-500/12 text-emerald-900 ring-1 ring-emerald-500/20 dark:bg-emerald-400/16 dark:text-emerald-100 dark:ring-emerald-200/16"
-            : "bg-emerald-500/12 text-emerald-700 dark:bg-emerald-400/16 dark:text-emerald-200"
-      }`}
-    >
-      <span
-        aria-hidden="true"
-        className={`size-1.5 rounded-full ${inProject ? "bg-amber-500 dark:bg-amber-300" : "bg-emerald-500 dark:bg-emerald-300"}`}
-      />
       {label}
     </span>
   );
@@ -435,9 +403,9 @@ export function RadarEditorPanel({
           </div>
 
           <div
-            className={`rounded-[12px] border bg-muted/15 transition-[border-color,background-color,box-shadow] ${
+            className={`rounded-[12px] border bg-muted/15 transition-[border-color,background-color] ${
               filtersOpen || totalActiveFilters > 0
-                ? "border-[#021e57]/16 bg-[#021e57]/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] dark:border-[#839df9]/22 dark:bg-[#12306f]/16"
+                ? "border-[#021e57]/16 bg-[#021e57]/[0.03] dark:border-[#839df9]/22 dark:bg-[#12306f]/16"
                 : "border-border/70"
             }`}
           >
@@ -667,9 +635,9 @@ export function RadarEditorPanel({
                           handleToggleSelected(consultant.value);
                         }
                       }}
-                      className={`animate-selection-card-in relative flex min-h-[5.25rem] w-full items-center justify-between gap-3 rounded-[14px] border px-3 py-2.5 text-left transition-[background-color,border-color,box-shadow] ${
+                      className={`animate-selection-card-in relative flex min-h-[5.25rem] w-full items-center justify-between gap-3 overflow-hidden rounded-[14px] border px-3 py-2.5 text-left transition-[background-color,border-color] ${
                         selected
-                          ? "border-[#021e57]/18 bg-[#021e57]/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_10px_24px_-22px_rgba(2,30,87,0.7)] dark:border-[#839df9]/28 dark:bg-[#12306f]/24"
+                          ? "border-[#021e57]/18 bg-[#021e57]/[0.05] dark:border-[#839df9]/28 dark:bg-[#12306f]/24"
                           : "border-border/80 bg-background hover:border-border hover:bg-muted/20"
                       } ${
                         disabled
@@ -677,6 +645,20 @@ export function RadarEditorPanel({
                           : "cursor-pointer"
                       }`}
                     >
+                      <Tooltip>
+                        <TooltipTrigger
+                          type="button"
+                          aria-label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
+                          className={`absolute inset-y-0 left-0 w-1.5 ${
+                            consultant.inProject
+                              ? "bg-amber-500/55 dark:bg-amber-300/55"
+                              : "bg-emerald-500/55 dark:bg-emerald-300/55"
+                          }`}
+                        />
+                        <TooltipContent>
+                          <TooltipTitle>{t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}</TooltipTitle>
+                        </TooltipContent>
+                      </Tooltip>
                       <span className="flex min-w-0 flex-1 items-start gap-3">
                         <span className="flex min-w-0 flex-1 flex-col gap-2">
                           <span className="flex min-w-0 items-start justify-between gap-3">
@@ -695,17 +677,10 @@ export function RadarEditorPanel({
                               </span>
                             </span>
                           </span>
-                          <span className="flex flex-wrap items-center gap-1">
+                          <span className="flex flex-wrap items-center gap-1.5">
                             {cvsByUserId[consultant.value] ? (
                               <UpdateDatePill updatedAt={cvsByUserId[consultant.value].updated_at} locale={locale} selected={selected} />
                             ) : null}
-                            <span className="block">
-                              <ProjectStatusPill
-                                inProject={consultant.inProject}
-                                selected={selected}
-                                label={t(`radar.compare.projectStatus.${consultant.inProject ? "in-project" : "available"}`)}
-                              />
-                            </span>
                             {consultant.roleTags.map((role) => (
                               <MetaPill selected={selected} key={`${consultant.value}-${role}`} label={t(`radar.compare.roles.${role}`)} />
                             ))}

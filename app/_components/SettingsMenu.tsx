@@ -71,7 +71,7 @@ export function SettingsMenu({ locale }: SettingsMenuProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -4, scale: 0.985 }}
             transition={panelTransition}
-            className="absolute right-0 top-[calc(100%+0.5rem)] z-30 w-56 origin-top-right rounded-[16px] border border-border bg-card p-2.5 shadow-lg ring-1 ring-black/5"
+            className="absolute right-0 top-[calc(100%+0.5rem)] z-30 w-56 origin-top-right rounded-[16px] border border-border bg-card p-2.5 ring-1 ring-black/5"
           >
             <div className="px-1 pb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
               {t("radar.page.settings")}
